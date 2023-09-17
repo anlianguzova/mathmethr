@@ -11,7 +11,7 @@
 # https://rstudio.cloud
 #
 # Сайт курса Математические методы в зоологии
-# https://varmara.github.io/mathmethr/
+# https://anlianguzova.github.io/mathmethr/
 
 
 #######################
