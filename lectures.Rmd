@@ -14,7 +14,7 @@ output:
 
 ## 1. Знакомство с R
 
-<!-- - Презентация: [01_intro_to_r.html](01_intro_to_r.html) -->
+- Презентация: [01_intro_to_r.html](01_intro_to_r.html)
 -   Код: [01_intro_to_r.R](01_intro_to_r.R)
 -   Дополнительные упражнения: [01_intro_to_r_exercises.R](01_intro_to_r_exercises.R)
 
