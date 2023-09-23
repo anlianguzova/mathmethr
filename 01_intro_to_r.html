@@ -651,7 +651,7 @@ rep(x = TRUE, times = 2) # TRUE повторяется 2 раза
 [1] TRUE TRUE
 ```
 
---- 
+---
 
 ## Аргументы функций 
 
@@ -1492,25 +1492,51 @@ library(ggplot2)
 
 ### Барплот и гистограмма 
 
+.pull-left[
 
+```r
+ggplot(data = my_worms) + 
+  geom_bar(aes(x = Width, y = Length), stat = "identity")
+```
+
+![](01_intro_to_r_files/figure-html/gg-barplot-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+
+```r
+ggplot(data = my_worms, aes(x = Width)) + 
+  geom_histogram(binwidth = 4, breaks = c(1, 5, 10, 15, 20))
+```
+
+![](01_intro_to_r_files/figure-html/gg-histplot-1.png)&lt;!-- --&gt;
+]
 ---
 
 ## Скаттерплот и боксплот 
 
+.pull-left[
 
 ```r
 ggplot(data = my_worms) +
   geom_point(aes(x = Width, y = Length))
 ```
 
-![](01_intro_to_r_files/figure-html/gg-scatter-box-1.png)&lt;!-- --&gt;
+![](01_intro_to_r_files/figure-html/gg-scatter-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
 
 ```r
 ggplot(data = my_worms) +
   geom_boxplot(aes(x = Colour, y = Length))
 ```
 
-![](01_intro_to_r_files/figure-html/gg-scatter-box-2.png)&lt;!-- --&gt;
+![](01_intro_to_r_files/figure-html/gg-box-1.png)&lt;!-- --&gt;
+]
+---
+
+## Раскрашивание графика
 
 Добавляем для точек эстетику цвет (colour) из переменной Colour
 
@@ -1521,6 +1547,11 @@ ggplot(data = my_worms) +
 ```
 
 ![](01_intro_to_r_files/figure-html/gg-colour-1.png)&lt;!-- --&gt;
+]
+
+---
+
+## Использование графиков
 
 Графики можно сохранять в переменных, и использовать потом
 
@@ -1539,26 +1570,36 @@ gg
 
 ![](01_intro_to_r_files/figure-html/gg-saved-1.png)&lt;!-- --&gt;
 
-Можно менять темы оформления графика. Если тема нужна только один раз, то прибавляем ее к графику
+---
 
+## Темы графиков
+
+Можно менять темы оформления графика. Если тема нужна только один раз, то прибавляем ее к графику
+.pull-left[
 
 ```r
 gg + theme_dark()
 ```
 
 ![](01_intro_to_r_files/figure-html/gg-themes-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
 
 ```r
 gg + theme_light()
 ```
 
-![](01_intro_to_r_files/figure-html/gg-themes-2.png)&lt;!-- --&gt;
+![](01_intro_to_r_files/figure-html/unnamed-chunk-76-1.png)&lt;!-- --&gt;
 
 ```r
-gg + theme_classic()
+#gg + theme_classic()
 ```
+]
 
-![](01_intro_to_r_files/figure-html/gg-themes-3.png)&lt;!-- --&gt;
+---
+
+## Темы графиков
 
 Можно установить нужную тему до конца сессии.
 
@@ -1570,6 +1611,10 @@ gg
 
 ![](01_intro_to_r_files/figure-html/gg-theme-set-1.png)&lt;!-- --&gt;
 
+---
+
+## Подписи функций и легенд
+
 Подписи осей и легенд задает функция labs()
 
 
@@ -1579,6 +1624,10 @@ gg + labs(x = "Ширина", y = "Длина", colour = "Цвет")
 
 ![](01_intro_to_r_files/figure-html/gg-labs-1.png)&lt;!-- --&gt;
 
+---
+
+## Разделение графиков на части
+
 Графики можно делить на фасетки при помощи facet_wrap или facet_grid
 
 
@@ -1587,6 +1636,10 @@ gg + facet_wrap(~Colour, nrow = 1)
 ```
 
 ![](01_intro_to_r_files/figure-html/gg-facets-1.png)&lt;!-- --&gt;
+
+---
+
+## Изменение подписей цветов
 
 Чтобы изменить подписи цветов, нужно изменить уровни соотв. фактора.
 
