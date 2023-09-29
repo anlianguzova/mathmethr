@@ -1,6 +1,50 @@
 # title: 'Анализ мощности'
 # subtitle: 'Математические методы в зоологии с использованием R'
-# author: 'Марина Варфоломеева'
+# author: 'Марина Варфоломеева, Анастасия Лянгузова'
+
+# Медиана и квантили ------------------
+
+shells <- c(10, 15, 14, 24, 27, 19, 31, 29, 26, 17)
+sort(shells)
+
+median(shells)
+
+quantile(x = shells, probs = c(0.01, 0.25, 0.5, 0.75, 0.99))
+
+quantile(shells) # считает кваРРРРтили
+
+# Среднее и стандартное отклонение ------------------
+
+# расчёт вручную
+
+# расчёт функцией
+
+sh_deviates <- shells - mean(shells) # девиата
+
+sum(sh_deviates^2) # сумма квадратов
+
+sum(sh_deviates^2) / (length(shells) - 1) # дисперсия вручную
+var(shells) # дисперсия функцией
+
+sqrt(sum(sh_deviates^2) / (length(shells) - 1)) # стандартное отклонение вручную
+sd(shells) # стандартное отклонение функцией
+
+### Визуализация описательных статистик ---------------------
+
+shells_data <- data.frame(length = shells) # превращаем всё в датафрейм
+
+## Медиана и квартили
+
+ggplot(data = shells_data) +
+  geom_boxplot(aes(x = 'Медиана \nи квантили', y = length))
+
+## Среднее и стандартное отклонение
+
+ggplot(data = shells_data) +
+  stat_summary(geom = 'pointrange', fun.data = mean_sdl,
+               fun.args = list(mult = 1),
+               aes(x = 'Среднее \nи стандартное отклонение',
+                   y = length))
 
 
 ### Тестирование гипотезы о равенстве двух средних при помощи t-теста ###

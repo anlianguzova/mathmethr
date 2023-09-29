@@ -28,6 +28,7 @@ dt_limit <- function(x, alph = 0.05, df = 18, sides = 2, ncp = 0, what = "alpha"
   return(y)
 }
 
+
 fix_aov_smr <- function(aov_obj, lang = "en", rown = NULL, coln = NULL){
   #' Function to assist with printing aov summary object with xtable
   #' Fixes p-values, allows to set rownames and colnames
