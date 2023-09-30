@@ -25,7 +25,7 @@ install.packages("readxl")
 install.packages(c("Hmisc", "ggplot2", "effsize", "pwr"))
 ```
 
-- Презентация: [02_power.html](02_power.html)
+- Презентация: [02_power.pdf](02_power2.pdf)
 - Код: [02_power_code.R](02_power_code.R)
 - Данные: [fleabeetles-subset.xlsx](data/fleabeetles-subset.xlsx)
 
