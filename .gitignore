@@ -3,5 +3,4 @@
 .RData
 .Ruserdata
 *.log
-*_cache
-0[2-9]*_files
+
