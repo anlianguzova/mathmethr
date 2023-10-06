@@ -1,0 +1,12 @@
+fixed acidity,фиксированная кислотность (г/дм3)
+volatile acidity,летучая кислотность (г/дм3)
+citric acid,лимонная кислота (г/дм3)
+residual sugar,остаточный сахар (г/дм3)
+chlorides,хлорид натрия (г/дм3)
+free sulfur dioxide,свободный диоксид серы (мг/дм3)
+total sulfur dioxide,"общий диоксид серы (свободный + связанный), мг/дм3"
+density,плотность (г/см3)
+pH,pH
+sulphates,сульфат калия (г/см3)
+alcohol,содержание этанола (%)
+quality ,(score between 0 and 10)

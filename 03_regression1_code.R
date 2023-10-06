@@ -1,50 +1,49 @@
 # ---
 # title: "Регрессионный анализ, часть 1"
 # subtitle: "Математические методы в зоологии с использованием R"
-# author: "Марина Варфоломеева"
+# author: "Марина Варфоломеева, Анастасия Лянгузова"
 
-# ## Пример: стерильность пыльцы гибридов
+## Пример: возраст мёртвыx людей
 #
-# Гибриды отдаленных видов часто бывают стерильны.
-# Но насколько они должны быть разными для этого?
-# Как зависит плодовитость гибридов
-# [смолевок](http://ru.wikipedia.org/wiki/Смолёвка)
-# _Silene vulgaris_ от генетической удаленности?
+# После испытаний ядерной бомбы в 1955--1963 годаx резко возросло количество нестабильного изотопа углерода $^{14}C$. Один из методов определения возраста умершего человека основан на изерении содержания $^{14}C$ в эмали. Проверим, насколько этот метод точен, и насколько сильна связь между следующими параметрами.
+#
+#   - `dateOfBirth` ---
+#     год рождения человека;
+#   - `deltaC14` ---
+#     содержание изотопа $^{14}C$ относительно нормального (до ядерного времени, в %).
 
-# - `proportionSterile` --- доля стерильных пыльцевых зерен
-# - `geneticDistance` --- генетическая удаленность видов
-# Moyle et al. 2004; данные из Whitlock, Schluter, 2015, глава 17, упр.10; Данные в файлах HybridPollenSterility.xlsx и HybridPollenSterility.csv
+# Spalding et al. 2005; данные из Whitlock, Schluter, 2015, глава 17, упр.31; Данные в файлах nuclear_teeth.xlsx и nuclear_teeth.csv
 
 
 # ## Читаем данные из файла #######################################
 
 # Чтение из xlsx:
 library(readxl)
-hybrid <- read_excel(path = 'data/HybridPollenSterility.xlsx', sheet = 1)
-head(hybrid)     # Первые несколько строк файла
+teeth <- as.data.frame(read_excel(path = 'data/nuclear_teeth.xlsx', sheet = 1))
+head(teeth, 3)     # Первые 3 строчки файла
 
 # Или чтение из csv:
-hybrid <- read.table(file = 'data/HybridPollenSterility.csv', header = TRUE, sep = ',')
-head(hybrid)     # Первые несколько строк файла
+teeth <- read.table(file = 'data/nuclear_teeth.csv', header = TRUE, sep = ',')
+head(teeth, 3)     # Первые несколько строк файла
 
 # ## Знакомимся с данными ###################################
 
-str(hybrid)      # Структура данных
+str(teeth)      # Структура данных
 
 # ## Сделаем более короткие имена
 # Сейчас переменные называются так:
-colnames(hybrid)
+colnames(teeth)
 # Сделаем более удобные короткие названия:
-colnames(hybrid) <- c('Distance', 'Sterile')
+colnames(teeth) <- c('birth', 'c14')
 # Теперь переменные стали называться так:
-colnames(hybrid)
+colnames(teeth)
 
 
 # Есть ли пропущенные значения?
-colSums(is.na(hybrid))
+colSums(is.na(teeth))
 
 # Каков объем выборки?
-nrow(hybrid)
+nrow(teeth)
 
 
 # # Графики средствами пакета ggplot2 ###############################
@@ -60,23 +59,27 @@ nrow(hybrid)
 # Давайте построим график (заполните пропуски)
 library(ggplot2)
 
-gg_hybrid <- ggplot(, aes()) +
+gg_teeth <- ggplot(, aes()) +
   geom_() +
   l ()
-gg_hybrid
+gg_teeth
+
+ggsave(filename = 'teeth_c14.png', plot = gg_teeth)
+ggsave(filename = 'teeth_c14.pdf', plot = gg_teeth)
 
 # # Корреляция ####################################################
 
 # ## Есть ли связь между переменными?
-gg_hybrid
+gg_teeth
 
 
 
 
 ## Задание 1 ---------------------------------
 
-# Дополните код, чтобы вычислить корреляцию Пирсона между долей стерильной пыльцы и генетическим расстоянием.
-# Используйте нужные переменные из датасета `hybrid` и функцию `cor.test()`
+# Дополните код, чтобы вычислить корреляцию Пирсона между годом рождения и количеством нестабильного изотопа.
+#
+# Используйте нужные переменные из датасета `teeth` и функцию `cor.test()`
 
 p_cor <- cor.test(x = , y = ,
                   alternative =  , method =  )
@@ -84,16 +87,45 @@ p_cor
 
 
 
-
-
 # # Линейная регрессия ##############################################
+
+## Доверительный интервал и регрессия в генеральной совокупности #############
+
+## Создаём генеральную совокупность
+pop_x <- rnorm(1000, 10, 3)
+pop_y <- 10 + 10*pop_x + rnorm(1000, 0, 20)
+population <- data.frame(x = pop_x, y = pop_y)
+
+pop_plot <- ggplot(population, aes(x = x, y = y)) +
+  geom_point(alpha = 0.3, color = "red") +
+  geom_abline(aes(intercept = 10, slope = 10),
+              color="blue", size = 2) +
+  theme(text = element_text(size = 15))
+pop_plot
+
+## Строим линию регрессию много-много раз (потому что выборок из генеральной совокупности много-много!)
+
+samp_coef <- data.frame(b0 = rep(NA, 100), b1 = rep(NA, 100))
+
+for(i in 1:100) {
+  samp_num <- sample(1:1000, 20)
+  samp <- population[samp_num, ]
+  fit <- lm(y ~ x, data = samp)
+  samp_coef$b0[i] <- coef(fit)[1]
+  samp_coef$b1[i] <- coef(fit)[2]
+
+}
+
+ggplot(population, aes(x = x, y = y)) +
+  geom_point(alpha = 0.3, color = "red") +
+  geom_abline(aes(intercept = b0, slope = b1), data = samp_coef) +
+  geom_abline(aes(intercept = 10, slope = 10), color = "blue", size = 2) +
+  theme(text = element_text(size = 18))
+
 
 ## Задание 2 ---------------------------------
 
-# 1) Используя данные из датасета `hybrid` подберите
-# модель линейной регрессии, описывающую
-# зависимость доли стерильной пыльцы `Sterile`
-# от генетического расстояния `Distance`.
+# 1) Используя данные из датасета `teeth`, подберите модель линейной регрессии, описывающую зависимость рода рождения человека `birth` от количества изотопа $^{14}C$ `c14`.
 #
 # 2) Чему равны коэффициенты модели?
 # Запишите уравнение линейной регрессии.
@@ -109,10 +141,7 @@ p_cor
 # только коэффициенты модели
 
 # Решение
-hybrid_lm <- lm(formula = , data = )
-
-
-
+teeth_lm <- lm(formula = , data = )
 
 
 # # Тестирование значимости модели и ее коэффициентов ###########################
@@ -120,13 +149,13 @@ hybrid_lm <- lm(formula = , data = )
 # Два эквивалентных варианта (не надо использовать оба)
 
 # ## Тестируем значимость коэффициентов t-критерием
-summary(hybrid_lm)
+summary(teeth_lm)
 
 
 # ## Тестируем значимость модели целиком при помощи F-критерия
-# options(scipen = 6)
+
 library(car)
-Anova(hybrid_lm)
+Anova(teeth_lm)
 
 
 
@@ -134,17 +163,17 @@ Anova(hybrid_lm)
 
 ## Задание 3 ----------------------------------
 
-# Дополните график `gg_hybrid`, чтобы построить
+# Дополните график `gg_teeth`, чтобы построить
 # - 95% доверительную зону регрессии
 # - 99% доверительную зону регрессии
 # Используйте `geom_smooth()` и его аргументы `method` и `level`
 
 
-gg1 <- gg_hybrid +
+gg1 <- gg_teeth +
   labs(title = '95% доверительная зона')
 gg1
 
-gg2 <- gg_hybrid +
+gg2 <- gg_teeth +
   labs(title = '99% доверительная зона')
 gg2
 
@@ -158,31 +187,26 @@ plot_grid(gg1, gg2, nrow = 1, labels = 'AUTO')
 # # Оценка качества подгонки модели #############################
 
 # ## Коэффициент детерминации $R^2$ можно найти в сводке модели
-summary(hybrid_lm)
+summary(teeth_lm)
 
 
 # # Использование линейной регрессии для предсказаний ####################
 
 # ## Предсказываем Y среднее при заданном X
 
-# Какова доля стерильной пыльцы межвидового
-# гибрида, если генетическое расстояние между
-# родителями 0.07 или 0.055?
+# В каком году родились люди с количеством $^{14}C$ равным 125, 314,  и 565?
 
 # Значения, для которых предсказываем
-new_data1 <- data.frame(Distance = c(0.07, 0.055))
+new_data1 <- data.frame(c14 = c(125, 314))
 # Предсказания
-(pr1 <- predict(hybrid_lm, newdata = new_data1,
+(pr1 <- predict(teeth_lm, newdata = new_data1,
                 interval = 'confidence', se = TRUE))
 
 
 # ## Предсказываем изменение Y для 95% наблюдений при заданном X
 
-# В каких пределах находится доля стерильной
-# пыльцы, если генетическое расстояние между
-# родителями 0.07 или 0.055?
-new_data1 <- data.frame(Distance = c(0.07, 0.055))
-(pr2 <- predict(hybrid_lm, newdata = new_data1,
+# В пределах каких годов родились люди, у которых содержание $^{14}C$ в эмали соответствует 125, 314  и 565 %?
+(pr2 <- predict(teeth_lm, newdata = new_data1,
                 interval = 'prediction', se = TRUE))
 
 
@@ -190,17 +214,17 @@ new_data1 <- data.frame(Distance = c(0.07, 0.055))
 # Предсказанные значения для исходных данных
 # объединим с исходными данными в новом датафрейме
 # - для графиков
-pr_all <- predict(hybrid_lm, interval = 'prediction')
-hybrid_with_pred <- data.frame(hybrid, pr_all)
-head(hybrid_with_pred) # посмотрим, что получилось
+pr_all <- predict(teeth_lm, interval = 'prediction')
+teeth_with_pred <- data.frame(teeth, pr_all)
+head(teeth_with_pred) # посмотрим, что получилось
 
 # ## Строим доверительную область значений и доверительный интервал одновременно
-gg_hybrid +
+gg_teeth +
   geom_smooth(method = 'lm',
               aes(fill = 'Доверительный \nинтервал'),
               alpha = 0.4) +
   # Внимание, в следующем слое используются данные предсказаний.
-  geom_ribbon(data = hybrid_with_pred,
+  geom_ribbon(data = teeth_with_pred,
               aes(y = fit,
                   ymin = lwr,
                   ymax = upr,
@@ -208,16 +232,3 @@ gg_hybrid +
               alpha = 0.2) +
   scale_fill_manual('Интервалы',
                     values = c('green', 'blue'))
-
-
-
-#  ####################
-# gg_hybrid +
-#   geom_smooth(method = 'lm', aes(fill = 'Доверительный \nинтервал'), alpha = 0.4) +
-#   geom_ribbon(data = hybrid_with_pred,  aes(ymin = lwr, ymax = upr, fill = 'Доверительная \nобласть значений'), alpha = 0.2) +
-#   scale_fill_manual('Интервалы', values = c('green', 'blue')) +
-#   geom_hline(yintercept = 1, linetype = 'dashed', colour = 'red3') +
-#   geom_hline(yintercept = 0, linetype = 'dashed', colour = 'red3') +
-#   annotate('polygon', x = c(-Inf, -Inf, Inf, Inf), y = c(1, Inf, Inf, 1), alpha = 0.2, fill = 'red') +
-#   annotate('polygon', x = c(-Inf, -Inf, Inf, Inf), y = c(0, -Inf, -Inf, 0), alpha = 0.2, fill = 'red') +
-#   annotate('text', label = 'Так не бывает! Нужна другая модель.', x = 0.06, y = 1.25)

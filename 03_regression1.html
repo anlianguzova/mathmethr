@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Регрессионный анализ, часть 1</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Марина Варфоломеева" />
+    <meta name="author" content="Анастасия Лянгузова" />
+    <script src="libs/header-attrs-2.23/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="libs/mark.js-8.11.1/mark.min.js"></script>
+    <link href="libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-search-0.0.1/search.js"></script>
+    <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":false,"autoSearch":true}) })</script>
+    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <script src="libs/freezeframe-5.0.2/freezeframe.min.js"></script>
+    <script src="libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
+    <script id="xaringanExtra-freezeframe-options" type="application/json">{"selector":"img[src$=\"gif\"]","trigger":"click","overlay":false,"responsive":true,"warnings":true}</script>
+    <link href="libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <!-- https://github.com/fnaufel/xaringan-smartify-->
+    <script
+    			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    			  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+    			  crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/fnaufel/xaringan-smartify/smartify.min.js"></script>
+    <link rel="stylesheet" href="assets/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="assets/xaringan.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, left, inverse, title-slide
+
+.title[
+# Регрессионный анализ, часть 1
+]
+.subtitle[
+## Математические модели в зоологии
+]
+.author[
+### Марина Варфоломеева
+]
+.author[
+### Анастасия Лянгузова
+]
+
+---
+
+
+
+
+## Вы сможете
+
+- посчитать и протестировать различные коэффициенты корреляции между переменными
+- подобрать модель линейной регрессии и записать ее в виде уравнения
+- интерпретировать коэффициенты простой линейной регрессии
+- протестировать значимость модели и ее коэффициентов при помощи t- или F-теста
+- оценить долю изменчивости, которую объясняет модель, при помощи `\(R^2\)`
+
+---
+
+## Пример: возраст мёртвыx людей
+
+После испытаний ядерной бомбы в 1955--1963 годаx резко возросло количество нестабильного изотопа углерода `\(^{14}C\)`. Один из методов определения возраста умершего человека основан на изерении содержания `\(^{14}C\)` в эмали. Проверим, насколько этот метод точен, и насколько сильна связь между следующими параметрами.
+
+.pull-left[
+
+- `dateOfBirth` ---
+год рождения человека;
+- `deltaC14` ---
+содержание изотопа `\(^{14}C\)` относительно нормального (до ядерного времени, в %).
+]
+
+.pull-right[
+![](images/sled_scull.jpg)]
+
+.tiny[Spalding et al. 2005; данные из Whitlock, Schluter, 2015, глава 17, упр.31; Данные в файлах nuclear_teeth.xlsx и nuclear_teeth.csv]
+
+---
+
+## Читаем данные из файла
+
+Чтение из xlsx:
+
+
+```r
+library(readxl)
+teeth &lt;- as.data.frame(read_excel(path = 'data/nuclear_teeth.xlsx', sheet = 1))
+```
+
+
+Чтение из csv:
+
+
+```r
+teeth &lt;- read.table(file = 'data/nuclear_teeth.csv', header = TRUE, sep = ',')
+```
+
+---
+
+## Все ли правильно открылось?
+
+
+```r
+str(teeth)      # Структура данных
+```
+
+```
+'data.frame':	16 obs. of  2 variables:
+ $ dateOfBirth: num  1986 1984 1990 1988 1990 ...
+ $ deltaC14   : int  89 109 91 127 99 110 123 105 622 262 ...
+```
+
+```r
+head(teeth, 3)     # Первые 3 строки файла
+```
+
+```
+  dateOfBirth deltaC14
+1        1986       89
+2        1984      109
+3        1990       91
+```
+
+---
+
+## Сделаем более короткие имена
+
+Сейчас переменные называются так:
+
+
+```r
+colnames(teeth)
+```
+
+```
+[1] "dateOfBirth" "deltaC14"   
+```
+
+Сделаем более удобные названия:
+
+
+```r
+colnames(teeth) &lt;- c('birth', 'c14')
+```
+
+Теперь переменные стали называться так:
+
+
+```r
+colnames(teeth)
+```
+
+```
+[1] "birth" "c14"  
+```
+
+---
+
+## Знакомимся с данными
+
+Есть ли пропущенные значения?
+
+
+```r
+colSums(is.na(teeth))
+```
+
+```
+birth   c14 
+    0     0 
+```
+
+Каков объем выборки?
+
+Поскольку пропущенных значений нет, можем просто посчитать число строк:
+
+
+```r
+nrow(teeth)
+```
+
+```
+[1] 16
+```
+
+Теперь все готово, чтобы мы могли ответить на вопрос исследования.
+
+---
+
+class: middle, center, inverse
+
+# Графики средствами пакета ggplot2
+
+---
+
+## Грамматика графиков
+
+1. Откуда брать данные?
+2. Какие переменные изображать на графике?
+3. В виде чего изображать?
+4. Какие подписи нужны?
+5. Какую тему оформления нужно использовать?
+
+
+Давайте поэтапно построим график
+
+---
+
+## С чего начинаются графики?
+
+- `library(ggplot2)` --- активирует пакет ggplot2 со всеми его функциями
+- `ggplot()` --- создает пустой "базовый" слой --- основу графика
+
+
+```r
+library(ggplot2)
+ggplot()
+```
+
+![](03_regression1_files/figure-html/gg_base_1-1.png)&lt;!-- --&gt;
+
+---
+
+## Откуда брать данные?
+
+Обычно в основе графика пишут, откуда брать данные.
+
+
+```r
+ggplot(data = teeth)
+```
+
+![](03_regression1_files/figure-html/gg_base_2-1.png)&lt;!-- --&gt;
+
+---
+
+## Какие переменные изображать на графике?
+
+Эстетики --- это свойства будущих элементов графика, которые будут изображать данные (`x`, `y`, `colour`, `fill`, `size`, `shape`, и т.д.)
+
+`aes()` --- функция, которая сопоставляет значения эстетик и переменные из источника данных (название происходит от англ. _aesthetics_)
+
+
+```r
+ggplot(data = teeth, aes(x = c14, y = birth))
+```
+
+![](03_regression1_files/figure-html/gg_aes-1.png)&lt;!-- --&gt;
+
+---
+
+## В виде чего изображать?
+
+Геомы --- графические элементы (`geom_point()`, `geom_line()`, `geom_bar()`, `geom_smooth()` и т.д., их очень много).
+
+`geom_point()` --- точки.
+
+
+```r
+ggplot(data = teeth, aes(x = c14, y = birth)) + 
+  geom_point()
+```
+
+![](03_regression1_files/figure-html/gg-point-1.png)&lt;!-- --&gt;
+
+---
+
+## Подписи осей, заголовок и т.д.
+
+Элемент `labs()` --- создает подписи. Аргументы --- это имена эстетик, например, `x`, `y` и т.д. Заголовок графика называется `title`
+
+
+
+```r
+ggplot(data = teeth, aes(x = c14, y = birth)) + 
+  geom_point() + 
+  labs(x = 'Содержание нестабильного изотопа углерода, %', 
+       y = 'Год рождения человека')
+```
+
+![](03_regression1_files/figure-html/gg-labs-1.png)&lt;!-- --&gt;
+
+---
+
+## Графики ggplot можно сохранять в переменные
+
+
+```r
+gg_teeth &lt;- ggplot(data = teeth, aes(x = c14, y = birth)) + 
+  geom_point() + 
+  labs(x = 'Содержание нестабильного изотопа углерода, %', 
+       y = 'Год рождения человека')
+gg_teeth
+```
+
+![](03_regression1_files/figure-html/gg-var-1.png)&lt;!-- --&gt;
+
+---
+
+## Темы оформления графиков можно менять и настраивать
+
+`theme()` --- меняет отдельные элементы (см. справку)
+`theme_bw()`, `theme_classic()` и т.д. --- стили оформления целиком
+
+
+```r
+gg_teeth + theme_classic()
+```
+
+![](03_regression1_files/figure-html/gg-themes-1.png)&lt;!-- --&gt;
+
+---
+
+## Можно установить любимую тему для всех последующих графиков
+
+
+```r
+theme_set(theme_bw())
+gg_teeth
+```
+
+![](03_regression1_files/figure-html/gg-theme-set-1.png)&lt;!-- --&gt;
+
+---
+
+## Графики можно сохранять в файлы
+
+Функция `ggsave()` позволяет сохранять графики в виде файлов во множестве разных форматов ("eps", "ps", "tex", "pdf", "jpeg", "tiff", "png", "bmp", "svg" или "wmf"). Параметры изображений настраиваются (см. справку)
+
+
+```r
+ggsave(filename = 'teeth_c14.png', plot = gg_teeth)
+ggsave(filename = 'teeth_c14.pdf', plot = gg_teeth)
+```
+
+---
+
+class: middle, center, inverse
+
+# Корреляция
+
+---
+
+## Есть ли связь между переменными?
+
+Судя по всему, да, скажем мы, глядя на график.
+
+Но насколько сильна эта связь?
+
+
+```r
+gg_teeth
+```
+
+![](03_regression1_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+---
+
+## Коэффициент корреляции --- способ оценки силы связи между двумя переменными
+
+__Коэффициент корреляции Пирсона__
+
+- Оценивает только линейную составляющую связи
+- Параметрические тесты значимости такие как t-тест применимы, если переменные распределены нормально.
+
+| Параметрические статистики | Непараметрические статистики |
+| -------------------------- | ---------------------------- |
+| Работают только с нормально распределёнными величинами | Работают с любыми формами распределения |
+| Имеют большую мощность | Имеют меньшую мощность |
+| Могут работать с группами, имеющими разную дисперсию | Не могут работать с группами, имеющими разную дисперсию |
+| Анализируют исключительно непрерывные данные | Могут работать с ранговыми данными |
+| t-тест, one-way ANOVA, коэффициент корреляции Пирсона | Тест Манна-Уитни, коэффициент корреляции Спирмена или Кендалла | 
+
+---
+
+## Интерпретация коэффициента корреляции
+
+| `\(-1 &lt; \rho &lt; 1\)` | `\(abs(\rho) = 1\)` | `\(\rho = 0\)` |
+| --------------- | -------------| ------------------ |
+| | сильная связь |  нет связи |
+
+В тестах для проверки значимости тестируется гипотеза `\(H_0: \rho = 0\)`.
+
+
+&lt;img src="03_regression1_files/figure-html/inter-coeff-cor-1.png" width="70%" /&gt;
+
+.tiny[
+[By DenisBoigelot, original uploader was Imagecreator](https://commons.wikimedia.org/wiki/File\%3ACorrelation\\_examples2.svg) [CC0], via Wikimedia Commons
+]
+
+---
+
+## Задание 1
+
+Дополните код, чтобы вычислить корреляцию Пирсона между годом рождения и количеством нестабильного изотопа. 
+
+Используйте нужные переменные из датасета `teeth` и функцию `cor.test()`
+
+```
+p_cor &lt;- cor.test(x = , y = , 
+         alternative =  , method =  )
+p_cor
+```
+
+---
+
+## Решение: корреляция между годом рождения и количеством нестабильного изотопа
+
+
+
+```r
+p_cor &lt;- cor.test(x = teeth$c14, y = teeth$birth, 
+         alternative = 'two.sided', method = 'pearson')
+p_cor
+```
+
+```
+
+	Pearson's product-moment correlation
+
+data:  teeth$c14 and teeth$birth
+t = -11, df = 14, p-value = 0.00000004
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.9806 -0.8410
+sample estimates:
+    cor 
+-0.9434 
+```
+
+
+Можно описать результаты несколькими способами:
+
+- Год рождения отрицательно коррелирует с содержанием изотопа `\(^{14}C\)` `\((r =\)` -0.94, `\(p =\)` &lt;0.01). 
+- Изотопа `\(^{14}C\)` становится меньше с увеличением года рождения `\((r =\)` -0.94, `\(p =\)` &lt;0.01).
+
+Т.е. чем младше человек, тем меньше в его эмали радиоактивного углерода. 
+
+---
+
+class: middle, center, inverse
+
+# Линейная регрессия
+
+---
+
+## Линейная регрессия
+
+- позволяет описать зависимость между количественными величинами;
+- позволяет предсказать значение одной величины, зная значения других (что супер полезно в случае нашего датасета! и для криминалистов).
+
+`$$y _i = \beta _0 + \beta _1 x _{1i} + \varepsilon_i$$`
+
+![](03_regression1_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+
+---
+
+## Линейная регрессия бывает простая и множественная
+
+- простая
+
+`$$y _i = \beta _0 + \beta _1 x _i + \varepsilon _i$$`
+
+- множественная
+
+`$$y _i = \beta _0 + \beta _1 x _{1 i} + \beta _2 x _{2 i} + ... + \varepsilon _i$$`
+
+---
+
+## Детерминистские и стохастические модели
+
+.pull-left[
+![](03_regression1_files/figure-html/determ-model-1.png)&lt;!-- --&gt;
+
+Модель: `\(y _i = \beta _0 + \beta _1 x _i\)`    
+]
+
+.pull-right[
+![](03_regression1_files/figure-html/stoh-model-1.png)&lt;!-- --&gt;
+
+Модель: `\(у_ i = \beta _0 + \beta _1 x _i + \varepsilon_i\)`    
+
+Появляется дополнительный член `\(\varepsilon_i\)`, который вводит в модель влияние неучтенных моделью факторов. 
+Обычно считают, что `\(\epsilon \in N(0, \sigma^2)\)` 
+]
+
+---
+
+## Линейная регрессия в генеральной совокупности и в выборке
+
+В уравнении линейной регрессии, описывающей зависимость в  генеральной совокупности, обозначения записываются греческими буквами:
+
+`$$y _i = \beta _0 + \beta _1 x _{1i} + \varepsilon_i$$`
+
+Обозначения в уравнении модели, построенной по выборке --- латинскими:
+
+`$$y _i = b _0 + b _1 x _i + e_i$$`
+
+---
+
+## Что есть что в уравнении линейной регрессии
+
+.pull-left[
+
+![](03_regression1_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+
+`$$y _i = b _0 + b _1 x _i + e_i$$`
+
+- `\(y_i\)` --- наблюдаемое значение зависимой переменной
+- `\(\hat y_i\)` --- предсказанное значение зависимой переменной
+- `\(e_i\)` --- остатки (отклонения наблюдаемых от предсказанных значений)
+]
+
+- `\(b_0\)` --- отрезок (Intercept), отсекаемый регрессионной прямой на оси `\(y\)`
+- `\(b_1\)` --- коэффициент угла наклона регрессионной прямой
+
+---
+
+class: middle, center, inverse
+
+# Подбор коэффициентов линейной регрессии
+
+---
+
+## Как провести линию регрессии?
+
+`$$\hat y _i = b _0 + b _1 x _i$$`
+
+![](03_regression1_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+
+Нужно получить оценки `\(b_0\)` и `\(b_1\)` значений параметров линейной модели `\(\beta _0\)` и `\(\beta _1\)`.
+
+Но как это сделать?
+
+---
+
+## Метод наименьших квадратов --- один из способов подбора параметров
+
+`$$\hat y _i = b _0 + b _1 x _i$$`
+
+Оценки параметров линейной регрессии `\(b_0\)` и `\(b_1\)` подбирают так, чтобы минимизировать сумму квадратов остатков  `\(\sum{\varepsilon^2_i}\)`, т.е. `\(\sum{(y _i - \hat y _i)^2}\)`.
+
+
+![](03_regression1_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+
+---
+
+## Памятка с необходимыми для понимания всего происходящего величинами
+
+| Величина | Что она такое |
+| -------- | --------------- |
+| `\(y_i\)` | наблюдаемое значение зависимой переменной |
+| `\(\hat y_i\)` | предсказанное значение зависимой переменной |
+| `\(\bar y\)` | среднее значение зависимой переменной |
+| `\(\bar x\)` | среднее значение предиктора |
+| `\(e_i\)` | остатки (отклонения наблюдаемых от предсказанных значений) |
+| `\(b_0\)` | отрезок (Intercept), отсекаемый регрессионной прямой на оси `\(y\)`
+| `\(b_1\)` | коэффициент угла наклона (slope) регрессионной прямой |
+| `\(SS\)`| сумма квадратов |
+| `\(MS\)` | стандартизованное значение суммы квадратов|
+| `\(SE\)` | стандартная ошибка --- отклонение значения | 
+| `\(df\)` | количество степеней свободы |
+| `\(_ t\)` | что-то общее для модели (от _total_) |
+| `\(_ r\)` | объяснённая часть модели (от _regression_) |
+| `\(_ e\)`| случайная часть модели (от _error_) |
+
+
+---
+
+## Оценки параметров линейной регрессии
+
+| Параметр | Оценка | Стандартная ошибка |
+| -------- | ------ | ------------------ |
+| `\(\beta_0\)` | `\(b_0 = \bar y - b_1 \bar{x}\)` | `\(SE _{b _0} = \sqrt{MS _e [\cfrac{1}{n} + \cfrac{\bar x}{\sum {(x _i - \bar x)^2}}]}\)` |
+| `\(\beta_1\)` | `\(b _1 = \cfrac {\sum {[(x _i - \bar {x})(y _i - \bar {y})]}}{\sum {(x _i - \bar x)^2}}\)` | `\(SE _{b _1} = \sqrt{\cfrac{MS _e}{\sum {(x _i - \bar {x})^2}}}\)` |
+| `\(\varepsilon _i\)` | `\(e_i = y_i - \hat {y}_i\)` | `\(\approx \sqrt{MS_e}\)` |
+
+
+.tiny[Таблица из кн. Quinn, Keough, 2002, стр. 86, табл. 5.2]
+
+Стандартные ошибки коэффициентов
+
+  - используются для построения доверительных интервалов;
+  - нужны для статистических тестов.
+
+---
+
+## Неопределенность оценки положения регрессии
+
+__Доверительный интервал коэффициента__ --- это зона, в которой при повторных выборках из генеральной совокупности с заданной вероятностью будет лежать среднее значение оценки коэффициента. Если `\(\alpha = 0.05\)`, то получается 95% доверительный интервал.
+
+
+`$$b _1 \pm t _{\alpha, df = n - 2} \cdot SE _{b _1}$$`
+
+__Доверительная зона регрессии__ --- это зона, в которой при повторных выборках из генеральной совокупности с заданной вероятностью лежит регрессионная прямая. 
+
+![](03_regression1_files/figure-html/teeth-conf-1.png)&lt;!-- --&gt;
+---
+
+## Зависимость в генеральной совокупности 
+
+.pull-left[
+Симулированный пример: Генеральная совокупность, в которой связь между Y и X, описывается следующей зависимостью
+$$
+y_i = 10 + 10x_i + \varepsilon_i \\
+\varepsilon \in N(0, 20)
+$$
+
+
+```r
+pop_x &lt;- rnorm(1000, 10, 3)
+pop_y &lt;- 10 + 10*pop_x + rnorm(1000, 0, 20)
+population &lt;- data.frame(x = pop_x, y = pop_y)
+
+pop_plot &lt;- ggplot(population, aes(x = x, y = y)) + 
+  geom_point(alpha = 0.3, color = "red") + 
+  geom_abline(aes(intercept = 10, slope = 10), 
+              color="blue", size = 2) +
+  theme(text = element_text(size = 15))
+pop_plot
+```
+]
+
+.pull-right[
+![](03_regression1_files/figure-html/pop-plot-1.png)&lt;!-- --&gt;
+]
+
+---
+
+## Зависимости, выявленные в нескольких разных выборках 
+
+.pull-left[
+Линии регрессии, полученные для 100 выборок (по 20 объектов в каждой), взятых из одной и той же генеральной совокупности.
+]
+
+.pull-right[
+
+&lt;img src="03_regression1_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Неопределенность оценок предсказанных значений
+
+__Доверительный интервал к предсказанному значению__ --- это зона, в которую попадает заданная доля значений `\(\hat y _i\)` при данном `\(x _i\)`.
+
+
+`\(\hat y _i \pm t _{\alpha, n - 2} \cdot SE _{\hat y _i}\)`, `\(SE _{\hat y} = \sqrt{MS _{e} [1 + \frac{1}{n} + \frac{(x _{prediction} - \bar x)^2} {\sum _{i=1}^{n} {(x _{i} - \bar x)^2}}]}\)`
+
+__Доверительная область значений регрессии__ --- это зона, в которую попадает `\((1 - \alpha) \cdot 100\%\)` всех предсказанных значений.
+
+
+
+![](03_regression1_files/figure-html/teeth-pred-1.png)&lt;!-- --&gt;
+
+&lt;!-- ## Стандартизованные коэффициенты --&gt;
+
+&lt;!-- Стандартизованные коэффициенты используются для сравнения вкладов предикторов в изменение отклика. Их можно использовать при сравнении разных моделей. --&gt;
+
+&lt;!-- - Не зависят от масштаба измерений x и y --&gt;
+&lt;!-- - Можно вычислить, зная обычные коэффициенты и их стандартные отклонения `\(b^\ast _1 = {b _1  \frac {\sigma _x} {\sigma _y}}\)` --&gt;
+&lt;!-- - Можно вычислить, посчитав регрессию по стандартизованным данным --&gt;
+
+---
+
+class: middle, center, inverse
+
+# Линейная регрессия в R
+
+---
+
+## Как в R задать формулу линейной регрессии
+
+`lm(formula = формула_модели, data = данные)` - функция для подбора регрессионных моделей.
+
+Формат формулы модели: `зависимая_переменная ~ независимые_переменные`.
+
+`\(\hat y _i = b _0 + b _1 x _i\)` (простая линейная регрессия с `\(b _0\)` (intercept))
+
+- Y ~ X
+- Y ~ 1 + X 
+- Y ~ X + 1
+
+`\(\hat y _i = b _1 x _i\)` (простая линейная регрессия без `\(b _0\)`)
+
+- Y ~ X - 1
+- Y ~ -1 + X
+
+`\(\hat y _i = b _0\)` (уменьшенная модель, линейная регрессия Y от `\(b _0\)`)
+
+- Y ~ 1
+- Y ~ 1 - X
+
+---
+
+## Другие примеры формул линейной регрессии
+
+`\(\hat y _i = b _0 + b _1 x _{1 i} + b _2 x _{2 i} + b _3 x _{3 i}\)`
+
+(множественная линейная регрессия с `\(b _0\)`)
+
+- Y ~ X1 + X2 + X3
+- Y ~ 1 + X1 + X2 + X3
+
+`\(\hat y _i = b _0 + b _1 x _{1 i} + b _3 x _{3 i}\)`
+
+(уменьшенная модель множественной линейной регрессии, без `\(x _2\)`)
+
+- Y ~ X1 + X3
+- Y ~ 1 + X1 + X3
+
+---
+
+## Задание 2
+
+Используя данные из датасета `teeth`, подберите модель линейной регрессии, описывающую зависимость рода рождения человека `birth` от количества изотопа `\(^{14}C\)` `c14`. 
+
+Запишите коэффициенты модели и уравнение линейной регрессии.
+
+Подсказки:
+
+`lm(formula = формула_модели, data = данные)` --- функция для подбора регрессионных моделей
+
+Формат формулы модели: `зависимая_переменная ~ независимые_переменные`
+
+`summary(модель)` --- функция, показывающая краткую информацию о модели в виде таблицы
+
+`coef(модель)` --- функция, показывающая только коэффициенты модели
+
+
+```
+teeth_lm &lt;- lm(formula = , data = )
+```
+
+---
+
+## Решение: Подбираем параметры линейной модели
+
+
+
+```r
+teeth_lm &lt;- lm(formula = birth ~ c14, data = teeth)
+summary(teeth_lm)
+```
+
+```
+
+Call:
+lm(formula = birth ~ c14, data = teeth)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-6.613 -2.121  0.011  2.888  4.360 
+
+Coefficients:
+             Estimate Std. Error t value    Pr(&gt;|t|)    
+(Intercept) 1992.2674     1.4486  1375.3     &lt; 2e-16 ***
+c14           -0.0533     0.0050   -10.6 0.000000043 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.32 on 14 degrees of freedom
+Multiple R-squared:  0.89,	Adjusted R-squared:  0.882 
+F-statistic:  113 on 1 and 14 DF,  p-value: 0.000000043
+```
+
+Коэффициенты линейной регрессии:
+
+- `\(b _0 =  1992 \pm 1\)`
+- `\(b _1 =  -0.053 \pm 0.005\)`
+
+---
+
+## Решение: Записываем уравнение линейной регрессии
+
+Модель:
+
+`$$\hat y _i = b _0 + b _1 x _i$$`
+
+Коэффициенты:
+
+
+```r
+coef(teeth_lm)
+```
+
+```
+(Intercept)         c14 
+ 1992.26737    -0.05326 
+```
+
+Уравнение регрессии:  
+
+`$$\widehat{birth} _i  = 0.2 + 5.4 * c14 _i$$`
+---
+
+class: middle, center, inverse
+
+# Тестирование значимости модели и ее коэффициентов
+
+---
+
+## Способы проверки значимости модели и ее коэффициентов
+
+Существует несколько способов проверки значимости модели
+
+Значима ли модель целиком?
+
++ F-критерий: действительно ли объясненная моделью изменчивость больше, чем случайная ( = остаточная) изменчивость.
+
+Значима ли связь между предиктором и откликом?
+
++ t-критерий: отличается ли от нуля коэффициент при этом предикторе;
++ F-критерий: действительно ли объясненная предиктором изменчивость больше, чем случайная ( = остаточная)?
+
+---
+
+## Тестируем значимость коэффициентов t-критерием
+
+`$$t = \frac{b _1}{SE _{b _1}}$$`
+
+`\(H _0 : b _1 = 0\)`.
+`\(H _A : b _1 \ne 0\)`
+
+`\(t\)`-статистика подчиняется `\(t\)`-распределению с числом степеней свободы `\(df = n - p\)`, где `\(p\)` --- число параметров.
+
+Для простой линейной регрессии `\(df = n - 2\)`.
+
+---
+
+## Тестируем значимость коэффициентов t-критерием
+
+
+```r
+summary(teeth_lm)
+```
+
+```
+
+Call:
+lm(formula = birth ~ c14, data = teeth)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-6.613 -2.121  0.011  2.888  4.360 
+
+Coefficients:
+             Estimate Std. Error t value    Pr(&gt;|t|)    
+(Intercept) 1992.2674     1.4486  1375.3     &lt; 2e-16 ***
+c14           -0.0533     0.0050   -10.6 0.000000043 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.32 on 14 degrees of freedom
+Multiple R-squared:  0.89,	Adjusted R-squared:  0.882 
+F-statistic:  113 on 1 and 14 DF,  p-value: 0.000000043
+```
+
+Результаты можно описать в тексте так:
+
+- Дата рождения значимо возрастает с уменьшением содержания изотопа `\(^{14}C\)` `\((b _1 =\)` -0.05, `\(t_{} =\)` -10.64, `\(p &lt; 0.01\)`)
+
+---
+
+## Тестируем значимость модели целиком при помощи F-критерия
+
+`$$F =\frac{MS _{regression}}{MS _{error}}$$`
+
+`\(H _0: \beta _1 = 0\)` 
+
+Число степеней свободы `\(df _{regression}\)`, `\(df _{error}\)`
+
+
+
+
+---
+
+## Общая изменчивость
+
+Общая изменчивость --- `\(SS _{total}\)`, сумма квадратов отклонений от общего среднего значения.
+
+
+![](03_regression1_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+
+---
+
+## Общая изменчивость делится на объясненную и остаточную
+
+
+.right[
+.pull-left-33[
+`\(SS_t = SS_r + SS_e\)`]
+]  
+
+.left[
+.pull-right-33[
+`\(MS_t \ne MS_r + MS_e\)`]
+]
+
+
+![](03_regression1_files/figure-html/arranged_variab-1.png)&lt;!-- --&gt;
+
+![:col_row `\(SS_{t} = \sum{(y_i - \bar{y})^2}\)`, `\(SS_{r} =\sum{(\hat{y}-\bar{y})^2}\)`,  `\(SS_{e} = \sum{(y_i - \hat{y})^2}\)`]
+![:col_row `\(df_{t} = n - 1\)`, `\(df_{r} = p - 1\)`, `\(df_{e} = n - p\)`]
+![:col_row `\(MS_{e} = \frac{SS_{e}}{df_{e}}\)`, `\(MS_{r} = \frac {SS_{r}}{df_{r}}\)`, `\(MS_{t} = \frac {SS_{t}}{df_{t}}\)`]
+
+
+&lt;!-- Они не зависят от числа наблюдений в выборке, в отличие от `\(SSr\)` и `\(SS_e\)`. --&gt;
+&lt;!-- С их помощью можно проверить гипотезу о наличии связи между предиктором и откликом. --&gt;
+
+
+---
+
+## Если зависимости нет, то коэффициент `\(b _1 = 0\)`
+
+Тогда `\(\hat y _i = \bar y _i\)` и `\(MS _{regression} \approx MS _{error}\)`. 
+
+Это можно использовать при тестировании гипотезы `\(\beta _1 = 0\)`.
+
+![](03_regression1_files/figure-html/arranged_variab-1.png)&lt;!-- --&gt;
+
+![:col_row `\(SS_{t}= \sum{(y_i - \bar{y})^2}\)`, `\(df_{t} = n - 1\)`,
+`\(MS_{t} = \frac {SS_{t}}{df_{t}}\)`]
+![:col_row `\(SS_{r}=\sum{(\hat{y}-\bar{y})^2}\)`, `\(df_{r} = p - 1\)`, `\(MS_{r} = \frac {SS_{r}}{df_{r}}\)`]
+![:col_row `\(SS_{e}= \sum{(y_i - \hat{y})^2}\)`, `\(df_{e} = n - p\)`, `\(MS_{e} = \frac{SS_{e}}{df_{e}}\)`]
+
+---
+
+## F-критерий и распределение F-статистики
+
+Если `\(b _1 = 0\)`, тогда `\(\hat y_i = \bar y_i\)` и `\(MS _{r} \approx MS _{e}\)`.
+
+F --- соотношение объясненной и не объясненной изменчивости:
+`$$F = \frac{MS_{regression}}{MS_{error}}$$`
+
+Подчиняется F-распределению с параметрами `\(df _{r}\)` и `\(df _{e}\)`.
+
+Для простой линейной регрессии `\(df_{r} = 1\)` и `\(df_{e} = n - 2\)`.
+
+![](03_regression1_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+
+---
+
+## Таблица результатов дисперсионного анализа
+
+
+| Источник &lt;br&gt; изменчивости  | df | SS | MS | F | P |
+|---------------------------- | -- | -- | -- | - | - |   
+| Регрессия | `\(df _r = 1\)` | `\(SS_r = \sum{(\hat y_i - \bar y)^2}\)` | `\(MS _r = \frac{SS_r}{df_r}\)` | `\(F_{df_r, df_e} = \frac{MS_r}{MS_e}\)` | `\(p\)` |
+| Остаточная | `\(df_e = n - 2\)` | `\(SS_e = \sum{(y _i - \hat y _i)^2}\)` | `\(MS _e = \frac{SS_e}{df_e}\)` | |
+| Общая | `\(df_t = n - 1\)` | `\(SS_t = \sum {(y_i - \bar y)^2}\)` | | | |
+
+.large[
+Минимальное упоминание результатов в тексте должно содержать `\(F _{df _r, df _e}\)` и `\(p\)`.
+]
+
+---
+
+## Проверяем значимость модели при помощи F-критерия
+
+
+```r
+library(car)
+Anova(teeth_lm)
+```
+
+```
+Anova Table (Type II tests)
+
+Response: birth
+          Sum Sq Df F value      Pr(&gt;F)    
+c14         1246  1     113 0.000000043 ***
+Residuals    154 14                        
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+Результаты дисперсионного анализа можно описать в тексте (или представить в виде таблицы):
+
+
+
+- Год рождения у трупов значимо зависит от количества радиоактивного углерода в эмали зубов `\((F _{1, 14} = 113.27\)`, `\(p &lt; 0.001)\)`.
+
+---
+
+class: middle, center, inverse
+
+# График линейной регрессии
+
+---
+
+## Задание 3 
+
+Дополните график `gg_teeth`, чтобы построить: 
+- 95% доверительную зону регрессии,
+- 99% доверительную зону регрессии.
+
+Используйте `geom_smooth()` и его аргументы `method` и `level`
+
+
+```r
+gg1 &lt;- gg_teeth + 
+  labs(title = '95% доверительная зона')
+gg1
+gg2 &lt;- gg_teeth + 
+  labs(title = '99% доверительная зона')
+gg2
+
+library(cowplot)
+plot_grid(gg1, gg2, nrow = 1, labels = 'AUTO')
+```
+
+---
+
+## Решение: Строим доверительную зону регрессии
+
+
+```r
+gg1 &lt;- gg_teeth + geom_smooth(method = 'lm') + 
+  labs(title = '95% доверительная зона')
+gg2 &lt;- gg_teeth + geom_smooth(method = 'lm', level = 0.99) + 
+  labs(title = '99% доверительная зона')
+library(cowplot)
+plot_grid(gg1, gg2, nrow = 1, labels = 'AUTO')
+```
+
+&lt;img src="03_regression1_files/figure-html/conf-int-regr-1.png" width="100%" /&gt;
+
+---
+
+class: middle, center, inverse
+
+# Оценка качества подгонки модели
+
+---
+
+## Коэффициент детерминации `\(R^2\)`
+
+Доля общей изменчивости, объясненная линейной связью x и y
+
+`$$R^2 =\frac{SS_{r}}{SS_{t}} = 1 - \frac{SS_{e}}{SS_{t}}$$`
+
+`$$0 \le R^2 \le 1$$`
+
+Иначе рассчитывается как квадрат коэффициента корреляции `\(R^2 = r^2\)`
+
+__Не используйте `\(R^2\)` для множественной линейной регрессии!!!__
+
+---
+
+## Коэффициент детерминации можно найти в сводке модели
+
+
+```r
+summary(teeth_lm)
+```
+
+```
+
+Call:
+lm(formula = birth ~ c14, data = teeth)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-6.613 -2.121  0.011  2.888  4.360 
+
+Coefficients:
+             Estimate Std. Error t value    Pr(&gt;|t|)    
+(Intercept) 1992.2674     1.4486  1375.3     &lt; 2e-16 ***
+c14           -0.0533     0.0050   -10.6 0.000000043 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.32 on 14 degrees of freedom
+Multiple R-squared:  0.89,	Adjusted R-squared:  0.882 
+F-statistic:  113 on 1 and 14 DF,  p-value: 0.000000043
+```
+
+---
+
+## Сравнение качества подгонки моделей при помощи `\(R^2_{adj}\)`
+
+`\(R^2_{adj}\)` --- cкорректированный `\(R^2\)`
+
+`$$R^2_{adj} = 1 - \frac{SS_{e} / df_{e}}{SS_{t} / df_{t}}$$`
+
+где `\(df_{e} = n - p\)`, `\(df_{t} = n - 1\)`
+
+`\(R^2_{adj}\)` учитывает число переменных в модели, вводится штраф за каждый новый параметр.
+
+Используйте `\(R^2 _{adj}\)` для сравнения моделей с разным числом параметров.
+
+---
+
+class: middle, center, inverse
+
+# Использование линейной регрессии для предсказаний
+
+---
+
+## Использование линейной регрессии для предсказаний
+
+Для конкретного значения предиктора мы можем сделать два типа предсказаний:
+
+- предсказываем среднее значение отклика --- это оценка точности положения линии регрессии;
+- предсказываем значение отклика у 95% наблюдений --- это оценка точности предсказаний.
+
+---
+
+## Предсказываем Y при заданном X 
+
+В каком году родились люди с количеством `\(^{14}C\)` равным 125, 314,  и 565?
+
+Значения, для которых предсказываем:
+
+
+```r
+new_data1 &lt;- data.frame(c14 = c(125, 314, 565)) 
+new_data1
+```
+
+```
+  c14
+1 125
+2 314
+3 565
+```
+
+---
+
+## Предсказываем Y при заданном X 
+
+Предсказания:
+
+
+```r
+pr1 &lt;- predict(teeth_lm, newdata = new_data1, 
+                interval = 'confidence', se = TRUE)
+pr1$fit
+```
+
+```
+   fit  lwr  upr
+1 1986 1983 1988
+2 1976 1974 1978
+3 1962 1958 1966
+```
+
+- Люди с содержанием `\(^{14}C\)` 125, 314 и 565% родились в 1985.6 `\(\pm\)` 2.1, 1975.5 `\(\pm\)` 2 и  1962.2 `\(\pm\)` 3.9 годах, соответственно.
+
+---
+
+## Предсказываем изменение Y для 95% наблюдений при заданном X
+
+В пределах каких годов родились люди, у которых содержание `\(^{14}C\)` в эмали соответствует 125, 314  и 565 %?
+
+
+```r
+# значения, для которых предсказываем
+(pr2 &lt;- predict(teeth_lm, newdata = new_data1, 
+                interval = 'prediction', se = TRUE))
+```
+
+```
+$fit
+   fit  lwr  upr
+1 1986 1978 1993
+2 1976 1968 1983
+3 1962 1954 1970
+
+$se.fit
+     1      2      3 
+1.0019 0.9135 1.8373 
+
+$df
+[1] 14
+
+$residual.scale
+[1] 3.317
+```
+
+- 95% умерших людей, у которых содержание радиоактивного углерода равно 125, 314  и 565 %, родились в пределах 1985.6 `\(\pm\)` 7.4, 1975.5 `\(\pm\)` 7.4 и 1962.2 `\(\pm\)` 8.1 соответственно.
+
+---
+
+## Построим график доверительной области значений
+
+Создадим данные для графика. 
+
+Для этого объединим в новом датафрейме:
+
+- исходные данные;
+- предсказанные значения для исходных данных. 
+
+
+```r
+pr_all &lt;- predict(teeth_lm, interval = 'prediction')
+teeth_with_pred &lt;- data.frame(teeth, pr_all)
+head(teeth_with_pred)
+```
+
+```
+  birth c14  fit  lwr  upr
+1  1986  89 1988 1980 1995
+2  1984 109 1986 1979 1994
+3  1990  91 1987 1980 1995
+4  1988 127 1986 1978 1993
+5  1990  99 1987 1980 1994
+6  1984 110 1986 1979 1994
+```
+
+
+---
+
+## Строим доверительную область значений и доверительный интервал одновременно
+
+
+```r
+gg_teeth + 
+  geom_smooth(method = 'lm', 
+              aes(fill = 'Доверительный \nинтервал'), 
+              alpha = 0.4) +
+  geom_ribbon(data = teeth_with_pred, 
+              aes(y = fit, ymin = lwr, ymax = upr, 
+                  fill = 'Доверительная \nобласть значений'), 
+              alpha = 0.2) +
+  scale_fill_manual('Интервалы', values = c('green', 'blue'))
+```
+
+![](03_regression1_files/figure-html/teeth-plot-all-1.png)&lt;!-- --&gt;
+
+---
+
+## Take home messages
+
+- Модель простой линейной регрессии `\(y _i = \beta _0 + \beta _1 x _i + \varepsilon _i\)`
+- В оценке коэффициентов регрессии `\((b_0\)` и `\(b_1)\)` и предсказанных значений `\((\hat y_i)\)` существует неопределенность. Доверительные интервалы можно рассчитать, зная стандартные ошибки.
+- Значимость всей регрессии и ее параметров можно проверить при помощи t- или F-теста. Для простой линейной регрессии `\(H _0: \beta _1 = 0\)`.
+- Качество подгонки модели можно оценить при помощи коэффициента детерминации `\(R^2\)`
+- Не всякие данные можно описать при помощи простой линейной регрессии.
+
+---
+
+## Дополнительные ресурсы
+
+- Гланц, 1999, стр. 221-244
+- OpenIntro: Statistics
+- Quinn, Keough, 2002, pp. 78-110
+- Logan, 2010, pp. 170-207
+- Sokal, Rohlf, 1995, pp. 451-491
+- Zar, 1999, pp. 328-355
+- Видосики на ютубе от [StatQuest](https://www.youtube.com/@statquest) 
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="assets/cols_macro.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "vs",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!-- https://github.com/fnaufel/xaringan-smartify-->
+<script type="text/javascript">
+  smartify();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
