@@ -36,7 +36,7 @@ install.packages("car")
 install.packages("cowplot")
 ```
 
-<!-- - Презентация: [03_regression1.pdf](03_regression1.pdf) -->
+- Презентация: [03_regression1.html](03_regression1.html)
 - Код: [03_regression1_code.R](03_regression1_code.R)
 - Данные:
     - [nuclear_teeth.xlsx](data/nuclear_teeth.xlsx) | [nuclear_teeth.csv](data/nuclear_teeth.csv)
