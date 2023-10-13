@@ -1,44 +1,58 @@
----
-title: "Регрессионный анализ, часть 2"
-subtitle: "Математические модели в зоологии"
-author: 
-  - Марина Варфоломеева
-  - Анастасия Лянгузова
-company: 'Каф. Зоологии беспозвоночных, СПбГУ'
-output:
-  xaringan::moon_reader:
-    self-contained: true
-    lib_dir: libs
-    css: [ninjutsu, "assets/xaringan-themer.css", "assets/xaringan.css"]
-    df_print: default
-    nature:
-      highlightStyle: vs
-      highlightLines: true
-      countIncrementalSlides: false
-      titleSlideClass: [middle, left, inverse]
-      beforeInit: "assets/cols_macro.js"
-    includes:
-      in_header: "assets/xaringan_in_header.html"
-      after_body: "assets/xaringan_after_body.html"
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Регрессионный анализ, часть 2</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Марина Варфоломеева" />
+    <meta name="author" content="Анастасия Лянгузова" />
+    <script src="libs/header-attrs-2.23/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="libs/mark.js-8.11.1/mark.min.js"></script>
+    <link href="libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-search-0.0.1/search.js"></script>
+    <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":false,"autoSearch":true}) })</script>
+    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <script src="libs/freezeframe-5.0.2/freezeframe.min.js"></script>
+    <script src="libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
+    <script id="xaringanExtra-freezeframe-options" type="application/json">{"selector":"img[src$=\"gif\"]","trigger":"click","overlay":false,"responsive":true,"warnings":true}</script>
+    <link href="libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <!-- https://github.com/fnaufel/xaringan-smartify-->
+    <script
+    			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    			  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+    			  crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/fnaufel/xaringan-smartify/smartify.min.js"></script>
+    <link rel="stylesheet" href="assets/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="assets/xaringan.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, left, inverse, title-slide
+
+.title[
+# Регрессионный анализ, часть 2
+]
+.subtitle[
+## Математические модели в зоологии
+]
+.author[
+### Марина Варфоломеева
+]
+.author[
+### Анастасия Лянгузова
+]
+
 ---
 
-```{r setup, include = FALSE, cache = FALSE, purl = TRUE}
-source("assets/xaringan_setup.R")
-library(xaringanExtra)
-use_tile_view()
-use_scribble()
-use_search(show_icon = FALSE)
-use_progress_bar(color = "#98BF64", location = "bottom", height = "10px")
-use_freezeframe()
-# use_webcam()
-# use_panelset()
-# use_extra_styles(hover_code_line = TRUE)
 
-# http://tachyons.io/docs/
-# https://roperzh.github.io/tachyons-cheatsheet/
-use_tachyons()
-source('support_mathmethr.R')
-```
+
 
 ### Вы сможете
 
@@ -59,7 +73,7 @@ class: middle, center, inverse
 ## Пример: реки штата Нью-Йорк
 
 В 70-е годы в штате Нью Йорк обследовали 20 речных бассейнов (Haith, 1976), чтобы оценить качество воды. Как влияют особенности землепользования на среднюю концентрацию азота (мг/л) в воде?  
-(Датасет river из пакета bstats, источник Chatterjee & Hadi, 2006)
+(Датасет river из пакета bstats, источник Chatterjee &amp; Hadi, 2006)
 
 20 рек в штате Нью Йорк
 
@@ -72,31 +86,57 @@ class: middle, center, inverse
 
 Т.е. мы хотим подобрать модель вида:
 
-$Nitrogen_i = b_0 + b_1 Agr_i + b_2 Forest_i + b_3 Rsdntial_i + b_4 ComIndl_i + e_i$
+`\(Nitrogen_i = b_0 + b_1 Agr_i + b_2 Forest_i + b_3 Rsdntial_i + b_4 ComIndl_i + e_i\)`
 
 ---
 
 ## Читаем данные из файла одним из способов
 
 ### Чтение из xlsx
-```{r}
+
+```r
 library(readxl)
-river <- read_excel(path = "data/river.xlsx", sheet = "river-data")
+river &lt;- read_excel(path = "data/river.xlsx", sheet = "river-data")
 ```
 
 ### Чтение из csv
 
-```{r}
-river <- read.table("data/river.csv", header = TRUE, sep = "\t")
+
+```r
+river &lt;- read.table("data/river.csv", header = TRUE, sep = "\t")
 ```
 
 ---
 
 ## Все ли правильно открылось?
 
-```{r}
+
+```r
 str(river)      # Структура данных
+```
+
+```
+'data.frame':	20 obs. of  6 variables:
+ $ River   : chr  "Olean" "Cassadaga" "Oatka" "Neversink" ...
+ $ Agr     : int  26 29 54 2 3 19 16 40 28 26 ...
+ $ Forest  : int  63 57 26 84 27 61 60 43 62 60 ...
+ $ Rsdntial: num  1.2 0.7 1.8 1.9 29.4 3.4 5.6 1.3 1.1 0.9 ...
+ $ ComIndl : num  0.29 0.09 0.58 1.98 3.11 0.56 1.11 0.24 0.15 0.23 ...
+ $ Nitrogen: num  1.1 1.01 1.9 1 1.99 1.42 2.04 1.65 1.01 1.21 ...
+```
+
+```r
 head(river)     # Первые несколько строк файла
+```
+
+```
+       River Agr Forest Rsdntial ComIndl Nitrogen
+1      Olean  26     63      1.2    0.29     1.10
+2  Cassadaga  29     57      0.7    0.09     1.01
+3      Oatka  54     26      1.8    0.58     1.90
+4  Neversink   2     84      1.9    1.98     1.00
+5 Hackensack   3     27     29.4    3.11     1.99
+6  Wappinger  19     61      3.4    0.56     1.42
 ```
 
 ---
@@ -105,27 +145,37 @@ head(river)     # Первые несколько строк файла
 
 Есть ли пропущенные значения?
 
-```{r}
+
+```r
 colSums(is.na(river))
+```
+
+```
+   River      Agr   Forest Rsdntial  ComIndl Nitrogen 
+       0        0        0        0        0        0 
 ```
 
 Каков объем выборки?
 
-```{r}
+
+```r
 nrow(river)
+```
+
+```
+[1] 20
 ```
 
 ---
 
 ## Парные графики для всех числовых переменных
 
-```{r eval=FALSE}
+
+```r
 pairs(river[, -1])
 ```
 
-```{r pairs, fig.width = 9, fig.height=4.4, echo=FALSE, purl=FALSE}
-pairs(river[, -1], gap = 0.25, oma=rep(1.75, 4))
-```
+![](04_regression2_files/figure-html/pairs-1.png)&lt;!-- --&gt;
 
 --
 
@@ -149,7 +199,7 @@ __Выброс__ — сильно отскакивающее значение.
 
 1. Подберите модель множественной линейной регрессии, чтобы описать, как зависит концентрация азота от особенностей землепользования.
 
-$Nitrogen_i = b_0 + b_1 Agr_i + b_2 Forest_i + b_3 Rsdntial_i + b_4 ComIndl_i + e_i$
+`\(Nitrogen_i = b_0 + b_1 Agr_i + b_2 Forest_i + b_3 Rsdntial_i + b_4 ComIndl_i + e_i\)`
 
 1. Запишите уравнение этой линейной модели с коэффициентами.
 
@@ -157,27 +207,34 @@ $Nitrogen_i = b_0 + b_1 Agr_i + b_2 Forest_i + b_3 Rsdntial_i + b_4 ComIndl_i + 
 
 ## Решение
 
-```{r purl=FALSE}
-river_lm1 <- lm(Nitrogen ~ Agr + Forest + Rsdntial + ComIndl, data = river)
+
+```r
+river_lm1 &lt;- lm(Nitrogen ~ Agr + Forest + Rsdntial + ComIndl, data = river)
 # summary(river_lm1)
 ```
 
 Коэффициенты модели:
 
-```{r purl=FALSE}
+
+```r
 coef(river_lm1)
+```
+
+```
+(Intercept)         Agr      Forest    Rsdntial     ComIndl 
+   1.722214    0.005809   -0.012968   -0.007227    0.305028 
 ```
 
 Уравнение регрессии:
 
-$`r lm_equation(river_lm1, strict=FALSE, digits = 1)`$
+`\(Nitrogen _i = 1.722 + 0.006 Agr _i - 0.013 Forest _i - 0.007 Rsdntial _i + 0.305 ComIndl_i\)`
 
 --
 
 Более формальная запись  
 (и та и другая запись требует расшифровки обозначений):  
 
-$`r lm_equation(river_lm1, digits = 1)`$
+`\(Y_i = 1.722 + 0.006 X_{1i} - 0.013 X_{2i} - 0.007 X_{3i} + 0.305 X_{4i}\)`
 
 --
 
@@ -205,7 +262,7 @@ class: middle, center, inverse
 
 ## 1. Независимость
 
-- Значения $y _i$ должны быть независимы друг от друга
+- Значения `\(y _i\)` должны быть независимы друг от друга
 - Берегитесь псевдоповторностей и автокорреляций (например, временных)
 - Контролируется на этапе планирования
 - Проверяем на графике остатков
@@ -240,11 +297,11 @@ class: middle, center, inverse
 .pull-left[
 [Квартет Энскомба](http://ru.wikipedia.org/wiki/Квартет_Энскомба) - примеры данных, где регрессии одинаковы во всех случаях (Anscombe, 1973)
 
-$y _i = 3.0 + 0.5 x _i$
+`\(y _i = 3.0 + 0.5 x _i\)`
 
-$r^2 = 0.68$
+`\(r^2 = 0.68\)`
 
-$H _0: \beta _1 = 0, t = 4.24, p = 0.002$
+`\(H _0: \beta _1 = 0, t = 4.24, p = 0.002\)`
 ]
 
 .pull-right[
@@ -260,7 +317,7 @@ $H _0: \beta _1 = 0, t = 4.24, p = 0.002$
 ## 3. Нормальное распределение остатков
 
 .pull-left[
-Нужно, т.к. в модели $Y _i = \beta _0 + \beta x _i + \epsilon _i$ зависимая переменная $Y \sim N(0,\sigma^2)$, а значит $\epsilon _i \sim N(0,\sigma^2)$
+Нужно, т.к. в модели `\(Y _i = \beta _0 + \beta x _i + \epsilon _i\)` зависимая переменная `\(Y \sim N(0,\sigma^2)\)`, а значит `\(\epsilon _i \sim N(0,\sigma^2)\)`
 
 - Нужно для тестов параметров, а не для подбора методом наименьших квадратов
 - Нарушение не страшно --- тесты устойчивы к небольшим отклонениям от нормального распределения
@@ -269,44 +326,11 @@ $H _0: \beta _1 = 0, t = 4.24, p = 0.002$
 
 .pull-right[
 .pull-left[
-```{r qqplot-norm-res, purl=FALSE, echo=FALSE, fig.height=8}
-set.seed(27828)
-library(car)
-library(ggplot2)
-
-x_norm <- rnorm(50, mean = 10, sd = 1)
-y_norm <- rnorm(50, 3, 3) 
-data_norm <- data.frame(x_norm, y_norm)
-model_norm <- lm(y_norm ~ x_norm, data_norm)
-res_norm <- residuals(model_norm)
-qqnorm(res_norm)
-
-x_exp <- x_norm
-y_exp <- 3 + 0.8 * x_exp ^ 4
-data_exp <- data.frame(x_exp, y_exp)
-model_exp <- lm(y_exp ~ x_exp, data_exp)
-res_exp <- residuals(model_exp)
-qqnorm(res_exp)
-```
+![](04_regression2_files/figure-html/qqplot-norm-res-1.png)&lt;!-- --&gt;![](04_regression2_files/figure-html/qqplot-norm-res-2.png)&lt;!-- --&gt;
 ]
 
 .pull-right[
-```{r qqplot-log-res, echo=FALSE, message=FALSE, warning=FALSE, purl=FALSE, fig.height=8}
-library(lme4)
-x_log <- x_norm
-y_log <- 3 + log(x_log)
-data_log <- data.frame(x_log, y_log)
-model_log <- lm(y_log ~ x_log, data_log)
-res_log <- residuals(model_log)
-qqnorm(res_log)
-
-x_discrete <- x_norm
-y_discrete <- rep(c(1, 2, 3, 4, 5), 10) 
-data_discrete <- data.frame(x_discrete, x_norm, y_discrete)
-model_discrete <- glmer(y_discrete ~ x_discrete + (1 | x_norm) , data_discrete, 'poisson')
-res_discrete <- residuals(model_discrete)
-qqnorm(res_discrete)
-```
+![](04_regression2_files/figure-html/qqplot-log-res-1.png)&lt;!-- --&gt;![](04_regression2_files/figure-html/qqplot-log-res-2.png)&lt;!-- --&gt;
 ]
 ]
 
@@ -315,9 +339,9 @@ qqnorm(res_discrete)
 ## 4. Гомогенность дисперсий
 
 .pull-left[
-Нужно, т.к. в модели $Y _i = \beta _0 + \beta x _i + \epsilon _i$ зависимая переменная $Y \sim N(0,\sigma^2)$ и дисперсии $\sigma^2 _1 = \sigma^2 _2 = ... = \sigma^2 _i$ для каждого $Y _i$ 
+Нужно, т.к. в модели `\(Y _i = \beta _0 + \beta x _i + \epsilon _i\)` зависимая переменная `\(Y \sim N(0,\sigma^2)\)` и дисперсии `\(\sigma^2 _1 = \sigma^2 _2 = ... = \sigma^2 _i\)` для каждого `\(Y _i\)` 
 
-Поскольку $\epsilon _i \sim N(0,\sigma^2)$, можно проверить равенство дисперсий остатков $\epsilon _i$
+Поскольку `\(\epsilon _i \sim N(0,\sigma^2)\)`, можно проверить равенство дисперсий остатков `\(\epsilon _i\)`
 
 - Нужно и важно для тестов параметров
 - Проверяем на графике остатков по отношению к предсказанным значениям
@@ -325,150 +349,22 @@ qqnorm(res_discrete)
 ]
 
 .pull-right[
-```{r gg-norm-tunnel, echo=FALSE, purl=FALSE}
-## Based on code by Arthur Charpentier:
-## http://freakonometrics.hypotheses.org/9593
-## TODO: wrap it into a function and adapt it for use with other distributions
-## as Markus Gesmann has done here
-## http://www.magesblog.com/2015/08/visualising-theoretical-distributions.html
-
-n <- 2
-brain <- read.csv("data/IQ_brain.csv", header = TRUE)
-X <- brain$MRINACount 
-Y <- brain$PIQ
-dfr <- data.frame(X, Y)
-
-# regression
-reggig <- glm(Y ~ X, data = dfr, family = gaussian(link = "identity"))
-
-op <- par(mar = c(0, 0, 0, 0))
-# empty plot
-vX <- seq(min(X) - 0.5, max(X) + 0.5, length = n)
-vY <- seq(min(Y) - 50, max(Y) + 50, length = n)
-mat <- persp(x = vX, y = vY, z = matrix(0, n, n), 
-             zlim = c(0, 0.0001),
-             theta =  - 30, phi = 20, expand = 0.0018,
-             ticktype  = "detailed",  box = FALSE, border = "gray60")
-
-x <- seq(min(X), max(X), length = 501)
-
-# expected values
-C <- trans3d(x, predict(reggig, newdata = data.frame(X = x), type = "response"), rep(0, length(x)), mat)
-lines(C, lwd = 2)
-
-sdgig <- sqrt(summary(reggig)$dispersion)
-
-# 1SD
-y1 <- qnorm(.95, predict(reggig, newdata = data.frame(X = x), type = "response"),  sdgig)
-C <- trans3d(x, y1, rep(0, length(x)), mat)
-lines(C, lty = 2, col = "#d95f02")
-y2 <- qnorm(.05, predict(reggig, newdata = data.frame(X = x), type = "response"),  sdgig)
-C <- trans3d(x, y2, rep(0, length(x)), mat)
-lines(C, lty = 2, col = "#d95f02")
-
-# C <- trans3d(c(x, rev(x)), c(y1, rev(y2)), rep(0, 2 * length(x)), mat)
-# polygon(C, border = NA, col = "yellow")
-
-# data points
-C <- trans3d(X, Y, rep(0, length(X)), mat)
-points(C, pch = 1, col = "black", cex = 0.4)
-
-# density curves
-n <- 6
-vX <- seq(min(X), max(X), length = n)
-
-mgig <- predict(reggig, newdata = data.frame(X = vX))
-sdgig <- sqrt(summary(reggig)$dispersion)
-
-for(j in n:1){
-  stp <- 251
-  x <- rep(vX[j], stp)
-  y <- seq(min(min(Y) - 50, 
-               qnorm(.05, 
-                     predict(reggig, 
-                             newdata = data.frame(X = vX[j]), 
-                             type = "response"),  
-                     sdgig)), 
-           max(Y) + 50, 
-           length = stp)
-  z0 <- rep(0, stp)
-  z <- dnorm(y,  mgig[j],  sdgig)
-  C <- trans3d(c(x, x), c(y, rev(y)), c(z, z0), mat)
-  polygon(C, border = NA, col = "light blue", density = 40)
-  C <- trans3d(x, y, z0, mat)
-  lines(C, lty = 2, col = "grey60")
-  C <- trans3d(x, y, z, mat)
-  lines(C, col = "steelblue")
-}
-par(op)
-```
+![](04_regression2_files/figure-html/gg-norm-tunnel-1.png)&lt;!-- --&gt;
 ]
 ---
 
 ## Гетероскедастичность
 
-```{r heterosced, echo=FALSE, eval = TRUE, purl=FALSE, fig.width=7}
-library(cowplot)
-N <- 300
-b_0 <- 0.5
-b_1 <- 8
+![](04_regression2_files/figure-html/heterosced-1.png)&lt;!-- --&gt;
 
-set.seed(123456)
-x <- rnorm(N, 10, 3)
-eps_1 <- rnorm(N, 0, 10)
-y_1 <- b_0 + b_1*x + eps_1
-
-# |v|^(2*t), t = 0.7
-h <- function(x) x^(2*0.7) 
-eps_2 <- rnorm(N, 0, h(x))
-y_2 <- b_0 + b_1*x + eps_2
-dat <- data.frame(x, y_1, y_2)
-dat$log_y <- log(y_2)
-
-pl_hom <- ggplot(dat, aes(x = x, y = y_1)) + geom_point(alpha = 0.5) + geom_smooth(method = "lm", alpha = 0.7) + ggtitle("Гомоскедастичность") + ylab("Y")
-pl_heter <- pl_hom + aes(y = y_2) + ggtitle("Гетероскедастичность") + ylab("Y")
-
-dat_diag_1 <- fortify(lm(y_1 ~ x, data = dat))
-dat_diag_2 <- fortify(lm(y_2 ~ x, data = dat))
-
-pl_hom_resid <- ggplot(dat_diag_1, aes(x = .fitted, y = .stdresid)) + geom_point(alpha = 0.5) + geom_smooth(se=FALSE, method = "loess")
-pl_heter_resid <- pl_hom_resid %+% dat_diag_2
-
-plot_grid(pl_hom, pl_heter, 
-          pl_hom_resid, pl_heter_resid, 
-          ncol = 2, rel_heights = c(0.55, 0.45))
-```
-
-Бороться можно трансформацией $Y$ --- например, логарифмированием. 
+Бороться можно трансформацией `\(Y\)` --- например, логарифмированием. 
 
 ---
 
 ## Чем опасна гетероскедастичность
 
-Создадим две генеральные совокупности, в которых нет связи между $y$ и $x$
-```{r echo = FALSE, fig.width=10}
-N <- 1000
-b_0 <- 0
-b_1 <- 0
-
-set.seed(123456)
-x <- rnorm(N, 10, 3)
-eps_1 <- rnorm(N, 0, 10)
-y_1 <- b_0 + b_1*x + eps_1
-
-h <- function(x) x^(2*0.7) 
-eps_2 <- rnorm(N, 0, h(x))
-y_2 <- b_0 + b_1*x + eps_2
-dat2 <- data.frame(x, y_1, y_2)
-
-pl_hom <- 
-  ggplot(dat2, aes(x = x, y = y_1)) + geom_point(alpha = 0.5)  + ggtitle("Гомоскедастичность") + ylab("Y")
-
-pl_heter <- 
-  pl_hom + aes(y = y_2) + ggtitle("Гетероскедастичность") + ylab("Y")
-
-plot_grid(pl_hom, pl_heter)
-```
+Создадим две генеральные совокупности, в которых нет связи между `\(y\)` и `\(x\)`
+![](04_regression2_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -477,15 +373,16 @@ plot_grid(pl_hom, pl_heter)
 .pull-left-60[
 Возьмем 1000 выборок из этих совокупностей по 10 наблюдений и построим много линейных моделей
 
-```{r}
-p_values <- data.frame(p_no_heter = rep(NA, 1000), p_heter = NA)
+
+```r
+p_values &lt;- data.frame(p_no_heter = rep(NA, 1000), p_heter = NA)
 
 for(i in 1:1000){
-  df <- dat2[sample(1:1000, 10), ]
-  M_no_heter <- lm(y_1 ~ x, data = df)
-  M_heter <- lm(y_2 ~ x, data = df)
-  p_values$p_no_heter[i] <- summary(M_no_heter)$coefficients[2, 4] #p-value из summary модели 
-  p_values$p_heter[i] <- summary(M_heter)$coefficients[2, 4] #p-value из summary модели     
+  df &lt;- dat2[sample(1:1000, 10), ]
+  M_no_heter &lt;- lm(y_1 ~ x, data = df)
+  M_heter &lt;- lm(y_2 ~ x, data = df)
+  p_values$p_no_heter[i] &lt;- summary(M_no_heter)$coefficients[2, 4] #p-value из summary модели 
+  p_values$p_heter[i] &lt;- summary(M_heter)$coefficients[2, 4] #p-value из summary модели     
   }
 ```
 ]
@@ -493,19 +390,27 @@ for(i in 1:1000){
 .pull-right-40[
 
 
-- Нет гетероскедастичности и нет связи между $y$ и $x$ (справедлива $H_0$) частота ошибок составляет 
+- Нет гетероскедастичности и нет связи между `\(y\)` и `\(x\)` (справедлива `\(H_0\)`) частота ошибок составляет 
 
-```{r}
-mean(p_values$p_no_heter < 0.05)
 
+```r
+mean(p_values$p_no_heter &lt; 0.05)
+```
+
+```
+[1] 0.039
 ```
 
 
-- Для совокупности с гетероскедастичностью, при отсутствии связи между  $y$ и $x$ (справедлива $H_0$) частота ошибок составляет 
+- Для совокупности с гетероскедастичностью, при отсутствии связи между  `\(y\)` и `\(x\)` (справедлива `\(H_0\)`) частота ошибок составляет 
 
-```{r}
-mean(p_values$p_heter < 0.05)
 
+```r
+mean(p_values$p_heter &lt; 0.05)
+```
+
+```
+[1] 0.073
 ```
 ]
 
@@ -573,7 +478,7 @@ mean(p_values$p_heter < 0.05)
 
 ### Коллинеарность
 
-> Коллинеарные предикторы коррелируют друг с другом, т.е. не являются взаимно независимыми
+&gt; Коллинеарные предикторы коррелируют друг с другом, т.е. не являются взаимно независимыми
 
 
 Последствия:
@@ -594,15 +499,15 @@ mean(p_values$p_heter < 0.05)
 
 (коэффициент распространения дисперсии, Variance inflation factor, VIF)
 
-$VIF$ оценивает степень избыточности каждого из предикторов модели:
+`\(VIF\)` оценивает степень избыточности каждого из предикторов модели:
 
-$$VIF = 1/(1-R'^2)$$
+`$$VIF = 1/(1-R'^2)$$`
 
-__Здесь в знаменателе используется $R^2$ регрессии данного предиктора от всех других предикторов в модели__.
+__Здесь в знаменателе используется `\(R^2\)` регрессии данного предиктора от всех других предикторов в модели__.
 
-Хорошо, если $VIF < 10$ (по Marquardt, 1970), но лучше $VIF < 3$, а иногда и $VIF < 2$. Если больше --- есть коллинеарность.
+Хорошо, если `\(VIF &lt; 10\)` (по Marquardt, 1970), но лучше `\(VIF &lt; 3\)`, а иногда и `\(VIF &lt; 2\)`. Если больше --- есть коллинеарность.
 
-Предикторы с $VIF$ больше порогового значения нужно последовательно удалить из модели (по-одному, проверяя, как изменился $VIF$ после каждого этапа удаления).
+Предикторы с `\(VIF\)` больше порогового значения нужно последовательно удалить из модели (по-одному, проверяя, как изменился `\(VIF\)` после каждого этапа удаления).
 
 ---
 
@@ -610,8 +515,7 @@ __Здесь в знаменателе используется $R^2$ регре
 
 Ненадолго вернёмся к нашим данным по рекам. 
 
-```{r pairs, fig.width = 9, fig.height=4.4, echo=FALSE, purl=FALSE}
-```
+![](04_regression2_files/figure-html/pairs-1.png)&lt;!-- --&gt;
 
 Помимо всего прочего, что-то нужно делать с выбросами --- какие-то наблюдения потенциально могут значительно влиять на регрессию. 
 
@@ -647,7 +551,7 @@ __Здесь в знаменателе используется $R^2$ регре
 ### Расстояние Кука (Cook's d, Cook, 1977)
 
 - Учитывает одновременно величину остатка и близость к краям области определения (leverage)
-- Условное пороговое значение: выброс, если $d \ge 4/(n - p)$, где $n$ - объем выборки, $p$ - число параметров модели. Иногда используют более мягкий порог $d \ge 1$
+- Условное пороговое значение: выброс, если `\(d \ge 4/(n - p)\)`, где `\(n\)` - объем выборки, `\(p\)` - число параметров модели. Иногда используют более мягкий порог `\(d \ge 1\)`
 ]
 
 .pull-right[
@@ -668,12 +572,12 @@ __Здесь в знаменателе используется $R^2$ регре
 
 описывает, как повлияет на модель удаление данного наблюдения
 
-$$D_i = \frac{\sum{( \color{blue}{\hat{y_{j}}} - \color{red}{\hat{y}_{j(i)}})^2}}{p \; MS_e}$$
+`$$D_i = \frac{\sum{( \color{blue}{\hat{y_{j}}} - \color{red}{\hat{y}_{j(i)}})^2}}{p \; MS_e}$$`
 
-- $\color{blue}{\hat{y_j}}$ — значение предсказанное полной моделью
-- $\color{red}{\hat{y}_{j(i)}}$ — значение, предсказанное моделью, построенной без учета $i$-го значения предиктора
-- $p$ — количество параметров в модели
-- $MS_{e}$ — среднеквадратичная ошибка модели ( $\hat\sigma^2$ )
+- `\(\color{blue}{\hat{y_j}}\)` — значение предсказанное полной моделью
+- `\(\color{red}{\hat{y}_{j(i)}}\)` — значение, предсказанное моделью, построенной без учета `\(i\)`-го значения предиктора
+- `\(p\)` — количество параметров в модели
+- `\(MS_{e}\)` — среднеквадратичная ошибка модели ( `\(\hat\sigma^2\)` )
 
 ---
 
@@ -698,11 +602,11 @@ $$D_i = \frac{\sum{( \color{blue}{\hat{y_{j}}} - \color{red}{\hat{y}_{j(i)}})^2}
 
 Трансформация  |  Формула  
 ------------- | -------------   
-степень -2 | $1/x^2$
-степень -1 | $1/x$
-степень -0.5  | $1/\sqrt{x}$
-степень 0.5 | $\sqrt{x}$
-логарифмирование | $log(x)$  
+степень -2 | `\(1/x^2\)`
+степень -1 | `\(1/x\)`
+степень -0.5  | `\(1/\sqrt{x}\)`
+степень 0.5 | `\(\sqrt{x}\)`
+логарифмирование | `\(log(x)\)`  
 
 ---
 
@@ -723,9 +627,15 @@ class: middle, center, inverse
 
 ## 1. Проверка на коллинеарность предикторов
 
-```{r message = FALSE}
+
+```r
 library(car)
 vif(river_lm1) # variance inflation factors
+```
+
+```
+     Agr   Forest Rsdntial  ComIndl 
+  13.277   16.727   12.682    4.145 
 ```
 
 --
@@ -734,9 +644,15 @@ vif(river_lm1) # variance inflation factors
 
 --
 
-```{r}
-river_lm2 <- lm(Nitrogen ~ Agr + Rsdntial + ComIndl, data = river)
+
+```r
+river_lm2 &lt;- lm(Nitrogen ~ Agr + Rsdntial + ComIndl, data = river)
 vif(river_lm2) # variance inflation factors
+```
+
+```
+     Agr Rsdntial  ComIndl 
+   1.151    3.869    4.138 
 ```
 
 --
@@ -749,9 +665,15 @@ vif(river_lm2) # variance inflation factors
 
 Удаляем `ComIndl`
 
-```{r}
-river_lm3 <- lm(Nitrogen ~ Agr + Rsdntial, data = river)
+
+```r
+river_lm3 &lt;- lm(Nitrogen ~ Agr + Rsdntial, data = river)
 vif(river_lm3) # variance inflation factors
+```
+
+```
+     Agr Rsdntial 
+   1.062    1.062 
 ```
 
 --
@@ -760,17 +682,24 @@ vif(river_lm3) # variance inflation factors
 
 Теперь наша модель `river_lm3` выглядит так:
 
-$Nitrogen_i = b_0 + b_1 Agr_i + b_3 Rsdntial_i + e_i$
+`\(Nitrogen_i = b_0 + b_1 Agr_i + b_3 Rsdntial_i + e_i\)`
 
 ---
 
 ## Для анализа остатков создадим диангостический датафрейм
 
-```{r}
+
+```r
 library(ggplot2) # там есть функция fortify()
-river_diag3 <- fortify(river_lm3)
+river_diag3 &lt;- fortify(river_lm3)
 # вот, что записано в диагностическом датафрейме
 head(river_diag3, 2)
+```
+
+```
+  Nitrogen Agr Rsdntial    .hat .sigma  .cooksd .fitted   .resid .stdresid
+1     1.10  26      1.2 0.06149 0.2891 0.002729   1.196 -0.09641   -0.3535
+2     1.01  29      0.7 0.07374 0.2849 0.016424   1.223 -0.21316   -0.7867
 ```
 
 - `.hat` — "сила воздействия" данного наблюдения (leverage)
@@ -785,10 +714,13 @@ head(river_diag3, 2)
 
 График расстояния Кука для всех наблюдений
 
-```{r}
+
+```r
 ggplot(data = river_diag3, aes(x = 1:nrow(river_diag3), y = .cooksd)) + 
   geom_bar(stat = "identity")
 ```
+
+![](04_regression2_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
 
 --
 
@@ -798,21 +730,24 @@ ggplot(data = river_diag3, aes(x = 1:nrow(river_diag3), y = .cooksd)) +
 
 ## Новая модель, на очищенных данных
 
-```{r fig.height=2.25}
+
+```r
 # данные без выброса
-river_subset <- river[river$Rsdntial < 25, ]
+river_subset &lt;- river[river$Rsdntial &lt; 25, ]
 # новая модель
-river_lm4 <- lm(Nitrogen ~ Agr + Rsdntial, data = river_subset)
+river_lm4 &lt;- lm(Nitrogen ~ Agr + Rsdntial, data = river_subset)
 # диагностический датафрейм
-river_diag4 <- fortify(river_lm4)
+river_diag4 &lt;- fortify(river_lm4)
 # график расстояния Кука
 ggplot(data = river_diag4, aes(x = 1:nrow(river_diag4), y = .cooksd)) + 
   geom_bar(stat = "identity")
 ```
 
+![](04_regression2_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+
 --
 
-Отлично, больше нет чрезмерно влиятельных наблюдений с $d > 1$.
+Отлично, больше нет чрезмерно влиятельных наблюдений с `\(d &gt; 1\)`.
 
 ---
 
@@ -822,18 +757,20 @@ ggplot(data = river_diag4, aes(x = 1:nrow(river_diag4), y = .cooksd)) +
 
 Используйте данные из `river_diag4`
 
-```{r resid-plot, purl=FALSE, echo=FALSE}
-gg_resid <- ggplot(data = river_diag4, aes(x = .fitted, y = .stdresid)) + 
-  geom_point()
-gg_resid
-```
+![](04_regression2_files/figure-html/resid-plot-1.png)&lt;!-- --&gt;
 
 ---
 
 ## 3. График зависимости стандартизованных остатков от предсказанных значений
 
-```{r resid-plot, purl=FALSE, echo=TRUE}
+
+```r
+gg_resid &lt;- ggplot(data = river_diag4, aes(x = .fitted, y = .stdresid)) + 
+  geom_point()
+gg_resid
 ```
+
+![](04_regression2_files/figure-html/resid-plot-1.png)&lt;!-- --&gt;
 
 --
 
@@ -847,12 +784,13 @@ gg_resid
 
 Если точки лежат на одной прямой --- все в порядке.
 
-```{r qqplot, warning = FALSE, message=FALSE, fig.width = 6, fig.height=5, echo=-c(1, 4)}
-op <- par(cex = 0.8, mar = c(4, 4, 1, 1))
+
+```r
 library(car)
 qqPlot(river_lm4, id = FALSE) # из пакета car
-par(op)
 ```
+
+![](04_regression2_files/figure-html/qqplot-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -860,8 +798,7 @@ par(op)
 
 Какие выводы можно сделать по квантильному графику?
 
-```{r qqplot, warning = FALSE, message=FALSE, echo=FALSE, purl=FALSE, fig.width = 6}
-```
+![](04_regression2_files/figure-html/qqplot-1.png)&lt;!-- --&gt;
 
 --
 
@@ -875,8 +812,14 @@ par(op)
 
 ## Интерпретация коэффициентов регрессии
 
-```{r}
+
+```r
 coef(river_lm4)
+```
+
+```
+(Intercept)         Agr    Rsdntial 
+    0.52033     0.01488     0.22263 
 ```
 
 --
@@ -884,8 +827,8 @@ coef(river_lm4)
 ### Обычные коэффициенты
 
 - Величина обычных коэффициентов зависит от единиц измерения
-- $b_0$ --- Отрезок (Intercept), отсекаемый регрессионной прямой на оси $y$. Значение зависимой переменной $Y$, если предикторы равны нулю.
-- Коэффициенты при предикторах показывают, на сколько изменяется $Y$, когда данный предиктор меняется на единицу, при условии, что остальные предикторы не меняют своих значений.
+- `\(b_0\)` --- Отрезок (Intercept), отсекаемый регрессионной прямой на оси `\(y\)`. Значение зависимой переменной `\(Y\)`, если предикторы равны нулю.
+- Коэффициенты при предикторах показывают, на сколько изменяется `\(Y\)`, когда данный предиктор меняется на единицу, при условии, что остальные предикторы не меняют своих значений.
 
 ---
 
@@ -893,14 +836,9 @@ coef(river_lm4)
 
 Обычные коэффициенты отражают силу влияния предикторов, но не учитывают масштаб их варьирования.
 
-Если стандартизовать переменные ( $x_{std} = \frac{x_i - \bar x}{SD_x}$), то масштабы их изменений выровняются: они будут измеряться в одних и тех же единицах — в стандартных отклонениях.
+Если стандартизовать переменные ( `\(x_{std} = \frac{x_i - \bar x}{SD_x}\)`), то масштабы их изменений выровняются: они будут измеряться в одних и тех же единицах — в стандартных отклонениях.
 
-```{r purl=FALSE, echo=FALSE}
-op <- par(mfrow = c(1, 2), mar = c(2, 3, 3, 0.3))
-boxplot(river_subset[, c("Agr", "Rsdntial")], main = "Исходно")
-boxplot(scale(river_subset[, c("Agr", "Rsdntial")]), main = "После\n стандартизации")
-par(op)
-```
+![](04_regression2_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
 
 --
 
@@ -910,19 +848,25 @@ par(op)
 
 ## Для сравнения влияния разных предикторов --- стандартизованные коэффициенты
 
-```{r}
-scaled_river_lm4 <- lm(Nitrogen ~ scale(Agr) + scale(Rsdntial), 
+
+```r
+scaled_river_lm4 &lt;- lm(Nitrogen ~ scale(Agr) + scale(Rsdntial), 
                        data = river_subset)
 coef(scaled_river_lm4)
+```
+
+```
+    (Intercept)      scale(Agr) scale(Rsdntial) 
+         1.1137          0.2174          0.2783 
 ```
 
 --
 
 ### Стандартизованные коэффициенты
 
-> - Стандартизованные коэффициенты измерены в стандартных отклонениях. Их можно сравнивать друг с другом, поскольку они дают относительную оценку влияния фактора.
->- $b_0$ --- Отрезок (Intercept), отсекаемый регрессионной прямой на оси $y$. Значение зависимой переменной $Y$, если предикторы равны нулю. Для стандартизованных величин среднее значение равно нулю, поэтому $b_0$ --- это значение зависимой переменной при средних значениях всех предикторов.
->- Коэффициенты при предикторах показывают, на сколько изменяется $Y$, когда предиктор меняется на одно стандартное отклонение, при условии, что остальные предикторы не меняют своих значений. Это относительная оценка влияния фактора.
+&gt; - Стандартизованные коэффициенты измерены в стандартных отклонениях. Их можно сравнивать друг с другом, поскольку они дают относительную оценку влияния фактора.
+&gt;- `\(b_0\)` --- Отрезок (Intercept), отсекаемый регрессионной прямой на оси `\(y\)`. Значение зависимой переменной `\(Y\)`, если предикторы равны нулю. Для стандартизованных величин среднее значение равно нулю, поэтому `\(b_0\)` --- это значение зависимой переменной при средних значениях всех предикторов.
+&gt;- Коэффициенты при предикторах показывают, на сколько изменяется `\(Y\)`, когда предиктор меняется на одно стандартное отклонение, при условии, что остальные предикторы не меняют своих значений. Это относительная оценка влияния фактора.
 
 ---
 
@@ -930,8 +874,31 @@ coef(scaled_river_lm4)
 
 Определите по значениям стандартизованных коэффициентов, какие предикторы сильнее всего влияют на концентрацию азота в воде?
 
-```{r}
+
+```r
 summary(scaled_river_lm4)
+```
+
+```
+
+Call:
+lm(formula = Nitrogen ~ scale(Agr) + scale(Rsdntial), data = river_subset)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.2842 -0.1253  0.0269  0.1257  0.2449 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)       1.1137     0.0390   28.55  3.7e-15 ***
+scale(Agr)        0.2174     0.0402    5.40  5.8e-05 ***
+scale(Rsdntial)   0.2783     0.0402    6.92  3.4e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.17 on 16 degrees of freedom
+Multiple R-squared:  0.84,	Adjusted R-squared:  0.82 
+F-statistic:   42 on 2 and 16 DF,  p-value: 0.000000427
 ```
 
 --
@@ -942,57 +909,47 @@ summary(scaled_river_lm4)
 
 ## Оценка качества подгонки модели
 
-```{r}
+
+```r
 summary(river_lm4)$adj.r.squared
 ```
 
-### Обычный $R^2$ --- доля объясненной изменчивости
+```
+[1] 0.8201
+```
 
-$$R^2 =\frac{SS_{r}}{SS_{t}} = 1 - \frac{SS_{e}}{SS_{t}}$$
+### Обычный `\(R^2\)` --- доля объясненной изменчивости
 
-__Не используйте обычный $R^2$ для множественной регрессии!__
+`$$R^2 =\frac{SS_{r}}{SS_{t}} = 1 - \frac{SS_{e}}{SS_{t}}$$`
+
+__Не используйте обычный `\(R^2\)` для множественной регрессии!__
 
 --
 
-### $R^2_{adj}$ --- cкорректированный $R^2$
+### `\(R^2_{adj}\)` --- cкорректированный `\(R^2\)`
 
-$$R^2_{adj} = 1 - (1 - R^2) \frac{n - 1}{n - p}$$
+`$$R^2_{adj} = 1 - (1 - R^2) \frac{n - 1}{n - p}$$`
 
-где $n - p = df_{e}$, $n - 1 = df_{t}$
+где `\(n - p = df_{e}\)`, `\(n - 1 = df_{t}\)`
 
-$R^2_{adj}$ учитывает число переменных в модели, вводится штраф за каждый новый параметр.
+`\(R^2_{adj}\)` учитывает число переменных в модели, вводится штраф за каждый новый параметр.
 
-Используйте $R^2 _{adj}$ для сравнения моделей с разным числом параметров.
+Используйте `\(R^2 _{adj}\)` для сравнения моделей с разным числом параметров.
 
 ---
 
 ## Описание результатов
 
-Для описания зависимости концентрации азота в речной воде от особенностей землепользования была подобрана линейная модель: $`r lm_equation(river_lm4, strict=FALSE, digits = 1)`$, где $Agr$ — процент сельскохозяйственных земель, $Rsdntial$ — процент земель, занятых поселениями. Эта модель объяснила `r round(summary(river_lm4)$adj.r.squared * 100, 1)`% общей изменчивости концентрации азота в речной воде. С увеличением процента застройки и процента сельскохозяйственных земель в бассейнах рек концентрация азота статистически значимо увеличивалась. 
+Для описания зависимости концентрации азота в речной воде от особенностей землепользования была подобрана линейная модель: `\(Nitrogen _i = 0.52 + 0.01 Agr _i + 0.22 Rsdntial_i\)`, где `\(Agr\)` — процент сельскохозяйственных земель, `\(Rsdntial\)` — процент земель, занятых поселениями. Эта модель объяснила 82% общей изменчивости концентрации азота в речной воде. С увеличением процента застройки и процента сельскохозяйственных земель в бассейнах рек концентрация азота статистически значимо увеличивалась. 
 
 | | Оценка | Ст.ошибка | t | P | 
 | ----| ------- | --------- | -- | ----| 
-| Отрезок | 0.52 | 0.078 | 6.71 | < 0.01 | 
-| Agr | 0.01 | 0.003 | 5.40 | < 0.01 | 
-| Rsdntial | 0.22 | 0.032 | 6.92 | < 0.01 | 
+| Отрезок | 0.52 | 0.078 | 6.71 | &lt; 0.01 | 
+| Agr | 0.01 | 0.003 | 5.40 | &lt; 0.01 | 
+| Rsdntial | 0.22 | 0.032 | 6.92 | &lt; 0.01 | 
 
 
-```{r echo=FALSE, results='hide', purl=FALSE}
-library(xtable)
-library(tidyr)
-smr <- coef(summary(river_lm4)) %>% data.frame()
-# %>% format.data.frame(., digits = 2, nsmall = 1)
-smr$Pr...t.. <- format.pval(smr$Pr...t.., eps = 0.01)
-rownames(smr)[1] <- "Отрезок"
-colnames(smr) <- c("Оценка", "Ст.ошибка", "t", "P")
 
-xtb <- xtable(
-  smr,
-  caption = "Коэффициенты линейной регрессии, описывающей зависимость средней концентрации азота в воде (мг/л) от характеристик землепользования: Agr — процент сельскохозяйственных земель, Rsdntial — процент земель, занятых поселениями. t --- значение t-критерия, P --- уровень значимости.", digits = c(0, 2, 3, 2, 2),
-  label = "tab:mreg-coef")
-
-print.xtable(xtb, comment = F, caption.placement = "top")
-```
 
 ---
 
@@ -1012,7 +969,148 @@ print.xtable(xtb, comment = F, caption.placement = "top")
 
 + Кабаков Р.И. R в действии. Анализ и визуализация данных на языке R. М.: ДМК Пресс, 2014
 + Diez, D.M., Barr, C.D. and Çetinkaya-Rundel, M., 2015. OpenIntro Statistics. OpenIntro.
-+ Zuur, A., Ieno, E.N. and Smith, G.M., 2007. Analyzing ecological data. Springer Science & Business Media.
++ Zuur, A., Ieno, E.N. and Smith, G.M., 2007. Analyzing ecological data. Springer Science &amp; Business Media.
 + Quinn G.P., Keough M.J. 2002. Experimental design and data analysis for biologists
 + Logan M. 2010. Biostatistical Design and Analysis Using R. A Practical Guide
 + Видосики на ютубе от [StatQuest](https://www.youtube.com/@statquest)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="assets/cols_macro.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "vs",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!-- https://github.com/fnaufel/xaringan-smartify-->
+<script type="text/javascript">
+  smartify();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

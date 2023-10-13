@@ -1,7 +1,6 @@
 # title: "Регрессионный анализ, часть 2"
 # subtitle: "Математические методы в зоологии с использованием R"
-# author: "Марина Варфоломеева"
-
+# author: "Марина Варфоломеева, Анастасия Лянгузова"
 
 # # Множественная линейная регрессия
 
@@ -40,7 +39,7 @@ river <- read.table("data/river.csv", header = TRUE, sep = "\t")
 # Каков объем выборки?
 
 # ## Парные графики для всех числовых переменных
-
+pairs(river[, -1], gap = 0.25, oma=rep(1.75, 4))
 
 
 # ## Задача 1 ---------------------------------------------
@@ -55,7 +54,24 @@ river <- read.table("data/river.csv", header = TRUE, sep = "\t")
 
 
 
+# ## Влияние выбросов ##########
+library(gridExtra)
 
+x_norm <- rnorm(100, mean = 18, sd = 3)
+y_norm <- 3.5 + 2 * x_norm
+data_norm <- data.frame(x_norm, y_norm)
+model_norm <- lm(y_norm ~ x_norm, data = data_norm)
+norm_plot <- ggplot(data_norm, aes(x = x_norm, y = y_norm)) +
+  geom_point() + geom_smooth(method = 'lm')
+
+data_outliers <- data.frame(x_norm = 11,
+                            y_norm = 75)
+new_data <- rbind(data_norm, data_outliers)
+new_model <- lm(y_norm ~ x_norm, data = new_data)
+out_plot <- ggplot(new_data, aes(x = x_norm, y = y_norm)) +
+  geom_point() + geom_smooth(method = 'lm')
+
+grid.arrange(norm_plot, out_plot)
 
 
 # # Проверка условий применимости линейной регрессии ############
