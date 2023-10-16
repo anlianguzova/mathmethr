@@ -11,7 +11,7 @@
 
 
 
-<title>Презентации и данные</title>
+<title>Проекты к зачёту</title>
 
 <script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -45,103 +45,6 @@
 
 
 
-<style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
-</style>
-<style type="text/css" data-origin="pandoc">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; } /* Alert */
-code span.an { color: #008000; } /* Annotation */
-code span.at { } /* Attribute */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #0000ff; } /* ControlFlow */
-code span.ch { color: #008080; } /* Char */
-code span.cn { } /* Constant */
-code span.co { color: #008000; } /* Comment */
-code span.cv { color: #008000; } /* CommentVar */
-code span.do { color: #008000; } /* Documentation */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.im { } /* Import */
-code span.in { color: #008000; } /* Information */
-code span.kw { color: #0000ff; } /* Keyword */
-code span.op { } /* Operator */
-code span.ot { color: #ff4000; } /* Other */
-code span.pp { color: #ff4000; } /* Preprocessor */
-code span.sc { color: #008080; } /* SpecialChar */
-code span.ss { color: #008080; } /* SpecialString */
-code span.st { color: #008080; } /* String */
-code span.va { } /* Variable */
-code span.vs { color: #008080; } /* VerbatimString */
-code span.wa { color: #008000; font-weight: bold; } /* Warning */
-
-</style>
-<script>
-// apply pandoc div.sourceCode style to pre.sourceCode instead
-(function() {
-  var sheets = document.styleSheets;
-  for (var i = 0; i < sheets.length; i++) {
-    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
-    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    var j = 0;
-    while (j < rules.length) {
-      var rule = rules[j];
-      // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
-        j++;
-        continue;
-      }
-      var style = rule.style.cssText;
-      // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') {
-        j++;
-        continue;
-      }
-      // replace div.sourceCode by a pre.sourceCode rule
-      sheets[i].deleteRule(j);
-      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
-    }
-  }
-})();
-</script>
 
 
 
@@ -432,95 +335,101 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Презентации и данные</h1>
+<h1 class="title toc-ignore">Проекты к зачёту</h1>
 
 </div>
 
 
-<div id="знакомство-с-r" class="section level2">
-<h2>1. Знакомство с R</h2>
+<div id="проекты" class="section level2">
+<h2>Проекты</h2>
+<div id="описание" class="section level3">
+<h3>Описание</h3>
+<p>Проекты небольшие и рассчитаны на выполнение в группе из двух
+человек. В ходе работы вам нужно будет опробовать методы, о которых мы
+говорили в курсе, и подобрать для каждого датасета оптимальный способ
+анализа данных и его представления.</p>
+<p>Отчёт по проекту будет состоять из двух частей: письменной
+(выполненная в формате <code>.Rmd</code>) и устной (презентация на 10
+минут). В письменном файле должны обязательно содержаться куски
+выполненного кода (следите за грамотным его оформлением!) и краткое
+описание того, что вы делали, зачем и что получили. Результаты анализа
+должны быть представлены как с указанием необходимых для интепретации
+результатов статистик, так и с использованием репрезентативных
+визуализацией. В ходе рассказки презентации будет оцениваться ваше
+умение представить полученные данные и обоснование выбранного вами
+подхода (+ умение отвечать на вопросы).</p>
+</div>
+<div id="проект-1.-цыплята-и-кормовые-добавки" class="section level3">
+<h3>Проект №1. Цыплята и кормовые добавки</h3>
+<p>Данные эксперимента по сравнению эффективности влияния различных
+пищевых добавок на рост цыплят.</p>
+<p><a href="projects/project_1/project1.csv">Данные</a>.</p>
+<p>Описание: - weight — вес цыплят - feed - пищевая добавка. Фактор с
+уровнями: “casein” (казеин), “horsebean” (бобы), “linseed” (льняное
+семя), “meatmeal” (мясо-костная мука), “soybean” (соевые бобы),
+“sunflower” (семена подсолнечника).</p>
+</div>
+<div id="проект-2.-покемоны" class="section level3">
+<h3>Проект №2. Покемоны</h3>
+<p>Датасет содержит информацию о всех 802 покемонах, а также его
+многочисленные характеристики.</p>
+<p><a href="projects/project_2/project2.csv">Данные</a> <a
+href="projects/project_2/summary2.csv">Описание данных</a></p>
+<p>Данные взяты из проекта на <a
+href="https://www.kaggle.com/datasets/rounakbanik/pokemon">Kaggle</a>.</p>
+</div>
+<div id="проект-3.-бабочки-мигрируют-бабочки-остаются"
+class="section level3">
+<h3>Проект №3. Бабочки мигрируют, бабочки остаются</h3>
+<p>Исследование мигрирующих и “осёдлых” бабочек, и как образ жизни
+влияет на паразитов бабочек. Датасет также содержит информацию о
+стабильных изотопах, что в оригинальном исследовании позволило
+определить, откуда собранные бабочки родом.</p>
+<p><a href="projects/project_3/project3.csv">Данные</a>. <a
+href="projects/project_3/summary3.xlsx">Описание данных</a>.</p>
+<p><a href="projects/project_3/publ3.pdf">Оригинальная статья</a></p>
+</div>
+<div id="проект-4.-моллюски-и-симбионты" class="section level3">
+<h3>Проект №4. Моллюски и симбионты</h3>
+<p>Данные о симбионтах двустворчатых моллюсков, собранные за 10 лет.</p>
 <ul>
-<li>Презентация: <a
-href="01_intro_to_r.html">01_intro_to_r.html</a></li>
-<li>Код: <a href="01_intro_to_r.R">01_intro_to_r.R</a></li>
-<li>Дополнительные упражнения: <a
-href="01_intro_to_r_exercises.R">01_intro_to_r_exercises.R</a></li>
+<li><a href="projects/project_4/project4.xlsx">Данные</a>.</li>
+<li><a href="projects/project_4/summary_4.xlsx">Описание</a>.</li>
 </ul>
+<p>Данные любезно предоставлены В.А. Крапивиным.</p>
 </div>
-<div id="тестирование-гипотез.-анализ-мощности" class="section level2">
-<h2>2. Тестирование гипотез. Анализ мощности</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;readxl&quot;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;Hmisc&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;effsize&quot;</span>, <span class="st">&quot;pwr&quot;</span>))</span></code></pre></div>
-<ul>
-<li>Презентация: <a href="02_power.html">02_power.html</a></li>
-<li>Код: <a href="02_power_code.R">02_power_code.R</a></li>
-<li>Данные: <a
-href="data/fleabeetles-subset.xlsx">fleabeetles-subset.xlsx</a></li>
-</ul>
+<div id="проект-5.-винишко" class="section level3">
+<h3>Проект №5. Винишко</h3>
+<p>Данные о качестве вина и его физико-химических характеристиках.</p>
+<p>Исходные данные разделены на <a
+href="projects/project_5/project5_red.csv">красные</a> и <a
+href="projects/project_5/project5_white.csv">белые</a> вина. <a
+href="projects/project_5/summary5.csv">Описание данных</a>.</p>
+<p><a href="projects/project_5/publication.pdf">Оригинальная
+статья</a>.</p>
 </div>
-<div id="регрессионный-анализ-ч.1" class="section level2">
-<h2>3. Регрессионный анализ, ч.1</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;car&quot;</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;cowplot&quot;</span>)</span></code></pre></div>
-<ul>
-<li>Презентация: <a
-href="03_regression1.html">03_regression1.html</a></li>
-<li>Код: <a href="03_regression1_code.R">03_regression1_code.R</a></li>
-<li>Данные:
-<ul>
-<li><a href="data/nuclear_teeth.xlsx">nuclear_teeth.xlsx</a> | <a
-href="data/nuclear_teeth.csv">nuclear_teeth.csv</a></li>
-</ul></li>
-</ul>
+<div id="проект-6.-черепахи-и-их-черепа" class="section level3">
+<h3>Проект №6. Черепахи и их черепа</h3>
+<p>Морфометрия черепов черепах. 24 разных измерения черепов черепах 122
+ныне живущих пресноводных, морских и наземных видов и одного
+ископаемого.</p>
+<p><a href="projects/project_6/project6.txt">Данные</a>.</p>
 </div>
-<div id="регрессионный-анализ-ч.2" class="section level2">
-<h2>4. Регрессионный анализ, ч.2</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;gridExtra&quot;</span>)</span></code></pre></div>
-<ul>
-<li>Презентация: <a
-href="04_regression2.html">04_regression2.html</a></li>
-<li>Код: <a href="04_regression2_code.R">04_regression2_code.R</a></li>
-<li>Данные: <a href="data/river.xlsx">river.xlsx</a> | <a
-href="data/river.csv">river.csv</a></li>
-</ul>
+<div id="проект-7-со-звёздочкой" class="section level3">
+<h3>Проект №7 (со звёздочкой!)</h3>
+<p>Данные о регенерации <em>Platynereis dumerilii</em> (Pdum) и
+<em>Pygospio elegans</em> () и экспрессии различных генов.</p>
+<p><a href="projects/project_7/project7_pdum.tsv">Данные по <em>P.
+dumerilli</em></a>. <a
+href="projects/project_7/project7_pele.tsv">Данные по <em>P.
+elegans</em></a>.</p>
+<p>Описание: - Ref_ID — порядковый номер сиквенса; - Annotations —
+аннотация последовательности.</p>
+<p>Экспрессию генов смотрели в голове и xвосте через определённое
+количество времени (0, 4, 12, 24, 48 и 96 часов). Каждой стадии
+соотносится две реплики. Данные частично взяты из <a
+href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA901144">проекта</a>.</p>
 </div>
-<div id="дисперсионный-анализ-ч.1" class="section level2">
-<h2>5. Дисперсионный анализ, ч.1</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;multcomp&quot;</span>)</span></code></pre></div>
-<!-- - Презентация: [05_anova1.pdf](05_anova1.pdf) -->
-<!-- - Код: [05_anova1_code.R](05_anova1_code.R) -->
-<!-- - Данные: [sleep.xlsx](data/sleep.xlsx) | [sleep.csv](data/sleep.csv) -->
-</div>
-<div id="дисперсионный-анализ-ч.2" class="section level2">
-<h2>6. Дисперсионный анализ, ч.2</h2>
-<!-- - Презентация: [06_anova2.pdf](06_anova2.pdf) -->
-<!-- - Код: [06_anova2_code.R](06_anova2_code.R) -->
-<!-- - Данные: [eysenck.csv](data/eysenck.csv) -->
-</div>
-<div id="анализ-главных-компонент" class="section level2">
-<h2>7. Анализ главных компонент</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;DAAG&quot;</span>, <span class="st">&quot;RColorBrewer&quot;</span>, <span class="st">&quot;vegan&quot;</span>, <span class="st">&quot;HSAUR&quot;</span>, <span class="st">&quot;ggrepel&quot;</span>))</span></code></pre></div>
-<!-- - Презентация: [07_pca.pdf](07_pca.pdf) -->
-<!-- - Код: [07_pca_code.R](07_pca_code.R) -->
-</div>
-<div id="дискриминантный-анализ" class="section level2">
-<h2>8. Дискриминантный анализ</h2>
-<!-- - Презентация: [08_da.pdf](08_da.pdf) -->
-<!-- - Код: -->
-<!--   + [код R](08_da_code.R) -->
-<!--   + [LDA_helper_functions.R](LDA_helper_functions.R) -->
-<!-- - Данные: [penguins.xlsx](data/penguins.xlsx) -->
-</div>
-<div
-id="ординация-и-классификация-с-использованием-мер-сходства-различия"
-class="section level2">
-<h2>9. Ординация и классификация с использованием мер
-сходства-различия</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ape&quot;</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;pvclust&quot;</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;phangorn&quot;</span>)</span></code></pre></div>
-<!-- - Презентация: [09_dist.pdf](09_dist.pdf) -->
-<!-- - Код: [09_dist_code.R](09_dist_code.R) -->
 </div>
 
 <p><small>
