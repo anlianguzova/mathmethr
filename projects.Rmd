@@ -82,7 +82,7 @@ output:
 
 ### Проект №7 (со звёздочкой!)
 
-Данные о регенерации *Platynereis dumerilii* (Pdum) и *Pygospio elegans* () и экспрессии различных генов. 
+Данные о регенерации *Platynereis dumerilii* (Pdum) и *Pygospio elegans* (Pele) и экспрессии различных генов. 
 
 [Данные по *P. dumerilli*](projects/project_7/project7_pdum.tsv).
 [Данные по *P. elegans*](projects/project_7/project7_pele.tsv).
