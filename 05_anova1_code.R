@@ -102,8 +102,9 @@ stat_summary(geom = 'pointrange', fun.data = mean_cl_normal)
 
 labs(x = ,  = "Продолжительность сна", colour = )
 
-
-
+# # Уравнение модели
+sl_mod <- lm(TotalSleep ~ Danger, data = sl)
+summary(sl_mod)
 
 
 
@@ -114,7 +115,6 @@ labs(x = ,  = "Продолжительность сна", colour = )
 
 library(car)
 
-sl_mod <- lm(TotalSleep ~ Danger, data = sl)
 
 sl_anova <- Anova(sl_mod)
 
