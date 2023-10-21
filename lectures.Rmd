@@ -56,7 +56,7 @@ install.packages("gridExtra")
 install.packages("multcomp")
 ```
 
-<!-- - Презентация: [05_anova1.html](05_anova1.html) -->
+- Презентация: [05_anova1.html](05_anova1.html)
 - Код: [05_anova1_code.R](05_anova1_code.R)
 - Данные: [sleep.xlsx](data/sleep.xlsx) | [sleep.csv](data/sleep.csv)
 
