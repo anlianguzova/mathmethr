@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Дисперсионный анализ, часть 2</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Марина Варфоломеева" />
+    <meta name="author" content="Анастасия Лянгузова" />
+    <script src="libs/header-attrs-2.23/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="libs/mark.js-8.11.1/mark.min.js"></script>
+    <link href="libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-search-0.0.1/search.js"></script>
+    <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":false,"autoSearch":true}) })</script>
+    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <script src="libs/freezeframe-5.0.2/freezeframe.min.js"></script>
+    <script src="libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
+    <script id="xaringanExtra-freezeframe-options" type="application/json">{"selector":"img[src$=\"gif\"]","trigger":"click","overlay":false,"responsive":true,"warnings":true}</script>
+    <link href="libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <!-- https://github.com/fnaufel/xaringan-smartify-->
+    <script
+    			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    			  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+    			  crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/fnaufel/xaringan-smartify/smartify.min.js"></script>
+    <link rel="stylesheet" href="assets/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="assets/xaringan.css" type="text/css" />
+    <link rel="stylesheet" href="assets/scrollable.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, left, inverse, title-slide
+
+.title[
+# Дисперсионный анализ, часть 2
+]
+.subtitle[
+## Математические модели в зоологии
+]
+.author[
+### Марина Варфоломеева
+]
+.author[
+### Анастасия Лянгузова
+]
+
+---
+
+
+
+
+
+class: middle, center, inverse
+
+## Двухфакторный дисперсионный анализ
+
+---
+
+## Вы сможете
+
+- Проводить двухфакторный дисперсионный анализ и интерпретировать его результаты с учетом взаимодействия факторов
+- Отличать фиксированные и случайные факторы и выбирать подходящую модель дисперсионного анализа
+
+---
+
+## Пример: Возраст и способы запоминания
+
+Какие способы запоминания информации лучше работают для молодых и для пожилых? (Eysenck, 1974)
+
+Факторы:
+
+- `Age` - Возраст:
+    - `Younger` - 50 молодых
+    - `Older` - 50 пожилых (55-65 лет)
+- `Process` - тип активности:
+    - `Counting` - посчитать число букв
+    - `Rhyming` - придумать рифму к слову
+    - `Adjective` - придумать прилагательное
+    - `Imagery` - представить образ
+    - `Intentional` - запомнить слово
+
+Зависимая переменная - `Words` - сколько вспомнили слов
+
+.tiny[
+Пример из http://www.statsci.org/data/general/eysenck.html
+]
+
+---
+
+## Открываем данные
+
+
+```r
+memory &lt;- read.table(file = "data/eysenck.csv", header = TRUE, sep = "\t")
+# Все ли правильно открылось?
+str(memory) # Структура данных
+```
+
+```
+'data.frame':	100 obs. of  3 variables:
+ $ Age    : chr  "Younger" "Younger" "Younger" "Younger" ...
+ $ Process: chr  "Counting" "Counting" "Counting" "Counting" ...
+ $ Words  : num  8 6 4 6 7 6 5 7 9 7 ...
+```
+
+```r
+head(memory, 2) # Первые несколько строк файла
+```
+
+```
+      Age  Process Words
+1 Younger Counting     8
+2 Younger Counting     6
+```
+
+```r
+# Делаем факторы факторами
+memory$Process &lt;- factor(memory$Process, 
+                         levels = c("Adjective", "Counting",
+                                    "Imagery", "Intentional", "Rhyming"),
+                         labels = c("Прилагательное", "Число букв", "Образ", "Запоминание", "Рифмы"))
+
+memory$Age &lt;- factor(memory$Age, levels = c("Older", "Younger"), 
+                     labels = c("Пожилой", "Молодой"))
+```
+
+---
+
+## Знакомимся с данными
+
+
+```r
+# Есть ли пропущенные значения 
+# (особенно, в переменных, которые нас интересуют)?
+colSums(is.na(memory))
+```
+
+```
+    Age Process   Words 
+      0       0       0 
+```
+
+```r
+# Каков объем выборки?
+nrow(memory) # всего
+```
+
+```
+[1] 100
+```
+
+```r
+table(memory$Age, memory$Process) # в группах
+```
+
+```
+         
+          Прилагательное Число букв Образ Запоминание Рифмы
+  Пожилой             10         10    10          10    10
+  Молодой             10         10    10          10    10
+```
+
+---
+
+## Задание 1
+
+Дополните код, чтобы построить график, на котором приведено среднее число слов (`Words`) для каждого возраста (`Age`) и способа запоминания (`Process`).
+
+
+```r
+library()
+theme_set()
+ggplot(data = , aes()) + 
+  stat_summary(geom = '', fun.data = ,
+               position = position_dodge(width = 0.5))
+```
+
+![](06_anova2_files/figure-html/gg-mean-conf-limit-1.png)&lt;!-- --&gt;
+
+---
+
+## Решение 1
+
+
+```r
+library(ggplot2)
+theme_set(theme_bw())
+ggplot(data = memory, aes(x = Age, y = Words, colour = Process)) + 
+  stat_summary(geom = 'pointrange', fun.data = mean_cl_normal,
+               position = position_dodge(width = 0.5))
+```
+
+![](06_anova2_files/figure-html/gg-mean-conf-limit-1.png)&lt;!-- --&gt;
+
+---
+
+## "Некрасивый" порядок уровней на графике
+
+На этом графике некрасивый порядок уровней: средние для разных способов запоминания `memory$Process` расположены, как кажется, хаотично.
+
+Порядок групп на графике определяется порядком уровней фактора
+
+```r
+# "старый" порядок уровней
+levels(memory$Process)
+```
+
+```
+[1] "Прилагательное" "Число букв"     "Образ"          "Запоминание"   
+[5] "Рифмы"         
+```
+
+![](06_anova2_files/figure-html/gg-mean-conf-limit-1.png)&lt;!-- --&gt;
+
+---
+
+## Изменим порядок уровней
+
+Давайте изменим порядок уровней в факторе `memory$Process` так, чтобы он соответствовал возрастанию средних значений `memory$Words`
+
+```r
+# "старый" порядок уровней
+levels(memory$Process)
+```
+
+```
+[1] "Прилагательное" "Число букв"     "Образ"          "Запоминание"   
+[5] "Рифмы"         
+```
+
+```r
+# переставляем уровни в порядке следования средних значений memory$Words
+memory$Process &lt;- reorder(x = memory$Process, X = memory$Words, FUN = mean)
+# "новый" порядок уровней стал таким
+levels(memory$Process)
+```
+
+```
+[1] "Число букв"     "Рифмы"          "Прилагательное" "Образ"         
+[5] "Запоминание"   
+```
+
+---
+
+## График с "правильным" порядком уровней
+
+С новым порядком уровней нам легче визуально сравнивать друг с другом число запомненных слов при разных способах запоминания.
+
+
+```r
+ggplot(data = memory, aes(x = Age, y = Words, colour = Process)) + 
+  stat_summary(geom = 'pointrange', fun.data = mean_cl_normal,
+               position = position_dodge(width = 0.5))
+```
+
+![](06_anova2_files/figure-html/gg-mean-reordered-1.png)&lt;!-- --&gt;
+
+---
+
+class: middle, center, inverse
+
+## Кодирование дискретных предикторов
+
+---
+
+## Параметризация 
+
+.pull-left[
+
+__Параметризация индикаторных переменных__
+
+Так же известна как
+
+- dummy coding
+- treatment parametrisation
+- reference cell model
+
+&lt;br/&gt;
+
+- В R обозначается __contr.treatment__ и используется по умолчанию.
+
+]
+
+.pull-right[
+
+__Параметризация эффектов__ &lt;br/&gt;&lt;br/&gt;
+
+Так же известна как
+
+- effects coding
+- sum-to-zero parameterisation
+
+&lt;br/&gt;&lt;br/&gt;
+
+- В R обозначается __contr.sum__.
+
+"Классическая" параметризация для дисперсионного анализа. 
+
+Нужна, если хочется использовать т.н. III тип сумм квадратов в многофакторном дисперсионном анализе со взаимодействием факторов. 
+
+Понадобится сегодня!]
+
+---
+
+## Переменные-эффекты
+
+Числа в пределах модельной матрицы в случае параметризации эффектов будут образовывать __трихотомию__ из 0, 1 и -1. При этом сумма кодов для возможных состояний одной переменной равна нулю (сумма чисел в столбце).
+
+Process | Число букв &lt;br/&gt; `\(x_1\)` | Рифмы &lt;br/&gt; `\(x_2\)` | Прилагательное &lt;br/&gt; `\(x_3\)` | Запоминание &lt;br/&gt; `\(x_4\)` | 
+---- | ---- | ---- | ---- | ---- | ----
+Число букв |  1 |  0  |  0 |  0
+Рифмы  |  0 |  1  |  0 |  0 
+Прилагательное  |  0 |  0  |  1 |  0 
+Образ |  0 |  0  |  0 |  1 
+Запоминание | -1  | -1 | -1 | -1
+
+Единица кодирует принадлежность к конкретной категории фактора, 0 --- принадлежность к другому уровню, начиная от первого
+
+---
+
+class: middle, center, inverse
+
+# Двухфакторный дисперсионный анализ
+
+---
+
+## Двухфакторный дисперсионный анализ
+
+Значения зависимой переменной складываются из общего среднего и отклонений от него, связанных с факторами, их взаимодействием, и случайной изменчивости:
+
+`$$y _{ijk} = \mu + \alpha _i + \beta _j + (\alpha \beta) _{ij} + \epsilon _{ijk}$$`
+
+Эти компоненты изменчивости можно измерить, вычислив суммы квадратов.
+
+Общая сумма квадратов `\(SS_t\)` складывается из изменчивости связанной со всеми факторами и случайной изменчивости:
+
+`$$SS_t = \underbrace{SS_a + SS_b + SS_{ab}}_{\text{факторная изменчивость }SS_x} + \underbrace{SS_e}_{\text{случайная изменчивость }}$$`
+---
+
+## Таблица традиционного дисперсионного анализа 
+
+ Источник &lt;br\&gt; изменчивости  | SS | df | MS | F 
+----------- | --- | -- | -- | --
+Название фактора А | 
+`\(SS _A = an\sum\limits_{i}{(\bar A_i - \bar y)^2}\)` | 
+`\(df _A = a - 1\)` | 
+`\(MS _A = \frac{SS _A}{df _A}\)` | 
+`\(F _{df _A df _e} = \frac{MS _A}{MS _e}\)` 
+
+Название фактора В | 
+`\(SS _B = bn\sum\limits_{j}{(\bar B_j - \bar y)^2}\)` | 
+`\(df _B = b - 1\)` | 
+`\(MS _B = \frac{SS _B}{df _B}\)` | 
+`\(F _{df _B df _e} = \frac{MS _B}{MS _e}\)` 
+
+Взаимодействие факторов A и B | 
+`\(SS _{AB} = SS_t - SS_A - SS_B - SS_{AB}\)` | 
+`\(df _{AB} = (a - 1)(b - 1)\)` | 
+`\(MS _{AB} = \frac{SS _{AB}}{df _{AB}}\)` | 
+`\(F _{df _{AB} df _e} = \frac{MS _{AB}}{MS _e}\)` 
+
+Случайная | `\(SS _e = \sum\limits_{i}\sum\limits_j\sum \limits_k {(y _{ijk} - \bar y _{ij})^2}\)` | 
+`\(df _e = (n - 1)ab\)` | 
+`\(MS _e = \frac{SS _e}{df _e}\)` 
+
+Общая | `\(SS _t = \sum\limits_{i}\sum\limits_j\sum \limits_k {(y _{ijk} - \bar y)^2}\)` 
+| `\(df _t = N - 1\)` | 
+| 
+
+
+
+- `\(i, \ldots, a\)` --- уровни фактора A, `\(j, \ldots, b\)` --- уровни фактора B, `\(k, ..., n\)` --- индекс наблюдения в группе, `\(N\)` --- общее число наблюдений
+- `\(\bar y\)` --- общее среднее значение, `\(\bar A_i\)` --- средние в группах по фактору A, `\(\bar B_j\)` --- в группах по фактору B
+---
+
+class: middle, center, inverse
+
+# Взаимодействие факторов
+
+---
+
+## Взаимодействие факторов
+
+Взаимодействие факторов --- когда эффект фактора B разный в зависимости от уровней фактора A и наоборот
+
+.pull-left[
+![](images/interaction.png)
+]
+
+.pull-right[
+
+На каких рисунках есть взаимодействие факторов?
+
+--
+
+- b, c - нет взаимодействия (эффект фактора B одинаковый для групп по фактору A, линии для разных групп по фактору B на графиках расположены параллельно)
+- a, d - есть взаимодействие (эффект фактора B разный для групп по фактору A, на графиках линии для разных групп по фактору B расположены под наклоном).
+]
+
+.tiny[
+Рисунок из Logan, 2010, fig.12.2
+]
+
+---
+
+## Взаимодействие факторов может маскировать главные эффекты
+
+.pull-left[
+![](images/interaction1.png)
+.tiny[
+Рисунок из Quinn, Keough, 2002, fig.9.3
+]
+]
+
+.pull-right[
+**Если есть значимое взаимодействие**
+- главные эффекты обсуждать не имеет смысла  
+- пост хок тесты проводятся только для взаимодействия
+]
+
+---
+
+class: middle, center, inverse
+
+# Несбалансированные данные
+
+---
+
+## Сбалансированность данных
+
+| A / B| B1 | B2 | B3 |
+|-----| -----| -----| -----|
+|A1 | `\(n_{11}\)`| `\(n_{12}\)` |  `\(n_{13}\)`|
+|A2 | `\(n_{21}\)`| `\(n_{22}\)` |  `\(n_{23}\)`|
+
+### Сбалансированные данные
+
+Одинаковое число наблюдений во всех группах `\(n_{11} = n_{12} = \cdots = n_{ij}\)`
+
+### Несбалансированные данные
+
+Неодинаковое число наблюдений в группах
+
+---
+
+## Суммы квадратов в многофакторном дисперсионном анализе со взаимодействием
+
+__Если данные сбалансированы, то ...__
+
+- взаимодействие и эффекты факторов независимы,
+- `\(SS_t = SS_a + SS_b + SS_{ab} + SS_e\)`,  
+поэтому суммы квадратов (и тесты) можно посчитать в одном анализе,
+- результат не зависит от порядка тестирования значимости факторов.
+
+--
+
+__Если данные несбалансированы, то ...__
+
+- взаимодействие и эффекты факторов уже не являются полностью независимыми,
+- `\(SS_t \ne SS_a + SS_b + SS_{ab} + SS_e\)`,  
+и суммы квадратов не посчитать за один приём,
+- результат анализа будет зависеть от порядка рассмотрения факторов (от "типа сумм квадратов").
+
+### "Тип сумм квадратов"
+
+— это один из общепринятых алгоритмов тестирования значимости факторов в дисперсионном анализе.
+
+---
+
+## Порядок тестирования значимости предикторов &lt;br/&gt; в дисперсионном анализе
+
+.small[
+
+"Типы сумм квадратов" | I тип | II тип | III тип
+---- | ---- | ---- | ---- 
+Название | Последовательный | Без учета взаимодействий высоких порядков | Иерархический
+Порядок расчета SS | SS(A) &lt;br/&gt; SS(B&amp;#124;A)  &lt;br/&gt; SS(AB&amp;#124;B, A) | SS(A&amp;#124;B) &lt;br/&gt; SS(B&amp;#124;A) &lt;br/&gt; SS(AB&amp;#124;B, A) | SS(A&amp;#124;B, AB) &lt;br/&gt; SS(B&amp;#124;A, AB) &lt;br/&gt; SS(AB&amp;#124;B, A)
+Величина эффекта зависит от выборки в группе | Да | Да | Нет
+Результат зависит от порядка включения факторов в модель | Да | Нет | Нет
+Параметризация | Любая | Любая | Только параметризация эффектов
+Команда R | aov(), anova() | Anova() (пакет car) |  Anova() (пакет car)
+
+__Осторожно!__ Тестируя предикторы в разном порядке, вы тестируете разные гипотезы!
+
+]
+
+---
+
+## Суммы квадратов III типа
+
+__Если данные сильно не сбалансированы и анализ учитывает взаимодействие факторов__, то чтобы найти суммы квадратов придется подобрать несколько моделей.
+
+
+- `\(Y = B + AB + \mathbf{A } \longrightarrow SS_a\)`
+- `\(Y = A + AB + \mathbf{B} \longrightarrow SS_b\)`
+- `\(Y = A + B + \mathbf{AB}  \longrightarrow SS_{ab}\)`
+
+Суммы квадратов, рассчитанные __для последнего фактора в каждой модели__, будут использоваться в тестах.
+
+Некоторые авторы рекомендуют использовать именно III тип сумм квадратов для несбалансированных данных (Maxwell &amp; Delaney 1990, Milliken, Johnson 1984, Searle 1993, Yandell 1997, Glantz, Slinker 2000).
+
+---
+
+## Другие проблемы из-за несбалансированности данных
+
+- Оценки средних в разных группах с разным уровнем точности (Underwood 1997)
+- ANOVA менее устойчив к отклонениям от условий применимости (особенно от гомогенности дисперсий) при разных размерах групп (Quinn Keough 2002, section 8.3)
+- Проблемы с расчетом мощности. Если `\(\sigma _{\epsilon}^2 &gt; 0\)` и размеры выборок разные, то `\(MS _{x} \over MS _{e}\)` не следует F-распределению (Searle et al. 1992).
+
+--
+
+- Старайтесь _планировать_ группы равной численности!
+- Но если не получилось - не страшно:
+    - Для фикс. эффектов неравные размеры - проблема при нарушении условий применимости только, если значения доверительной вероятности _p_ близки к выбранному критическому уровню значимости `\(\alpha\)`
+
+---
+
+class: middle, center, inverse
+
+# Многофакторный дисперсионный анализ в R
+
+---
+
+## Задаем модель со взаимодействием в R
+
+Взаимодействие обозначается `:` --- двоеточием
+
+Если есть факторы A и B, то их взаимодействие A:B
+
+Для такой модели `\(y _{ijk} = \mu + \alpha _i + \beta _j + (\alpha \beta) _{ij} + \epsilon _{ijk}\)`
+
+Формула модели со взаимодействием:
+
+Y ~ A + B + A:B
+
+Сокращенная запись такой же модели обозначает, что модель включает все главные эффекты и их взаимодействия:
+
+Y ~ A*B
+
+Внимание: при использовании III типа сумм квадратов, нужно при подборе линейной модели __обязательно указывать тип кодирования для факторов__. В данном случае --- `contrasts = list(Age = contr.sum, Process = contr.sum)`
+
+---
+
+## Задание 2
+
+Дополните этот код, чтобы подобрать линейную модель со взаимодействием факторов, в которой используется нужный тип кодирования для факторов: `contrasts = list(Age = contr.sum, Process = contr.sum)`
+
+
+```r
+# Линейная модель дисперсионного анализа со взаимодействием факторов
+mem_mod &lt;- lm(formula = , data = ,
+contrasts = list(Age = contr.sum, Process = contr.sum))
+```
+
+
+
+---
+
+## Решение 2
+
+
+```r
+# Линейная модель дисперсионного анализа со взаимодействием факторов
+mem_mod &lt;- lm(formula = Words ~ Age * Process, data = memory,
+contrasts = list(Age = contr.sum, Process = contr.sum))
+```
+
+---
+
+## Задание 3
+
+Проверим выполнение условий применимости дисперсионного анализа
+
+Дополните код (1-5) и ответьте на вопросы:
+
+- Есть ли гомогенность дисперсий?
+- Не видно ли паттернов в остатках?
+- Нормальное ли у остатков распределение?
+
+
+```r
+# 1) Данные для анализа остатков
+mem_diag &lt;- fortify()
+head()
+# 2) График расстояния Кука
+ggplot(data = , aes(x = 1:nrow(), y = )) + geom_col()
+# 3) Графики остатков от предикторов, включенных в модель
+ggplot(data = mem_diag, aes(x = , y = )) + geom_boxplot()
+ggplot(data = mem_diag, aes(x = , y = )) + geom_boxplot()
+# Если есть два категориальных предиктора, можно их изобразить одновременно
+ggplot(data = mem_diag, aes(x = , y = ,  = Age)) + geom_boxplot()
+# 4) Графики остатков от предикторов, не вошедших в модель (если есть)
+
+# 5) Квантильный график остатков
+library()
+ (mem_mod)
+```
+
+---
+
+## Решение 3: 1) Данные для анализа остатков
+
+
+```r
+mem_diag &lt;- fortify(mem_mod)
+head(mem_diag)
+```
+
+```
+  Words     Age    Process .hat .sigma   .cooksd .fitted .resid .stdresid
+1     8 Молодой Число букв  0.1  2.844 0.0034612     6.5    1.5    0.5581
+2     6 Молодой Число букв  0.1  2.848 0.0003846     6.5   -0.5   -0.1860
+3     4 Молодой Число букв  0.1  2.835 0.0096143     6.5   -2.5   -0.9302
+4     6 Молодой Число букв  0.1  2.848 0.0003846     6.5   -0.5   -0.1860
+5     7 Молодой Число букв  0.1  2.848 0.0003846     6.5    0.5    0.1860
+6     6 Молодой Число букв  0.1  2.848 0.0003846     6.5   -0.5   -0.1860
+```
+
+---
+
+## Решение 3: 2) График расстояния Кука
+
+
+```r
+ggplot(data = mem_diag, aes(x = 1:nrow(mem_diag), y = .cooksd)) + 
+  geom_bar(stat = "identity")
+```
+
+![](06_anova2_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+--
+
+- Влиятельных наблюдений нет
+
+---
+
+## 3) Решение 3: Графики остатков от предикторов в модели
+
+
+```r
+ggplot(data = mem_diag, aes(x = Age, y = .stdresid)) + 
+  geom_boxplot()
+ggplot(data = mem_diag, aes(x = Process, y = .stdresid)) + 
+  geom_boxplot()
+ggplot(data = mem_diag, aes(x = Process, y = .stdresid, colour = Age)) + 
+  geom_boxplot()
+```
+
+
+![](06_anova2_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+- маленький разброс остатков в группах `Counting` и `Rhyming` у обоих возрастов
+
+---
+
+## 4) Решение 3: Графики остатков от предикторов, не вошедших в модель
+
+Таких нет
+
+---
+
+## 5) Решение 3: Квантильный график остатков
+
+
+```r
+library(car)
+qqPlot(mem_mod)
+```
+
+![](06_anova2_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+
+```
+[1] 26 86
+```
+
+--
+
+- Нет значительных отклонений от нормального распределения
+
+---
+
+## Результаты дисперсионного анализа
+
+
+```r
+# Anova() из пакета car
+Anova(mem_mod, type = 3)
+```
+
+```
+Anova Table (Type III tests)
+
+Response: Words
+            Sum Sq Df F value    Pr(&gt;F)    
+(Intercept)  13479  1 1679.54   &lt; 2e-16 ***
+Age            240  1   29.94 0.0000004 ***
+Process       1515  4   47.19   &lt; 2e-16 ***
+Age:Process    190  4    5.93   0.00028 ***
+Residuals      722 90                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+--
+
+- Взаимодействие значимо, факторы отдельно можно не тестировать, так как взаимодействие может все равно изменять их эффект до неузнаваемости.
+- Нужно делать пост хок тест по взаимодействию факторов.
+
+---
+
+## Вычислительный трюк для пост хок теста по взаимодействию факторов
+
+Пост хок тест для взаимодействия факторов делается легче всего "обходным путем".
+
+1. Создаем переменную-взаимодействие.
+2. Подбираем линейную модель зависимости переменной-отклика от переменной-взаимодействия, но без свободного члена. Коэффициенты такой модели будут кодировать средние значения отклика в группах, заданных переменной-взаимодействием, т.е. именно те средние значения, которые нам нужно сравнить.
+3. Делаем пост хок тест для этой модели.
+
+---
+
+## Задание 4
+
+Дополните этот код, чтобы посчитать пост хок тест Тьюки по взаимодействию факторов.
+
+
+
+```r
+# 1) Создаем переменную-взаимодействие
+memory$AgeProcess &lt;- interaction(memory$, memory$)
+# 2) Подбираем линейную модель зависимости переменной-отклика 
+# от переменной-взаимодействия, но без свободного члена
+cell_means &lt;- (, data = )
+# 3) Делаем пост хок тест для этой модели
+library(multcomp)
+memory_tukey &lt;- glht(model = , 
+                     linfct = mcp())
+summary(memory_tukey)
+```
+
+---
+
+## Решение 4
+
+
+```r
+# 1) Создаем переменную-взаимодействие
+memory$AgeProcess &lt;- interaction(memory$Age, memory$Process)
+# 2) Подбираем линейную модель зависимости переменной-отклика 
+# от переменной-взаимодействия, но без свободного члена
+cell_means &lt;- lm(Words ~ AgeProcess - 1, data = memory)
+# 3) Делаем пост хок тест для этой модели
+library(multcomp)
+memory_tukey &lt;- glht(model = cell_means, 
+                     linfct = mcp(AgeProcess = "Tukey"))
+summary(memory_tukey)
+```
+
+---
+
+class: scrollable-slide
+
+## Смотрим на результаты пост хок теста
+
+Ужасно нечитабельно!!! Лучше построить график.
+
+
+```
+
+	 Simultaneous Tests for General Linear Hypotheses
+
+Multiple Comparisons of Means: Tukey Contrasts
+
+
+Fit: lm(formula = Words ~ AgeProcess - 1, data = memory)
+
+Linear Hypotheses:
+                                                     Estimate Std. Error t value Pr(&gt;|t|)
+Молодой.Число букв - Пожилой.Число букв == 0            -0.50       1.27   -0.39   1.0000
+Пожилой.Рифмы - Пожилой.Число букв == 0                 -0.10       1.27   -0.08   1.0000
+Молодой.Рифмы - Пожилой.Число букв == 0                  0.60       1.27    0.47   1.0000
+Пожилой.Прилагательное - Пожилой.Число букв == 0         4.00       1.27    3.16   0.0632
+Молодой.Прилагательное - Пожилой.Число букв == 0         7.80       1.27    6.16   &lt;0.001
+Пожилой.Образ - Пожилой.Число букв == 0                  6.40       1.27    5.05   &lt;0.001
+Молодой.Образ - Пожилой.Число букв == 0                 10.60       1.27    8.37   &lt;0.001
+Пожилой.Запоминание - Пожилой.Число букв == 0            5.00       1.27    3.95   0.0057
+Молодой.Запоминание - Пожилой.Число букв == 0           12.30       1.27    9.71   &lt;0.001
+Пожилой.Рифмы - Молодой.Число букв == 0                  0.40       1.27    0.32   1.0000
+Молодой.Рифмы - Молодой.Число букв == 0                  1.10       1.27    0.87   0.9970
+Пожилой.Прилагательное - Молодой.Число букв == 0         4.50       1.27    3.55   0.0208
+Молодой.Прилагательное - Молодой.Число букв == 0         8.30       1.27    6.55   &lt;0.001
+Пожилой.Образ - Молодой.Число букв == 0                  6.90       1.27    5.45   &lt;0.001
+Молодой.Образ - Молодой.Число букв == 0                 11.10       1.27    8.76   &lt;0.001
+Пожилой.Запоминание - Молодой.Число букв == 0            5.50       1.27    4.34   0.0014
+Молодой.Запоминание - Молодой.Число букв == 0           12.80       1.27   10.10   &lt;0.001
+Молодой.Рифмы - Пожилой.Рифмы == 0                       0.70       1.27    0.55   0.9999
+Пожилой.Прилагательное - Пожилой.Рифмы == 0              4.10       1.27    3.24   0.0506
+Молодой.Прилагательное - Пожилой.Рифмы == 0              7.90       1.27    6.24   &lt;0.001
+Пожилой.Образ - Пожилой.Рифмы == 0                       6.50       1.27    5.13   &lt;0.001
+Молодой.Образ - Пожилой.Рифмы == 0                      10.70       1.27    8.45   &lt;0.001
+Пожилой.Запоминание - Пожилой.Рифмы == 0                 5.10       1.27    4.03   0.0042
+Молодой.Запоминание - Пожилой.Рифмы == 0                12.40       1.27    9.79   &lt;0.001
+Пожилой.Прилагательное - Молодой.Рифмы == 0              3.40       1.27    2.68   0.1957
+Молодой.Прилагательное - Молодой.Рифмы == 0              7.20       1.27    5.68   &lt;0.001
+Пожилой.Образ - Молодой.Рифмы == 0                       5.80       1.27    4.58   &lt;0.001
+Молодой.Образ - Молодой.Рифмы == 0                      10.00       1.27    7.89   &lt;0.001
+Пожилой.Запоминание - Молодой.Рифмы == 0                 4.40       1.27    3.47   0.0263
+Молодой.Запоминание - Молодой.Рифмы == 0                11.70       1.27    9.23   &lt;0.001
+Молодой.Прилагательное - Пожилой.Прилагательное == 0     3.80       1.27    3.00   0.0953
+Пожилой.Образ - Пожилой.Прилагательное == 0              2.40       1.27    1.89   0.6729
+Молодой.Образ - Пожилой.Прилагательное == 0              6.60       1.27    5.21   &lt;0.001
+Пожилой.Запоминание - Пожилой.Прилагательное == 0        1.00       1.27    0.79   0.9986
+Молодой.Запоминание - Пожилой.Прилагательное == 0        8.30       1.27    6.55   &lt;0.001
+Пожилой.Образ - Молодой.Прилагательное == 0             -1.40       1.27   -1.11   0.9830
+Молодой.Образ - Молодой.Прилагательное == 0              2.80       1.27    2.21   0.4579
+Пожилой.Запоминание - Молодой.Прилагательное == 0       -2.80       1.27   -2.21   0.4583
+Молодой.Запоминание - Молодой.Прилагательное == 0        4.50       1.27    3.55   0.0207
+Молодой.Образ - Пожилой.Образ == 0                       4.20       1.27    3.32   0.0413
+Пожилой.Запоминание - Пожилой.Образ == 0                -1.40       1.27   -1.11   0.9830
+Молодой.Запоминание - Пожилой.Образ == 0                 5.90       1.27    4.66   &lt;0.001
+Пожилой.Запоминание - Молодой.Образ == 0                -5.60       1.27   -4.42   0.0010
+Молодой.Запоминание - Молодой.Образ == 0                 1.70       1.27    1.34   0.9408
+Молодой.Запоминание - Пожилой.Запоминание == 0           7.30       1.27    5.76   &lt;0.001
+                                                        
+Молодой.Число букв - Пожилой.Число букв == 0            
+Пожилой.Рифмы - Пожилой.Число букв == 0                 
+Молодой.Рифмы - Пожилой.Число букв == 0                 
+Пожилой.Прилагательное - Пожилой.Число букв == 0     .  
+Молодой.Прилагательное - Пожилой.Число букв == 0     ***
+Пожилой.Образ - Пожилой.Число букв == 0              ***
+Молодой.Образ - Пожилой.Число букв == 0              ***
+Пожилой.Запоминание - Пожилой.Число букв == 0        ** 
+Молодой.Запоминание - Пожилой.Число букв == 0        ***
+Пожилой.Рифмы - Молодой.Число букв == 0                 
+Молодой.Рифмы - Молодой.Число букв == 0                 
+Пожилой.Прилагательное - Молодой.Число букв == 0     *  
+Молодой.Прилагательное - Молодой.Число букв == 0     ***
+Пожилой.Образ - Молодой.Число букв == 0              ***
+Молодой.Образ - Молодой.Число букв == 0              ***
+Пожилой.Запоминание - Молодой.Число букв == 0        ** 
+Молодой.Запоминание - Молодой.Число букв == 0        ***
+Молодой.Рифмы - Пожилой.Рифмы == 0                      
+Пожилой.Прилагательное - Пожилой.Рифмы == 0          .  
+Молодой.Прилагательное - Пожилой.Рифмы == 0          ***
+Пожилой.Образ - Пожилой.Рифмы == 0                   ***
+Молодой.Образ - Пожилой.Рифмы == 0                   ***
+Пожилой.Запоминание - Пожилой.Рифмы == 0             ** 
+Молодой.Запоминание - Пожилой.Рифмы == 0             ***
+Пожилой.Прилагательное - Молодой.Рифмы == 0             
+Молодой.Прилагательное - Молодой.Рифмы == 0          ***
+Пожилой.Образ - Молодой.Рифмы == 0                   ***
+Молодой.Образ - Молодой.Рифмы == 0                   ***
+Пожилой.Запоминание - Молодой.Рифмы == 0             *  
+Молодой.Запоминание - Молодой.Рифмы == 0             ***
+Молодой.Прилагательное - Пожилой.Прилагательное == 0 .  
+Пожилой.Образ - Пожилой.Прилагательное == 0             
+Молодой.Образ - Пожилой.Прилагательное == 0          ***
+Пожилой.Запоминание - Пожилой.Прилагательное == 0       
+Молодой.Запоминание - Пожилой.Прилагательное == 0    ***
+Пожилой.Образ - Молодой.Прилагательное == 0             
+Молодой.Образ - Молодой.Прилагательное == 0             
+Пожилой.Запоминание - Молодой.Прилагательное == 0       
+Молодой.Запоминание - Молодой.Прилагательное == 0    *  
+Молодой.Образ - Пожилой.Образ == 0                   *  
+Пожилой.Запоминание - Пожилой.Образ == 0                
+Молодой.Запоминание - Пожилой.Образ == 0             ***
+Пожилой.Запоминание - Молодой.Образ == 0             ** 
+Молодой.Запоминание - Молодой.Образ == 0                
+Молодой.Запоминание - Пожилой.Запоминание == 0       ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+(Adjusted p values reported -- single-step method)
+```
+
+---
+
+## Данные для графиков
+
+
+```r
+# Создаем все сочетания значений факторов при помощи expand.grid()
+MyData &lt;- expand.grid(
+  Age = levels(memory$Age),
+  # т.к. мы меняли порядок уровней для фактора Process, нужно это сохранить:
+  Process = factor(levels(memory$Process), levels = levels(memory$Process)))
+# Получаем предсказания для всех сочетаний значений факторов:
+MyData &lt;- data.frame(
+  MyData,
+  predict(mem_mod, newdata = MyData, interval = "confidence"))
+head(MyData)
+```
+
+```
+      Age        Process  fit   lwr   upr
+1 Пожилой     Число букв  7.0  5.22  8.78
+2 Молодой     Число букв  6.5  4.72  8.28
+3 Пожилой          Рифмы  6.9  5.12  8.68
+4 Молодой          Рифмы  7.6  5.82  9.38
+5 Пожилой Прилагательное 11.0  9.22 12.78
+6 Молодой Прилагательное 14.8 13.02 16.58
+```
+
+---
+
+## Задание 5
+
+
+```r
+pos &lt;- position_dodge(width = 0.3)
+gg_pointp &lt;- ggplot(data = , aes(x = , y = fit, colour = )) + 
+  geom_(aes(shape = ), size = 3, position = pos) +
+  geom_errorbar(aes(ymin = , ymax = ), width = 0.1, position = pos) 
+gg_pointp
+```
+
+![](06_anova2_files/figure-html/point-plot-1.png)&lt;!-- --&gt;
+
+---
+
+## Решение 5
+
+
+```r
+pos &lt;- position_dodge(width = 0.3)
+gg_pointp &lt;- ggplot(data = MyData, aes(x = Process, y = fit, colour = Age)) + 
+  geom_point(aes(shape = Age), size = 3, position = pos) +
+  geom_errorbar(aes(ymin = lwr, ymax = upr), width = 0.1, position = pos) 
+gg_pointp
+```
+
+![](06_anova2_files/figure-html/point-plot-1.png)&lt;!-- --&gt;
+
+---
+
+## Приводим график в приличный вид
+
+
+```r
+gg_final &lt;- gg_pointp + 
+  scale_colour_brewer(name = "Возраст", palette = "Dark2", 
+                      labels = c("Пожилые", "Молодые")) +
+  scale_shape_discrete(name = "Возраст", 
+                       labels = c("Пожилые", "Молодые")) +
+  scale_x_discrete(name = "Процесс", 
+                   labels = c("Счет", "Рифма", "Прилагательное", 
+                              "Образ", "Запоминание")) +
+  labs(y = "Число слов")
+
+gg_final
+```
+
+![](06_anova2_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+ 
+---
+
+class: middle, center, inverse
+
+# Фиксированные и случайные факторы
+
+---
+
+## Фиксированные и случайные факторы
+
+Свойства | Фиксированные факторы | Случайные факторы
+---- | ---- | ----
+Уровни фактора | фиксированные, заранее определенные и потенциально воспроизводимые уровни | случайная выборка из всех возможных уровней
+Используются для тестирования гипотез | о средних значениях отклика между уровнями фактора &lt;br/&gt; `\(H _{0}: \mu _1 = \mu _2 = \ldots = \mu _i = \mu\)` | о дисперсии отклика между уровнями фактора &lt;br/&gt; `\(H _{0}: \sigma_{rand.fact.}^2 = 0\)`
+Выводы можно экстраполировать | только на уровни из анализа | на все возможные уровни
+Число уровней фактора | Осторожно! Если уровней фактора слишком много, то нужно подбирать слишком много коэффициентов --- должно быть много данных | Важно! Для точной оценки `\(\sigma\)` нужно нужно много уровней фактора --- не менее 5 
+
+---
+
+## Задание: Примеры фиксированных и случайных факторов
+
+Опишите ситуации, когда эти факторы будут фиксированными, а когда  случайными
+
+  - Несколько произвольно выбранных градаций плотности моллюсков в полевом эксперименте, где плотностью манипулировали.
+  
+  - Фактор размер червяка (маленький, средний, большой) в выборке червей.
+  
+  - Деление губы Чупа на зоны с разной степенью распреснения.
+
+
+- Приведите другие примеры того, как тип фактора будет зависеть от проверяемых гипотез
+
+---
+
+## Внимание: сегодня говорили только про фиксированные факторы. 
+
+### Если есть случайные факторы - смешанные модели. О них в магистратуре.
+
+Пакеты `nlme` и `lme4`
+
+Книги:
+
+- Pinheiro, J., Bates, D., 2000. Mixed-Effects Models in S and S-PLUS. Springer.
+- Zuur, A.F., Ieno, E.N., Walker, N., Saveliev, A.A., Smith, G.M., 2009. Mixed Effects Models and Extensions in Ecology With R. Springer.
+
+---
+
+## Take home messages
+
+- Многофакторный дисперсионный анализ позволяет оценить взаимодействие факторов. Если оно значимо, то лучше воздержаться от интерпретации их индивидуальных эффектов
+- В случае, если численности групп неравны (несбалансированные данные), лучше использовать III тип сумм квадратов
+- В зависимости от типа факторов (фиксированные или случайные) по разному формулируются гипотезы и рассчитывается F-критерий.
+
+---
+
+## Дополнительные ресурсы
+
+- Quinn, Keough, 2002, pp. 221-250
+- Logan, 2010, pp. 313-359
+- Sokal, Rohlf, 1995, pp. 321-362
+- Zar, 2010, pp. 246-266
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="assets/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "vs",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!-- https://github.com/fnaufel/xaringan-smartify-->
+<script type="text/javascript">
+  smartify();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

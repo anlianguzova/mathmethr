@@ -62,9 +62,9 @@ install.packages("multcomp")
 
 ## 6. Дисперсионный анализ, ч.2
 
-<!-- - Презентация: [06_anova2.pdf](06_anova2.pdf) -->
-<!-- - Код: [06_anova2_code.R](06_anova2_code.R) -->
-<!-- - Данные: [eysenck.csv](data/eysenck.csv) -->
+<!-- - Презентация: [06_anova2.htnl](06_anova2.html) -->
+- Код: [06_anova2_code.R](06_anova2_code.R)
+- Данные: [eysenck.csv](data/eysenck.csv)
 
 ## 7. Анализ главных компонент
 

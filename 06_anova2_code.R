@@ -27,8 +27,13 @@ str(memory) # Структура данных
 head(memory, 2) # Первые несколько строк файла
 
 # Делаем факторы факторами
-memory$Process <- factor(memory$Process)
-memory$Age <- factor(memory$Age)
+memory$Process <- factor(memory$Process,
+                         levels = c("Adjective", "Counting",
+                                    "Imagery", "Intentional", "Rhyming"),
+                         labels = c("Прилагательное", "Число букв", "Образ", "Запоминание", "Рифмы"))
+
+memory$Age <- factor(memory$Age, levels = c("Older", "Younger"),
+                     labels = c("Пожилой", "Молодой"))
 
 # Есть ли пропущенные значения
 # (особенно, в переменных, которые нас интересуют)?
@@ -174,9 +179,9 @@ head(MyData)
 
 # График предсказаний модели
 pos <- position_dodge(width = 0.3)
-gg_pointp <- ggplot(data = MyData, aes(x = Process, y = fit, colour = Age)) +
-  geom_point(aes(shape = Age), size = 3, position = pos) +
-  geom_errorbar(aes(ymin = lwr, ymax = upr), width = 0.1, position = pos)
+gg_pointp <- ggplot(data = , aes(x = , y = fit, colour = )) +
+  geom_(aes(shape = ), size = 3, position = pos) +
+  geom_errorbar(aes(ymin = , ymax = ), width = 0.1, position = pos)
 gg_pointp
 
 # Приводим график в приличный вид
