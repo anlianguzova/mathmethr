@@ -262,35 +262,15 @@ $$SS_t = \underbrace{SS_a + SS_b + SS_{ab}}_{\text{факторная измен
 
 ## Таблица традиционного дисперсионного анализа 
 
- Источник <br\> изменчивости  | SS | df | MS | F 
+.small[
+Источник <br\> изменчивости  | SS | df | MS | F 
 ----------- | --- | -- | -- | --
-Название фактора А | 
-$SS _A = an\sum\limits_{i}{(\bar A_i - \bar y)^2}$ | 
-$df _A = a - 1$ | 
-$MS _A = \frac{SS _A}{df _A}$ | 
-$F _{df _A df _e} = \frac{MS _A}{MS _e}$ 
-
-Название фактора В | 
-$SS _B = bn\sum\limits_{j}{(\bar B_j - \bar y)^2}$ | 
-$df _B = b - 1$ | 
-$MS _B = \frac{SS _B}{df _B}$ | 
-$F _{df _B df _e} = \frac{MS _B}{MS _e}$ 
-
-Взаимодействие факторов A и B | 
-$SS _{AB} = SS_t - SS_A - SS_B - SS_{AB}$ | 
-$df _{AB} = (a - 1)(b - 1)$ | 
-$MS _{AB} = \frac{SS _{AB}}{df _{AB}}$ | 
-$F _{df _{AB} df _e} = \frac{MS _{AB}}{MS _e}$ 
-
-Случайная | $SS _e = \sum\limits_{i}\sum\limits_j\sum \limits_k {(y _{ijk} - \bar y _{ij})^2}$ | 
-$df _e = (n - 1)ab$ | 
-$MS _e = \frac{SS _e}{df _e}$ 
-
-Общая | $SS _t = \sum\limits_{i}\sum\limits_j\sum \limits_k {(y _{ijk} - \bar y)^2}$ 
-| $df _t = N - 1$ | 
-| 
-
-
+Название фактора А | $SS _A = an\sum\limits_{i}{(\bar A_i - \bar y)^2}$ | $df _A = a - 1$ | $MS _A = \frac{SS _A}{df _A}$ | $F _{df _A df _e} = \frac{MS _A}{MS _e}$ 
+Название фактора В | $SS _B = bn\sum\limits_{j}{(\bar B_j - \bar y)^2}$ | $df _B = b - 1$ | $MS _B = \frac{SS _B}{df _B}$ | $F _{df _B df _e} = \frac{MS _B}{MS _e}$ 
+Взаимодействие факторов A и B | $SS _{AB} = SS_t - SS_A - \\ - SS_B - SS_{AB}$ | $df _{AB} = (a - 1)(b - 1)$ | $MS _{AB} = \frac{SS _{AB}}{df _{AB}}$ | $F _{df _{AB} df _e} = \frac{MS _{AB}}{MS _e}$ 
+Случайная | $SS _e = \sum\limits_{i}\sum\limits_j\sum \limits_k {(y _{ijk} - \bar y _{ij})^2}$ | $df _e = (n - 1)ab$ | $MS _e = \frac{SS _e}{df _e}$ 
+Общая | $SS _t = \sum\limits_{i}\sum\limits_j\sum \limits_k {(y _{ijk} - \bar y)^2}$ | $df _t = N - 1$ | | 
+]
 
 - $i, \ldots, a$ --- уровни фактора A, $j, \ldots, b$ --- уровни фактора B, $k, ..., n$ --- индекс наблюдения в группе, $N$ --- общее число наблюдений
 - $\bar y$ --- общее среднее значение, $\bar A_i$ --- средние в группах по фактору A, $\bar B_j$ --- в группах по фактору B
