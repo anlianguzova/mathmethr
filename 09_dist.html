@@ -1,44 +1,65 @@
----
-title: "Ординация и классификация с использованием мер сходства-различия"
-subtitle: "Математические модели в зоологии"
-author: 
-  - Марина Варфоломеева
-  - Анастасия Лянгузова
-company: 'Каф. Зоологии беспозвоночных, СПбГУ'
-output:
-  xaringan::moon_reader:
-    self-contained: true
-    lib_dir: libs
-    css: [default, tamu-fonts, ninjutsu, "assets/xaringan-themer.css", "assets/xaringan.css", "assets/scrollable.css"]
-    df_print: default
-    nature:
-      highlightStyle: vs
-      highlightLines: true
-      countIncrementalSlides: false
-      titleSlideClass: [middle, left, inverse]
-      beforeInit: "assets/macros.js"
-    includes:
-      in_header: "assets/xaringan_in_header.html"
-      after_body: "assets/xaringan_after_body.html"
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Ординация и классификация с использованием мер сходства-различия</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Марина Варфоломеева" />
+    <meta name="author" content="Анастасия Лянгузова" />
+    <script src="libs/header-attrs-2.23/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="libs/mark.js-8.11.1/mark.min.js"></script>
+    <link href="libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-search-0.0.1/search.js"></script>
+    <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":false,"autoSearch":true}) })</script>
+    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <script src="libs/freezeframe-5.0.2/freezeframe.min.js"></script>
+    <script src="libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
+    <script id="xaringanExtra-freezeframe-options" type="application/json">{"selector":"img[src$=\"gif\"]","trigger":"click","overlay":false,"responsive":true,"warnings":true}</script>
+    <link href="libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+    <script src="libs/viz-1.8.2/viz.js"></script>
+    <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+    <script src="libs/grViz-binding-1.0.10/grViz.js"></script>
+    <!-- https://github.com/fnaufel/xaringan-smartify-->
+    <script
+    			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    			  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+    			  crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/fnaufel/xaringan-smartify/smartify.min.js"></script>
+    <link rel="stylesheet" href="assets/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="assets/xaringan.css" type="text/css" />
+    <link rel="stylesheet" href="assets/scrollable.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, left, inverse, title-slide
+
+.title[
+# Ординация и классификация с использованием мер сходства-различия
+]
+.subtitle[
+## Математические модели в зоологии
+]
+.author[
+### Марина Варфоломеева
+]
+.author[
+### Анастасия Лянгузова
+]
+
 ---
 
-```{r setup, include = FALSE, cache = FALSE, purl = TRUE}
-source("assets/xaringan_setup.R")
-library(xaringanExtra)
-use_tile_view()
-use_scribble()
-use_search(show_icon = FALSE)
-use_progress_bar(color = "#98BF64", location = "bottom", height = "10px")
-use_freezeframe()
-# use_webcam()
-# use_panelset()
-# use_extra_styles(hover_code_line = TRUE)
 
-# http://tachyons.io/docs/
-# https://roperzh.github.io/tachyons-cheatsheet/
-use_tachyons()
-source('support_mathmethr.R')
-```
+
 
 class: middle, center, inverse
 
@@ -65,13 +86,13 @@ class: middle, center, inverse
 .pull-left[
 **Различия (dissimilarities)**
 
-$d \ge 0$
+`\(d \ge 0\)`
 
-<!-- ```{r echo=FALSE, fig.width=4.5, fig.height=0.5} -->
-<!-- library(DiagrammeR) -->
-<!-- DiagrammeR("images/dist.gv", type = "grViz") -->
-<!-- # system('dot -Tpdf images/dist.gv -o images/dist.pdf') -->
-<!-- ``` -->
+&lt;!-- ```{r echo=FALSE, fig.width=4.5, fig.height=0.5} --&gt;
+&lt;!-- library(DiagrammeR) --&gt;
+&lt;!-- DiagrammeR("images/dist.gv", type = "grViz") --&gt;
+&lt;!-- # system('dot -Tpdf images/dist.gv -o images/dist.pdf') --&gt;
+&lt;!-- ``` --&gt;
 
 ![](images/dist.pdf)
 ]
@@ -79,12 +100,12 @@ $d \ge 0$
 .pull-right[
 **Сходства (similarities)**
 
-$0 \le S \le 1$ или $-1 \le S \le 1$
+`\(0 \le S \le 1\)` или `\(-1 \le S \le 1\)`
 
-<!-- ```{r echo=FALSE, fig.width=4.5, fig.height=0.5} -->
-<!-- DiagrammeR("images/sim.gv", type = "grViz") -->
-<!-- # system('dot -Tpdf images/sim.gv -o images/sim.pdf') -->
-<!-- ``` -->
+&lt;!-- ```{r echo=FALSE, fig.width=4.5, fig.height=0.5} --&gt;
+&lt;!-- DiagrammeR("images/sim.gv", type = "grViz") --&gt;
+&lt;!-- # system('dot -Tpdf images/sim.gv -o images/sim.pdf') --&gt;
+&lt;!-- ``` --&gt;
 
 ![](images/sim.pdf)
 ]
@@ -100,24 +121,20 @@ $0 \le S \le 1$ или $-1 \le S \le 1$
 .pull-left-33[
 **Метрики и полуметрики**
 
-Адекватность: $d_{A, A} = 0$
+Адекватность: `\(d_{A, A} = 0\)`
 
-<!-- ```{r, echo=FALSE, fig.width=4, fig.height=.5} -->
-<!-- DiagrammeR("images/adequa.gv", type = "grViz") -->
-<!-- # system('dot -Tpdf images/adequa.gv -o images/adequa.pdf') -->
-<!-- ``` -->
+&lt;!-- ```{r, echo=FALSE, fig.width=4, fig.height=.5} --&gt;
+&lt;!-- DiagrammeR("images/adequa.gv", type = "grViz") --&gt;
+&lt;!-- # system('dot -Tpdf images/adequa.gv -o images/adequa.pdf') --&gt;
+&lt;!-- ``` --&gt;
 
 ![](images/adequa.pdf)
 
 
-Симметричность: $d_{A, B} = d_{B, A}$
+Симметричность: `\(d_{A, B} = d_{B, A}\)`
 
-```{r, echo=FALSE, fig.width=4, fig.height=.5}
-library(DiagrammeR)
-# DiagrammeR("images/symmetry.mmd")
-DiagrammeR("images/symmetry.gv", type = "grViz")
-# system('dot -Tpdf images/symmetry.gv -o images/symmetry.pdf')
-```
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-64984610bb04b0af9764" style="width:288px;height:36px;"></div>
+<script type="application/json" data-for="htmlwidget-64984610bb04b0af9764">{"x":{"diagram":"digraph symmetry {\n\n  # a \"graph\" statement\n  graph [overlap = false, fontsize = 10, rankdir = LR, labelloc = t, labeljust = c/*, label = \"Симметричность\"*/]\n\n  # several \"node\" statements\n  node [shape = circle,\n        fixedsize = true,\n        width = 0.5,\n        style = filled,\n        color = grey]\n  node [fillcolor = PowderBlue]\n  A; B\n\n  # several \"edge\" statements\n  A->B /*[label=<<font point-size=\"10\">d<sub><font point-size=\"5\">A, B<\/font><\/sub> = d<sub><font point-size=\"5\">B, A<\/font><\/sub><\/font>>]*/\n  B->A\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 ![](images/symmetry.pdf)
 ]
@@ -127,12 +144,10 @@ DiagrammeR("images/symmetry.gv", type = "grViz")
 .pull-left[
 **Только метрики**
 
-Триангулярность: $d_{A, B} \le d_{A, C} + d_{C, B}$
+Триангулярность: `\(d_{A, B} \le d_{A, C} + d_{C, B}\)`
 
-```{r, echo=FALSE, fig.width=4, fig.height=1}
-DiagrammeR("images/triang.gv", type = "grViz")
-# system('dot -Tpdf images/triang.gv -o images/triang.pdf')
-```
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8e5f27979292535fac32" style="width:288px;height:72px;"></div>
+<script type="application/json" data-for="htmlwidget-8e5f27979292535fac32">{"x":{"diagram":"digraph symmetry {\n\n  # a \"graph\" statement\n  graph [overlap = false, fontsize = 10, rankdir = LR]\n\n  # several \"node\" statements\n  node [shape = circle,\n        fixedsize = true,\n        width = 0.5,\n        style = filled,\n        color = grey]\n  node [fillcolor = PowderBlue]\n  A; B; C\n\n  # several \"edge\" statements\n  A->B A->C C->B\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 ![](images/triang.pdf)
 ]
@@ -152,18 +167,18 @@ DiagrammeR("images/triang.gv", type = "grViz")
 
 **Нестандартные**
 
-$$-\infty \le d \le \infty$$
+`$$-\infty \le d \le \infty$$`
 ]
 
 .pull-right[
 
 **Стандартные**
 
-$$d_{min} \le d \le d_{max}$$
+`$$d_{min} \le d \le d_{max}$$`
 
 - частный случай стандартных коэффициентов - коррелятивные коэффициенты сходства
 
-$$-1 \le S \le 1$$
+`$$-1 \le S \le 1$$`
 ]
 
 ---
@@ -232,14 +247,14 @@ $$-1 \le S \le 1$$
 
 **Можно использовать коэффициенты со стандартизацией**
 
-- Канберра (метрика) $d = {\sum \frac {|x _{ik} - x _{jk}|} {|x _{ik}|+|x _{jk}|}}$
-- хи-квадрат (метрика) $\chi^2 = \sqrt {\sum{ {\frac {1} {c _k}} (x _{ik} - x _{jk})^2 }}$
-- Коэффициент Махаланобиса (неметрика) $d = \frac {\sum (x _{ik} - x _{jk})} {\sigma^2}$
+- Канберра (метрика) `\(d = {\sum \frac {|x _{ik} - x _{jk}|} {|x _{ik}|+|x _{jk}|}}\)`
+- хи-квадрат (метрика) `\(\chi^2 = \sqrt {\sum{ {\frac {1} {c _k}} (x _{ik} - x _{jk})^2 }}\)`
+- Коэффициент Махаланобиса (неметрика) `\(d = \frac {\sum (x _{ik} - x _{jk})} {\sigma^2}\)`
 
-- Корреляция Браве-Пирсона (коррелятивный) $S = \frac {\sum {(x _{ik} - \bar x _{i})(x _{ik} - \bar x _{j})}} {n \sigma^2 _{i} \sigma^2 _{j}}$
+- Корреляция Браве-Пирсона (коррелятивный) `\(S = \frac {\sum {(x _{ik} - \bar x _{i})(x _{ik} - \bar x _{j})}} {n \sigma^2 _{i} \sigma^2 _{j}}\)`
 
-- Коэффициент Брея-Куртиса (не метрика) $BC _{ij} = \frac { 2C _{ij}} {S _i + S _j}$,
-где $C _{ij}$ - сумма минимальных значений из тех, которые не равны нулю для обоих объектов, $S _i$ и $S _j$ - общее число ненулевых значений признаков для обоих объектов.
+- Коэффициент Брея-Куртиса (не метрика) `\(BC _{ij} = \frac { 2C _{ij}} {S _i + S _j}\)`,
+где `\(C _{ij}\)` - сумма минимальных значений из тех, которые не равны нулю для обоих объектов, `\(S _i\)` и `\(S _j\)` - общее число ненулевых значений признаков для обоих объектов.
 
 ---
 
@@ -256,18 +271,18 @@ $$-1 \le S \le 1$$
 
 **Можно использовать коэффициенты со стандартизацией**
 
-- Канберра (метрика) $d = {\sum \frac {|x _{ik} - x _{jk}|} {|x _{ik}|+|x _{jk}|}}$
+- Канберра (метрика) `\(d = {\sum \frac {|x _{ik} - x _{jk}|} {|x _{ik}|+|x _{jk}|}}\)`
 
-- хи-квадрат (метрика) $\chi^2 = \sqrt {\sum{ {\frac {1} {c _k}} (x _{ik} - x _{jk})^2 }}$
+- хи-квадрат (метрика) `\(\chi^2 = \sqrt {\sum{ {\frac {1} {c _k}} (x _{ik} - x _{jk})^2 }}\)`
 
 ---
 
 ## Если признаки --- доли или проценты
 
-- хи-квадрат (метрика) $\chi^2 = \sqrt {\sum{ {\frac {1} {c _k}} (x _{ik} - x _{jk})^2 }}$
-- коэффициент Брея-Куртиса (не метрика) $BC _{ij} = \frac { 2C _{ij}} {S _i + S _j}$
+- хи-квадрат (метрика) `\(\chi^2 = \sqrt {\sum{ {\frac {1} {c _k}} (x _{ik} - x _{jk})^2 }}\)`
+- коэффициент Брея-Куртиса (не метрика) `\(BC _{ij} = \frac { 2C _{ij}} {S _i + S _j}\)`
 
-- Евклидово расстояние $d = \sqrt {\sum{(x _{ik} + x _{jk})^2}}$
+- Евклидово расстояние `\(d = \sqrt {\sum{(x _{ik} + x _{jk})^2}}\)`
 
 ---
 
@@ -285,12 +300,12 @@ $$-1 \le S \le 1$$
 
 |Коэффициент | Формула | Источник |
 |------|--------|--------|
-| Simple matching | $\frac{a + d} {a + b + c + d}$ | Sokal and Michener, 1958 |
-| Rogers and Tanimoto | $\frac{a + d} {a + 2b + 2c + d}$ | Rogers and Tanimoto, 1960 |
-| Anderberg | $\frac{a + d} {a + 2(b + c)}$ | Anderberg, 1973 |
-| Russel and Rao | $\frac{a} {a + b + c + d}$ | Russel and Rao, 1940 |
-| Jaccard | $\frac{a} {a + b + c}$ | Jaccard, 1901 |
-| Sorensen-__Dice__ | $\frac{2a} {2a + b + c}$ | Dice, 1945, Sorensen, 1948 |
+| Simple matching | `\(\frac{a + d} {a + b + c + d}\)` | Sokal and Michener, 1958 |
+| Rogers and Tanimoto | `\(\frac{a + d} {a + 2b + 2c + d}\)` | Rogers and Tanimoto, 1960 |
+| Anderberg | `\(\frac{a + d} {a + 2(b + c)}\)` | Anderberg, 1973 |
+| Russel and Rao | `\(\frac{a} {a + b + c + d}\)` | Russel and Rao, 1940 |
+| Jaccard | `\(\frac{a} {a + b + c}\)` | Jaccard, 1901 |
+| Sorensen-__Dice__ | `\(\frac{2a} {2a + b + c}\)` | Dice, 1945, Sorensen, 1948 |
 ]
 
 И т.д.
@@ -315,53 +330,25 @@ class: center, middle, inverse
 
 .pull-left[
 
-```{r, gg-eu, message = FALSE, echo = FALSE, fig.height = 6, fig.width = 5, purl=FALSE}
-# data(eurodist)
-# cities <- attr(eurodist, "Labels")
-# library(geonames)
-# options(geonamesUsername="varmara")
-# GNsearchMy <- function(x){
-#   res <- GNsearch(name = x, continentCode = "EU", cities = "cities1000")
-#   return(res[1, c("name", "lng", "lat", "population")])
-#   }
-# GNresult <- sapply(cities, GNsearchMy, simplify = T)
-# eu_coord <- data.frame(t(GNresult))
-# eu_coord[, 1] <- as.character(eu_coord[, 1])
-# eu_coord[, 2:4] <- sapply(eu_coord[, 2:4], function(x){
-#   x <- as.numeric(x)
-# return(x)
-# })
-# write.table(eu_coord, file = "data/cities.csv", quote = FALSE, sep = "\t")
-eu_coord <- read.delim("data/cities.csv", stringsAsFactors = FALSE)
-library(ggmap); library(mapproj)
-theme_set(theme_bw(base_size = 14) + theme(legend.key = element_blank()))
-update_geom_defaults("point", list(shape = 19, size = 3))
-# map_dat <- get_map(location = 'Europe', zoom = 4, maptype = "satellite")
-# save(map_dat, file = "data/09_dist_map_dat.RData")
-load(file = "data/09_dist_map_dat.RData")
-gg_eu <- ggmap(map_dat) + geom_point(aes(x = lng, y = lat, size = population/1000000), data = eu_coord, alpha = 0.8, colour = "red") + geom_text(aes(x = lng, y = lat, label = name), data = eu_coord, vjust = -0.3, hjust = -0.05, colour = "grey80", alpha = 0.8) + theme(legend.position = "bottom") + xlim(-10, 26) + ylim(36, 62) + labs(x = "Долгота", y = "Широта", size = "Население,\nмлн. чел.")
-gg_eu
-```
+![](09_dist_files/figure-html/gg-eu-1.png)&lt;!-- --&gt;
 ]
 
 .pull-right[
 
 Если бы мы знали расстояния по автодорогам между городами Европы
 
-```{r, echo = FALSE, purl=FALSE}
-data(eurodist)
-as.dist(as.matrix(eurodist)[1:5, 1:5])
+
+```
+          Athens Barcelona Brussels Calais
+Barcelona   3313                          
+Brussels    2963      1318                
+Calais      3175      1326      204       
+Cherbourg   3339      1294      583    460
 ```
 
 мы бы смогли восстановить по ним карту
 
-```{r eu, echo = FALSE, fig.width=2, fig.height=2, out.width='2in', out.height='1.9in', purl=FALSE}
-library(vegan)
-euro <- metaMDS(eurodist, trace = 0)
-op <- par(mar = c(3, 3, 0.1, 0.1), mgp = c(2, 1, 0), cex = 0.8)
-invisible(tryCatch(ordiplot(euro, type = "t", cex = 1.2), error = function(er){}))
-par(op)
-```
+&lt;img src="09_dist_files/figure-html/eu-1.png" width="2in" height="1.9in" /&gt;
 ]
 
 ---
@@ -384,8 +371,7 @@ par(op)
 
 .pull-right[
 
-```{r eu, echo = FALSE, fig.width=4.5, fig.height=3.5, purl=FALSE}
-```
+![](09_dist_files/figure-html/eu-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -419,16 +405,41 @@ Possum by Hasitha Tudugalle on [Flickr](https://www.flickr.com/photos/hasitha\_t
 
 ## Знакомимся с данными
 
-```{r}
+
+```r
 library(DAAG)
 data(possum)
 colnames(possum)
+```
 
+```
+ [1] "case"     "site"     "Pop"      "sex"      "age"      "hdlngth"  "skullw"  
+ [8] "totlngth" "taill"    "footlgth" "earconch" "eye"      "chest"    "belly"   
+```
+
+```r
 colSums(is.na(possum))
+```
+
+```
+    case     site      Pop      sex      age  hdlngth   skullw totlngth    taill 
+       0        0        0        0        2        0        0        0        0 
+footlgth earconch      eye    chest    belly 
+       1        0        0        0        0 
+```
+
+```r
 # оставим только строки с полными наблюдениями
-pos <- possum[complete.cases(possum), ]
+pos &lt;- possum[complete.cases(possum), ]
 # поссумы из разных сайтов из 2 популяций
 table(pos$Pop, pos$site)
+```
+
+```
+       
+         1  2  3  4  5  6  7
+  Vic   33 10  0  0  0  0  0
+  other  0  0  7  7 13 13 18
 ```
 
 ---
@@ -441,9 +452,64 @@ table(pos$Pop, pos$site)
 
 `autotransform` --- если `TRUE`, то данные предварительно подвергаются двойной ("висконсинской") стандартизации (см. `?metaMDS`). __Если у вас не данные о сообществах, то это нужно отключить__
 
-```{r}
+
+```r
 library(vegan)
-ord_euclid <- metaMDS(pos[, 6:14], distance = "euclid", autotransform = FALSE)
+ord_euclid &lt;- metaMDS(pos[, 6:14], distance = "euclid", autotransform = FALSE)
+```
+
+```
+Run 0 stress 0.1035 
+Run 1 stress 0.1035 
+... New best solution
+... Procrustes: rmse 0.00001086  max resid 0.00006617 
+... Similar to previous best
+Run 2 stress 0.12 
+Run 3 stress 0.1035 
+... New best solution
+... Procrustes: rmse 0.000006336  max resid 0.0000392 
+... Similar to previous best
+Run 4 stress 0.1035 
+... Procrustes: rmse 0.000005481  max resid 0.00004619 
+... Similar to previous best
+Run 5 stress 0.1035 
+... New best solution
+... Procrustes: rmse 0.000003023  max resid 0.00001812 
+... Similar to previous best
+Run 6 stress 0.1035 
+... Procrustes: rmse 0.00000478  max resid 0.00003719 
+... Similar to previous best
+Run 7 stress 0.1035 
+... Procrustes: rmse 0.000001924  max resid 0.00000871 
+... Similar to previous best
+Run 8 stress 0.12 
+Run 9 stress 0.1035 
+... Procrustes: rmse 0.000004774  max resid 0.0000252 
+... Similar to previous best
+Run 10 stress 0.1035 
+... Procrustes: rmse 0.000002935  max resid 0.00002168 
+... Similar to previous best
+Run 11 stress 0.12 
+Run 12 stress 0.12 
+Run 13 stress 0.1035 
+... Procrustes: rmse 0.000007396  max resid 0.00006614 
+... Similar to previous best
+Run 14 stress 0.1035 
+... Procrustes: rmse 0.000004501  max resid 0.00004018 
+... Similar to previous best
+Run 15 stress 0.1035 
+... Procrustes: rmse 0.000006712  max resid 0.00005547 
+... Similar to previous best
+Run 16 stress 0.1035 
+... Procrustes: rmse 0.000005729  max resid 0.00005351 
+... Similar to previous best
+Run 17 stress 0.1035 
+... Procrustes: rmse 0.000005917  max resid 0.00005265 
+... Similar to previous best
+Run 18 stress 0.12 
+Run 19 stress 0.12 
+Run 20 stress 0.12 
+*** Best solution repeated 10 times
 ```
 
 ---
@@ -452,11 +518,16 @@ ord_euclid <- metaMDS(pos[, 6:14], distance = "euclid", autotransform = FALSE)
 
 __stress__ - оценивает, насколько были искажены исходные расстояния между объектами при снижении размерности
 
-```{r}
+
+```r
 ord_euclid$stress
 ```
 
-- Эмпирическое правило: хорошо < 0.25 (или, иногда, 0.20) < плохо
+```
+[1] 0.1035
+```
+
+- Эмпирическое правило: хорошо &lt; 0.25 (или, иногда, 0.20) &lt; плохо
 
 ---
 
@@ -465,8 +536,23 @@ ord_euclid$stress
 .pull-left[
 Координаты наблюдений:
 
-```{r}
+
+```r
 head(ord_euclid$points, 10)
+```
+
+```
+       MDS1   MDS2
+C3   -8.367 -4.596
+C5   -5.349 -2.057
+C10 -11.487 -1.414
+C15  -8.361 -3.624
+C23  -1.886 -4.743
+C24  -5.778 -5.346
+C26  -5.838 -1.542
+C27  -7.102 -2.984
+C28  -5.744 -2.972
+C31  -3.875 -3.237
 ```
 ]
 
@@ -474,9 +560,12 @@ head(ord_euclid$points, 10)
 .pull-right[
 График ординации:
 
-```{r fig-ugly-ord, fig.width = 4.5, fig.height = 5}
+
+```r
 ordiplot(ord_euclid, type = "t")
 ```
+
+![](09_dist_files/figure-html/fig-ugly-ord-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -488,27 +577,19 @@ ordiplot(ord_euclid, type = "t")
 Раскрасьте график по значениям переменной `Pop`.  
 Сделайте так, чтобы особи разного пола были изображены на разных панелях
 
-```{r fig-ord, echo=FALSE, eval=TRUE, purl=FALSE}
-library(ggplot2)
-# Данные для графика
-points_euclid <- data.frame(pos, ord_euclid$points)
-# График nMDS ординации
-gg_euclid <- ggplot(points_euclid, aes(x = MDS1, y = MDS2)) +
-  geom_point(aes(colour = Pop), alpha = 0.5) + 
-  facet_wrap(~sex)
-gg_euclid
-```
+![](09_dist_files/figure-html/fig-ord-1.png)&lt;!-- --&gt;
 
 ---
 
 ## Дополните код
 
-```{r eval=FALSE, purl=TRUE}
+
+```r
 library()
 # Данные для графика
-points_euclid <- data.frame( , )
+points_euclid &lt;- data.frame( , )
 # График nMDS ординации
-gg_euclid <- ggplot(, aes(x = , y = )) +
+gg_euclid &lt;- ggplot(, aes(x = , y = )) +
   geom_point() + 
   facet_wrap(~ )
 gg_euclid
@@ -518,8 +599,19 @@ gg_euclid
 
 ## Решение: график ординации
 
-```{r fig-ord, echo=TRUE, purl=FALSE}
+
+```r
+library(ggplot2)
+# Данные для графика
+points_euclid &lt;- data.frame(pos, ord_euclid$points)
+# График nMDS ординации
+gg_euclid &lt;- ggplot(points_euclid, aes(x = MDS1, y = MDS2)) +
+  geom_point(aes(colour = Pop), alpha = 0.5) + 
+  facet_wrap(~sex)
+gg_euclid
 ```
+
+![](09_dist_files/figure-html/fig-ord-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -529,9 +621,10 @@ gg_euclid
 
 Дополните код
 
-```{r eval=FALSE}
+
+```r
 # Ординация
-ord_scaled <- metaMDS( (pos), distance = , autotransform = )
+ord_scaled &lt;- metaMDS( (pos), distance = , autotransform = )
 # Качество ординации
 ```
 
@@ -541,17 +634,87 @@ ord_scaled <- metaMDS( (pos), distance = , autotransform = )
 
 .small[
 
-```{r warning=FALSE}
+
+```r
 # Ординация
-ord_scaled <- metaMDS(scale(pos[, 6:14]), distance = "euclide", autotransform = FALSE)
+ord_scaled &lt;- metaMDS(scale(pos[, 6:14]), distance = "euclide", autotransform = FALSE)
+```
+
+```
+Run 0 stress 0.1471 
+Run 1 stress 0.1471 
+... Procrustes: rmse 0.001066  max resid 0.005871 
+... Similar to previous best
+Run 2 stress 0.1471 
+... New best solution
+... Procrustes: rmse 0.0008163  max resid 0.0059 
+... Similar to previous best
+Run 3 stress 0.151 
+Run 4 stress 0.1471 
+... New best solution
+... Procrustes: rmse 0.000011  max resid 0.00009404 
+... Similar to previous best
+Run 5 stress 0.1471 
+... Procrustes: rmse 0.0000118  max resid 0.00006074 
+... Similar to previous best
+Run 6 stress 0.1509 
+Run 7 stress 0.1471 
+... Procrustes: rmse 0.001072  max resid 0.005904 
+... Similar to previous best
+Run 8 stress 0.1471 
+... Procrustes: rmse 0.000007081  max resid 0.00003634 
+... Similar to previous best
+Run 9 stress 0.1471 
+... Procrustes: rmse 0.0008161  max resid 0.005895 
+... Similar to previous best
+Run 10 stress 0.1471 
+... Procrustes: rmse 0.001073  max resid 0.005921 
+... Similar to previous best
+Run 11 stress 0.151 
+Run 12 stress 0.151 
+Run 13 stress 0.1471 
+... Procrustes: rmse 0.000009108  max resid 0.00003498 
+... Similar to previous best
+Run 14 stress 0.1471 
+... Procrustes: rmse 0.001071  max resid 0.005899 
+... Similar to previous best
+Run 15 stress 0.1471 
+... Procrustes: rmse 0.00001034  max resid 0.00005372 
+... Similar to previous best
+Run 16 stress 0.1471 
+... Procrustes: rmse 0.001074  max resid 0.005926 
+... Similar to previous best
+Run 17 stress 0.1471 
+... Procrustes: rmse 0.0006905  max resid 0.005462 
+... Similar to previous best
+Run 18 stress 0.1471 
+... Procrustes: rmse 0.001074  max resid 0.005928 
+... Similar to previous best
+Run 19 stress 0.151 
+Run 20 stress 0.1471 
+... Procrustes: rmse 0.000007407  max resid 0.0000341 
+... Similar to previous best
+*** Best solution repeated 13 times
+```
+
+```r
 # Качество ординации
 ord_scaled$stress
+```
+
+```
+[1] 0.1471
 ```
 ] 
 
 Для сравнения, стресс был
-```{r purl=FALSE}
+
+```r
 ord_euclid$stress
+```
+
+```
+[1] 0.1035
 ```
 
 Похоже, что в этом случае лучшая ординация была получена при использовании евклидова расстояния без стандартизации --- у нее меньше значение стресса.
@@ -562,30 +725,33 @@ ord_euclid$stress
 
 ## График ординации по матрице евклидовых расстояний, рассчитанных по стандартизованным данным
 
-```{r fig-ord-raw, fig.width=10}
+
+```r
 # Данные для графика
-points_scaled <- data.frame(ord_scaled$points, pos)
+points_scaled &lt;- data.frame(ord_scaled$points, pos)
 # График nMDS-ординации
-gg_scaled <- gg_euclid %+% points_scaled
+gg_scaled &lt;- gg_euclid %+% points_scaled
 gg_scaled
 ```
+
+![](09_dist_files/figure-html/fig-ord-raw-1.png)&lt;!-- --&gt;
 
 ---
 
 ## Видно, что графики ординации, полученные разными методами, различаются
 
-```{r gg-both, echo=FALSE, purl=TRUE, fig.height=5, purl=FALSE}
-library(gridExtra)
-grid.arrange(gg_euclid + aes(size = age),
-             gg_scaled + aes(size = age),
-             ncol = 1)
-```
+![](09_dist_files/figure-html/gg-both-1.png)&lt;!-- --&gt;
 
 ---
 
 ## Код для графиков
 
-```{r gg-both, echo=TRUE, eval=FALSE, purl=TRUE}
+
+```r
+library(gridExtra)
+grid.arrange(gg_euclid + aes(size = age),
+             gg_scaled + aes(size = age),
+             ncol = 1)
 ```
 
 ---
@@ -598,7 +764,8 @@ class: middle, center, inverse
 
 ## Пример: Морфометрия самок поссумов
 
-```{r}
+
+```r
 # library(DAAG)
 data(fossum)
 ```
@@ -614,17 +781,39 @@ data(fossum)
 ## Создаем "говорящие" названия строк
 
 Сейчас в названиях строк записано из какой точки каждый поссум
-```{r}
+
+```r
 rownames(fossum) # было
+```
+
+```
+ [1] "C5"    "C10"   "C15"   "C23"   "C24"   "C27"   "C28"   "C31"   "C32"   "C34"  
+[11] "C45"   "C48"   "C50"   "C54"   "C58"   "C63"   "A1"    "A2"    "A4"    "BB17" 
+[21] "BB31"  "BB33"  "BB36"  "BB40"  "WW4"   "WW5"   "WW7"   "BR4"   "BR7"   "CD2"  
+[31] "CD3"   "CD4"   "CD5"   "CD6"   "CD10"  "BSF1"  "BSF9"  "BSF10" "BSF13" "BTP3" 
+[41] "BTP15" "BTP19" "BTP21"
 ```
 
 Чтобы имена строк были более информативны, добавим к ним название популяции
 
-```{r}
-rownames(fossum) <- paste(fossum$Pop, 
+
+```r
+rownames(fossum) &lt;- paste(fossum$Pop, 
                           rownames(fossum), 
                           sep = "_")
 rownames(fossum) # стало
+```
+
+```
+ [1] "Vic_C5"      "Vic_C10"     "Vic_C15"     "Vic_C23"     "Vic_C24"    
+ [6] "Vic_C27"     "Vic_C28"     "Vic_C31"     "Vic_C32"     "Vic_C34"    
+[11] "Vic_C45"     "Vic_C48"     "Vic_C50"     "Vic_C54"     "Vic_C58"    
+[16] "Vic_C63"     "Vic_A1"      "Vic_A2"      "Vic_A4"      "Vic_BB17"   
+[21] "Vic_BB31"    "Vic_BB33"    "Vic_BB36"    "Vic_BB40"    "other_WW4"  
+[26] "other_WW5"   "other_WW7"   "other_BR4"   "other_BR7"   "other_CD2"  
+[31] "other_CD3"   "other_CD4"   "other_CD5"   "other_CD6"   "other_CD10" 
+[36] "other_BSF1"  "other_BSF9"  "other_BSF10" "other_BSF13" "other_BTP3" 
+[41] "other_BTP15" "other_BTP19" "other_BTP21"
 ```
 
 ---
@@ -635,8 +824,9 @@ rownames(fossum) # стало
 только строки без пропущенных значений, 
 и только столбцы с морфометрическими данными
 
-```{r}
-fos <- fossum[complete.cases(fossum), 6:14]
+
+```r
+fos &lt;- fossum[complete.cases(fossum), 6:14]
 ```
 
 ---
@@ -686,8 +876,9 @@ class: middle, center, inverse
 
 Далее мы будем использовать матрицу евклидовых расстояний между поссумами.
 
-```{r}
-d <- dist(x = fos, method = "euclidean")
+
+```r
+d &lt;- dist(x = fos, method = "euclidean")
 ```
 
 Давайте построим деревья при помощи нескольких алгоритмов кластеризации и сравним их.
@@ -696,53 +887,7 @@ d <- dist(x = fos, method = "euclidean")
 
 ## Методы кластеризации
 
-```{r gg-all, echo=FALSE, fig.height=5, purl=FALSE}
-cl_dat <- data.frame(cl = c(rep("A", 5), rep("B", 4)), 
-           x = c(1, 2.7, 2, 1.5, 2, 5, 6, 5.5, 5.8),
-           y = c(1, 1.2, 3, 2, 1.5, 1.2, 1, 3, 2))
-
-segm_between <- function(ind1, ind2, dat){
-i_betw <- expand.grid(ind1, ind2)
-segm <- lapply(1:nrow(i_betw), function(i) cbind(dat[i_betw[i, 1], ], dat[i_betw[i, 2], ]))
-segm <- Reduce(rbind, segm)
-colnames(segm) <- c("x", "y", "xend", "yend")
-return(segm)
-}
-
-segm_within <- function(ind1, ind2, dat){
-  # for ward
-  dat1 <- dat[ind1, ]
-  dat2 <- dat[ind2, ]
-with1 <- segm_between(1:nrow(dat1), nrow(dat1)+1, rbind(dat1, colMeans(dat1)))
-with2 <- segm_between(1:nrow(dat2), nrow(dat2)+1, rbind(dat2, colMeans(dat2)))
-segm <- rbind(with1, with2)
-return(segm)
-}
-
-betw_segm <- segm_between(1:5, 6:9, cl_dat[, 2:3])
-with_segm <- segm_within(1:5, 6:9, cl_dat[, 2:3])
-
-library(dplyr)
-cl_means <- cl_dat %>% group_by(cl) %>% summarise(
-  x = mean(x), y = mean(y)
-)
-betw <- as.matrix(dist(cl_dat[, 2:3]))[6:9, 1:5]
-# which.min(betw)
-# which.max(betw)
-th <- theme_classic() + theme(axis.line = element_blank(), axis.title = element_blank(), axis.ticks = element_blank(), axis.text = element_blank(), legend.position = "none")
-
-gg <- ggplot(cl_dat, aes(x = x, y = y, colour = cl)) + geom_point() + stat_ellipse(level = 0.8) + geom_point(data = cl_means, size = 4, shape = 5) + th
-
-gg_single <- gg +  annotate(geom = "segment", x = 2.7, y = 1.2, xend = 5, yend = 1.2, colour = "grey60")
-
-gg_complete <- gg +  annotate(geom = "segment", x = 1, y = 1, xend = 6, yend = 1, colour = "grey60")
-
-gg_average <- gg + geom_segment(data = betw_segm, aes(x = x, y = y, xend = xend, yend = yend, colour = NULL), colour = "grey60")
-
-gg_ward <- gg + geom_segment(data = with_segm, aes(x = x, y = y, xend = xend, yend = yend, colour = NULL), colour = "grey60")
-
-grid.arrange(gg_single + ggtitle("Метод ближайшего соседа"), gg_complete + ggtitle("Метод отдаленного соседа"), gg_average + ggtitle("Метод среднегруппового расстояния"), gg_ward + ggtitle("Метод Варда"), ncol = 2)
-```
+![](09_dist_files/figure-html/gg-all-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -755,9 +900,7 @@ grid.arrange(gg_single + ggtitle("Метод ближайшего соседа")
 ]
 
 .pull-right[
-```{r gg-single, echo=FALSE, fig.width=4.5, purl=FALSE}
-gg_single
-```
+![](09_dist_files/figure-html/gg-single-1.png)&lt;!-- --&gt;
 ]
 
 **Особенности:**
@@ -771,14 +914,17 @@ gg_single
 
 ## Метод ближайшего соседа в R
 
-```{r fig-single, fig.height=4, fig.width=8}
-hc_single <- hclust(d, method = "single")
+
+```r
+hc_single &lt;- hclust(d, method = "single")
 library(ape)
-ph_single <- as.phylo(hc_single)
+ph_single &lt;- as.phylo(hc_single)
 # cex - относительный размер шрифта
 plot(ph_single, type = "phylogram", direction = "downwards", cex = 0.7)
 axisPhylo(side = 2)
 ```
+
+![](09_dist_files/figure-html/fig-single-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -791,9 +937,7 @@ axisPhylo(side = 2)
 ]
 
 .pull-right[
-```{r gg-compl, echo=FALSE, fig.width=4.5, purl=FALSE}
-gg_complete
-```
+![](09_dist_files/figure-html/gg-compl-1.png)&lt;!-- --&gt;
 ]
 
 **Особенности:**
@@ -805,11 +949,14 @@ gg_complete
 
 ## Метод отдаленного соседа в R
 
-```{r fig-compl, fig.height=5, fig.width=10}
-ph_compl <- as.phylo(hclust(d, method = "complete"))
+
+```r
+ph_compl &lt;- as.phylo(hclust(d, method = "complete"))
 plot(ph_compl, type = "phylogram", direction = "downwards", cex = 0.8)
 axisPhylo(side = 2)
 ```
+
+![](09_dist_files/figure-html/fig-compl-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -821,9 +968,7 @@ axisPhylo(side = 2)
 ]
 
 .pull-right[
-```{r gg-avg, echo=FALSE, fig.width=4.5, fig.height=2.5, purl=FALSE}
-gg_average
-```
+![](09_dist_files/figure-html/gg-avg-1.png)&lt;!-- --&gt;
 ]
 
 **Особенности:**
@@ -839,11 +984,14 @@ UPGMA и WUPGMС иногда могут приводить к инверсия�
 
 ## Метод невзвешенного попарного среднего в R
 
-```{r fig-avg, fig.height=5, fig.width=10}
-ph_avg <- as.phylo(hclust(d, method = "average"))
+
+```r
+ph_avg &lt;- as.phylo(hclust(d, method = "average"))
 plot(ph_avg, type = "phylogram", direction = "downwards", cex = 0.8)
 axisPhylo(side = 2)
 ```
+
+![](09_dist_files/figure-html/fig-avg-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -856,9 +1004,7 @@ axisPhylo(side = 2)
 
 
 .pull-right[
-```{r gg-ward, echo=FALSE, fig.width=4.5, fig.height=2.5, purl=FALSE}
-gg_ward
-```
+![](09_dist_files/figure-html/gg-ward-1.png)&lt;!-- --&gt;
 ]
 
 **Особенности:**
@@ -869,11 +1015,14 @@ gg_ward
 
 ## Метод Варда в R
 
-```{r fig-ward, fig.height=5, fig.width=10}
-ph_w2 <- as.phylo(hclust(d, method = "ward.D2"))
+
+```r
+ph_w2 &lt;- as.phylo(hclust(d, method = "ward.D2"))
 plot(ph_w2, type = "phylogram", direction = "downwards", cex = 0.8)
 axisPhylo(side = 2)
 ```
+
+![](09_dist_files/figure-html/fig-ward-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -895,20 +1044,47 @@ class: middle, center, inverse
 
 ## Кофенетическая корреляция в R
 
-```{r}
+
+```r
 # Кофенетические расстояния
-c_single <- as.dist(cophenetic(ph_single))
-c_compl <- as.dist(cophenetic(ph_compl))
-c_avg <- as.dist(cophenetic(ph_avg))
-c_w2 <- as.dist(cophenetic(ph_w2))
+c_single &lt;- as.dist(cophenetic(ph_single))
+c_compl &lt;- as.dist(cophenetic(ph_compl))
+c_avg &lt;- as.dist(cophenetic(ph_avg))
+c_w2 &lt;- as.dist(cophenetic(ph_w2))
 ```
 
-```{r}
+
+```r
 # Кофенетические корреляции
 cor(d, c_single)
+```
+
+```
+[1] 0.7483
+```
+
+```r
 cor(d, c_compl)
+```
+
+```
+[1] 0.5989
+```
+
+```r
 cor(d, c_avg) 
+```
+
+```
+[1] 0.8084
+```
+
+```r
 cor(d, c_w2)
+```
+
+```
+[1] 0.6927
 ```
 
 ---
@@ -931,12 +1107,14 @@ cor(d, c_w2)
 - `parallel = TRUE` --- проводить параллельные вычисления на нескольких ядрах процессора. Ускоряет расчеты
 - `iseed` --- зерно генератора случайных чисел для вычислений. Обязательно задавайте этот аргумент, если хотите, чтобы вычисления воспроизводились при повторных запусках
 
-```{r}
+
+```r
 library(pvclust)
 ```
-```{r pvclust-compute, cache=TRUE}
+
+```r
 system.time({
-cl_boot <- pvclust(scale(t(fos)), 
+cl_boot &lt;- pvclust(scale(t(fos)), 
                    method.hclust = "average", 
                    method.dist = "euclidean",
                    nboot = 5000,
@@ -945,19 +1123,33 @@ cl_boot <- pvclust(scale(t(fos)),
 })
 ```
 
-<!-- ``` -->
-<!-- Creating a temporary cluster...done: -->
-<!-- socket cluster with 3 nodes on host ‘localhost’ -->
-<!-- Multiscale bootstrap... Done. -->
-<!--    user  system elapsed  -->
-<!--   0.232   0.400 104.418  -->
-<!-- ``` -->
+```
+Creating a temporary cluster...done:
+socket cluster with 11 nodes on host 'localhost'
+Multiscale bootstrap... Done.
+```
+
+```
+   user  system elapsed 
+  0.168   0.235  26.077 
+```
+
+&lt;!-- ``` --&gt;
+&lt;!-- Creating a temporary cluster...done: --&gt;
+&lt;!-- socket cluster with 3 nodes on host ‘localhost’ --&gt;
+&lt;!-- Multiscale bootstrap... Done. --&gt;
+&lt;!--    user  system elapsed  --&gt;
+&lt;!--   0.232   0.400 104.418  --&gt;
+&lt;!-- ``` --&gt;
 
 ##
 
-```{r fig-pvclust, fig.width=10, fig.height=7}
+
+```r
 plot(cl_boot, cex.pv = 0.8, cex = 0.8)
 ```
+
+![](09_dist_files/figure-html/fig-pvclust-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -985,27 +1177,18 @@ class: middle, center, inverse
 
 ## Дерево по генетическим данным
 
-```{r eval=FALSE}
-webpage <-"http://evolution.genetics.washington.edu/book/primates.dna"
-primates.dna <- read.dna(webpage)
-d_pri <- dist.dna(primates.dna, model = "K80")
-hc_pri <- hclust(d_pri, method = "average")
-ph_pri <- as.phylo(hc_pri)
+
+```r
+webpage &lt;-"http://evolution.genetics.washington.edu/book/primates.dna"
+primates.dna &lt;- read.dna(webpage)
+d_pri &lt;- dist.dna(primates.dna, model = "K80")
+hc_pri &lt;- hclust(d_pri, method = "average")
+ph_pri &lt;- as.phylo(hc_pri)
 plot(ph_pri, cex = 0.8)
 axisPhylo()
 ```
 
-```{r fig-gen-tree, fig.height = 4, fig.width=8, out.height='2in', out.width='4.5in', echo=FALSE, purl=FALSE}
-# webpage <-"http://evolution.genetics.washington.edu/book/primates.dna"
-# primates.dna <- read.dna(webpage)
-# save(primates.dna, file = "data/09_dist_primates.dna.RData")
-load(file = "data/09_dist_primates.dna.RData")
-d_pri <- dist.dna(primates.dna, model = "K80")
-hc_pri <- hclust(d_pri, method = "average")
-ph_pri <- as.phylo(hc_pri)
-plot(ph_pri, cex = 0.8)
-axisPhylo()
-```
+&lt;img src="09_dist_files/figure-html/fig-gen-tree-1.png" width="4.5in" height="2in" /&gt;
 
 ---
 
@@ -1039,3 +1222,144 @@ axisPhylo()
 - Paradis, E., 2011. Analysis of Phylogenetics and Evolution with R. Springer.
 - Список пакетов для филогенетического анализа в R:  
 https://cran.r-project.org/web/views/Phylogenetics.html
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="assets/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "vs",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!-- https://github.com/fnaufel/xaringan-smartify-->
+<script type="text/javascript">
+  smartify();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

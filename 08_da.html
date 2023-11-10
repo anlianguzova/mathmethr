@@ -1,44 +1,61 @@
----
-title: "Дискриминантный анализ"
-subtitle: "Математические модели в зоологии"
-author: 
-  - Марина Варфоломеева
-  - Анастасия Лянгузова
-company: 'Каф. Зоологии беспозвоночных, СПбГУ'
-output:
-  xaringan::moon_reader:
-    self-contained: true
-    lib_dir: libs
-    css: [default, tamu-fonts, ninjutsu, "assets/xaringan-themer.css", "assets/xaringan.css", "assets/scrollable.css"]
-    df_print: default
-    nature:
-      highlightStyle: vs
-      highlightLines: true
-      countIncrementalSlides: false
-      titleSlideClass: [middle, left, inverse]
-      beforeInit: "assets/macros.js"
-    includes:
-      in_header: "assets/xaringan_in_header.html"
-      after_body: "assets/xaringan_after_body.html"
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Дискриминантный анализ</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Марина Варфоломеева" />
+    <meta name="author" content="Анастасия Лянгузова" />
+    <script src="libs/header-attrs-2.23/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="libs/mark.js-8.11.1/mark.min.js"></script>
+    <link href="libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-search-0.0.1/search.js"></script>
+    <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":false,"autoSearch":true}) })</script>
+    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <script src="libs/freezeframe-5.0.2/freezeframe.min.js"></script>
+    <script src="libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
+    <script id="xaringanExtra-freezeframe-options" type="application/json">{"selector":"img[src$=\"gif\"]","trigger":"click","overlay":false,"responsive":true,"warnings":true}</script>
+    <link href="libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <!-- https://github.com/fnaufel/xaringan-smartify-->
+    <script
+    			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    			  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+    			  crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/fnaufel/xaringan-smartify/smartify.min.js"></script>
+    <link rel="stylesheet" href="assets/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="assets/xaringan.css" type="text/css" />
+    <link rel="stylesheet" href="assets/scrollable.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, left, inverse, title-slide
+
+.title[
+# Дискриминантный анализ
+]
+.subtitle[
+## Математические модели в зоологии
+]
+.author[
+### Марина Варфоломеева
+]
+.author[
+### Анастасия Лянгузова
+]
+
 ---
 
-```{r setup, include = FALSE, cache = FALSE, purl = TRUE}
-source("assets/xaringan_setup.R")
-library(xaringanExtra)
-use_tile_view()
-use_scribble()
-use_search(show_icon = FALSE)
-use_progress_bar(color = "#98BF64", location = "bottom", height = "10px")
-use_freezeframe()
-# use_webcam()
-# use_panelset()
-# use_extra_styles(hover_code_line = TRUE)
 
-# http://tachyons.io/docs/
-# https://roperzh.github.io/tachyons-cheatsheet/
-use_tachyons()
-source('support_mathmethr.R')
-```
+
 
 class: middle, center, inverse
 
@@ -61,9 +78,9 @@ class: middle, center, inverse
 
 ## Дискриминантный анализ
 
-> ### Дискриминантный анализ
->
->- метод классификации объектов с учителем (__supervised learning__), т.е. применяется, когда принадлежность объектов к группе заранее известна.
+&gt; ### Дискриминантный анализ
+&gt;
+&gt;- метод классификации объектов с учителем (__supervised learning__), т.е. применяется, когда принадлежность объектов к группе заранее известна.
 
 
 Задачи дискриминантного анализа:
@@ -86,11 +103,11 @@ class: middle, center, inverse
 
 ## Дискриминантные оси
 
-> ### Дискриминантные оси
->
-> - задаются дискриминантными функциями
-> - вдоль них минимальное перекрывание групп
-> - дискриминантных осей всего на одну меньше чем групп (или столько же, сколько признаков, если признаков меньше, чем групп)
+&gt; ### Дискриминантные оси
+&gt;
+&gt; - задаются дискриминантными функциями
+&gt; - вдоль них минимальное перекрывание групп
+&gt; - дискриминантных осей всего на одну меньше чем групп (или столько же, сколько признаков, если признаков меньше, чем групп)
 
 ![](images/discrim.jpg)
 
@@ -98,12 +115,12 @@ class: middle, center, inverse
 
 ## Дискриминантные функции
 
-> ### Дискриминантные функции
->
-> - описывают положение дискриминантных осей
+&gt; ### Дискриминантные функции
+&gt;
+&gt; - описывают положение дискриминантных осей
 
 
-$$LD _j = d _{1j} X _{1} + d _{2i} X _{2} + ... + d _p X _{p}$$
+`$$LD _j = d _{1j} X _{1} + d _{2i} X _{2} + ... + d _p X _{p}$$`
 
 - LD --- линейная дискриминантная функция
 - d --- коэффициенты линейной дискриминантной функции
@@ -125,14 +142,14 @@ $$LD _j = d _{1j} X _{1} + d _{2i} X _{2} + ... + d _p X _{p}$$
 
 .pull-left[
 
-> ### Функции классификации
->
->- Описывают __правдоподобие__ того, что объект с заданными свойствами относится к данной группе при данных значениях признаков согласно построенной классификации.
+&gt; ### Функции классификации
+&gt;
+&gt;- Описывают __правдоподобие__ того, что объект с заданными свойствами относится к данной группе при данных значениях признаков согласно построенной классификации.
 
 
 
 
-$$C _{j} = c _{j0} + c _{j1} X _{1} + ... + c _{jp} X _{p}$$
+`$$C _{j} = c _{j0} + c _{j1} X _{1} + ... + c _{jp} X _{p}$$`
 
 - С --- функция классификации
 - с --- коэффициенты функций классификации
@@ -157,9 +174,9 @@ $$C _{j} = c _{j0} + c _{j1} X _{1} + ... + c _{jp} X _{p}$$
 
 ## Оценка качества классификации
 
-> ### Таблица классификации
->
-> число верно или неверно классифицированных объектов (__confusion matrix__)
+&gt; ### Таблица классификации
+&gt;
+&gt; число верно или неверно классифицированных объектов (__confusion matrix__)
 
 Было / Стало | Класс А | Класс Б |
 -------------|---------|---------|
@@ -195,7 +212,8 @@ $$C _{j} = c _{j0} + c _{j1} X _{1} + ... + c _{jp} X _{p}$$
 
 ## Нужные пакеты и функции
 
-```{r}
+
+```r
 # Для дискриминантного анализа
 library(MASS)
 source("LDA_helper_functions.R")
@@ -211,9 +229,24 @@ library(readxl)
 
 Сверхзадача --- научиться классифицировать ирисы по нескольким измерениям цветка
 
-```{r}
+
+```r
 data(iris)
 head(iris, 10)
+```
+
+```
+   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1           5.1         3.5          1.4         0.2  setosa
+2           4.9         3.0          1.4         0.2  setosa
+3           4.7         3.2          1.3         0.2  setosa
+4           4.6         3.1          1.5         0.2  setosa
+5           5.0         3.6          1.4         0.2  setosa
+6           5.4         3.9          1.7         0.4  setosa
+7           4.6         3.4          1.4         0.3  setosa
+8           5.0         3.4          1.5         0.2  setosa
+9           4.4         2.9          1.4         0.2  setosa
+10          4.9         3.1          1.5         0.1  setosa
 ```
 
 ---
@@ -222,9 +255,12 @@ head(iris, 10)
 
 Чтобы это узнать, построим графики всех пар переменных при помощи функции `pairs()` из базового пакета
 
-```{r pairs-plot}
+
+```r
 pairs(iris[, -5], col = iris$Species)
 ```
+
+![](08_da_files/figure-html/pairs-plot-1.png)&lt;!-- --&gt;
 
 Группы не различимы, если использовать любую из переменных отдельно, или даже какую-то пару переменных. Сделаем дискриминантный анализ.
 
@@ -238,23 +274,33 @@ class: middle, center, inverse
 
 ## 1) Разделяем на тренировочные и тестовые данные
 
-```{r}
+
+```r
 # доля от объема выборки, которая пойдет в тренировочный датасет
-smp_size <- floor(0.80 * nrow(iris))
+smp_size &lt;- floor(0.80 * nrow(iris))
 # устанавливаем зерно для воспроизводимости результатов
 set.seed(982)
 # индексы строк, которые пойдут в тренировочный датасет 
-in_train <- sample(sample(1:nrow(iris), size = smp_size))
+in_train &lt;- sample(sample(1:nrow(iris), size = smp_size))
 ```
 
 ---
 
 ## 2) На тренировочных данных получаем стандартизованные коэффициенты дискриминантных функций
 
-```{r}
-lda_tr_scaled <- lda(scale(iris[in_train, -5]), iris$Species[in_train])
+
+```r
+lda_tr_scaled &lt;- lda(scale(iris[in_train, -5]), iris$Species[in_train])
 # коэффициенты дискриминантных функций
 lda_tr_scaled$scaling
+```
+
+```
+                 LD1     LD2
+Sepal.Length  0.5751 -0.5009
+Sepal.Width   0.7707 -0.7247
+Petal.Length -3.4904  2.7791
+Petal.Width  -2.6531 -2.7572
 ```
 
 По ним можно оценить вклады разных признаков в изменчивость вдоль дискриминантных осей.
@@ -263,10 +309,20 @@ lda_tr_scaled$scaling
 
 ## 3) На тренировочных данных получаем функции классификации
 
-```{r}
-lda_tr <- lda.class(iris[in_train, -5], iris$Species[in_train])
+
+```r
+lda_tr &lt;- lda.class(iris[in_train, -5], iris$Species[in_train])
 # Коэф. функций классификации
 lda_tr$class.funs
+```
+
+```
+             versicolor virginica   setosa
+constant         -90.61  -75.2132 -109.530
+Sepal.Length      27.93   20.5253   18.411
+Sepal.Width       22.43    3.5291   -1.669
+Petal.Length     -19.85    0.9668    7.148
+Petal.Width      -17.88   11.9701   31.037
 ```
 
 По ним можно классифицировать объекты.
@@ -275,9 +331,18 @@ lda_tr$class.funs
 
 ## 4) Оцениваем качество классификации на тренировочных данных
 
-```{r}
-lda_tr_pred <- predict(lda_tr)
+
+```r
+lda_tr_pred &lt;- predict(lda_tr)
 table(iris$Species[in_train], lda_tr_pred$class)
+```
+
+```
+            
+             setosa versicolor virginica
+  setosa         42          0         0
+  versicolor      0         39         1
+  virginica       0          1        37
 ```
 
 - Какова доля неправильно классифицированных случаев?
@@ -288,9 +353,18 @@ table(iris$Species[in_train], lda_tr_pred$class)
 
 Самое важное, если мы хотим использовать классификацию для прогноза
 
-```{r}
-lda_test_pred <- predict(lda_tr, iris[-in_train, -5])
+
+```r
+lda_test_pred &lt;- predict(lda_tr, iris[-in_train, -5])
 table(iris$Species[-in_train], lda_test_pred$class)
+```
+
+```
+            
+             setosa versicolor virginica
+  setosa          8          0         0
+  versicolor      0          9         1
+  virginica       0          0        12
 ```
 
 - Какова доля неправильно классифицированных случаев?
@@ -301,15 +375,18 @@ table(iris$Species[-in_train], lda_test_pred$class)
 
 Можно отметить неправильно классифицированные случаи своим цветом
 
-```{r}
-class_df <- data.frame(lda_test_pred$x, 
+
+```r
+class_df &lt;- data.frame(lda_test_pred$x, 
                        new = lda_test_pred$class, 
                        real = iris$Species[-in_train])
-class_df$Group <- factor(paste(class_df$real, class_df$new, sep = " as "))
+class_df$Group &lt;- factor(paste(class_df$real, class_df$new, sep = " as "))
 
 ggplot(data = class_df, aes(x = LD1, y = LD2)) + 
   geom_point(aes(colour = Group))
 ```
+
+![](08_da_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -321,10 +398,26 @@ class: middle, center, inverse
 
 ## Кроссвалидация
 
-```{r}
-lda_cv <- lda(iris[, -5], iris$Species, CV = TRUE)
+
+```r
+lda_cv &lt;- lda(iris[, -5], iris$Species, CV = TRUE)
 names(lda_cv)
+```
+
+```
+[1] "class"     "posterior" "call"     
+```
+
+```r
 table(iris$Species, lda_cv$class)
+```
+
+```
+            
+             setosa versicolor virginica
+  setosa         50          0         0
+  versicolor      0         48         2
+  virginica       0          1        49
 ```
 
 `lda_cv$class` --- показывает, как классифицированы строки, если классификация обучена по остальным данным
@@ -333,7 +426,8 @@ table(iris$Species, lda_cv$class)
 
 ## График классификации
 
-```{r}
+
+```r
 ggplot(data = iris, aes(x = Petal.Length,
                         y = Sepal.Width,
                         colour = Species,
@@ -341,6 +435,8 @@ ggplot(data = iris, aes(x = Petal.Length,
   geom_point(size = 3) +
   scale_shape_discrete("Classified as")
 ```
+
+![](08_da_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -375,14 +471,17 @@ class: middle, center, inverse
 
 ## Mногомерная нормальность
 
-```{r}
-x <- as.matrix(iris[, -5])
-d <- mahalanobis(x, colMeans(x), cov(x))
+
+```r
+x &lt;- as.matrix(iris[, -5])
+d &lt;- mahalanobis(x, colMeans(x), cov(x))
 qqplot(qchisq(ppoints(nrow(x)), df = ncol(x)), d,
   main="QQ график для оценки многомерной нормальности",
   ylab="Расстояние Махаланобиса")
 abline(a = 0, b = 1)
 ```
+
+![](08_da_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -390,8 +489,35 @@ abline(a = 0, b = 1)
 
 .small[
 
-```{r}
+
+```r
 BoxMTest(as.matrix(iris[, -5]), iris$Species)
+```
+
+```
+------------------------------------------------
+ MBox Chi-sqr. df P
+------------------------------------------------
+  146.6632   140.9430          20       0.0000
+------------------------------------------------
+Covariance matrices are significantly different.
+```
+
+```
+$MBox
+setosa 
+ 146.7 
+
+$ChiSq
+setosa 
+ 140.9 
+
+$df
+[1] 20
+
+$pValue
+   setosa 
+3.352e-20 
 ```
 ]
 
@@ -405,12 +531,32 @@ class: middle, center, inverse
 
 ## Квадратичный дискриминантный анализ 
 
-```{r}
-qda_tr <- qda(iris[in_train, -5], iris$Species[in_train])
-qda_tr_pred <- predict(qda_tr)
+
+```r
+qda_tr &lt;- qda(iris[in_train, -5], iris$Species[in_train])
+qda_tr_pred &lt;- predict(qda_tr)
 table(qda_tr_pred$class, iris$Species[in_train])
-qda_test_pred <- predict(qda_tr, iris[-in_train, -5])
+```
+
+```
+            
+             setosa versicolor virginica
+  setosa         42          0         0
+  versicolor      0         39         1
+  virginica       0          1        37
+```
+
+```r
+qda_test_pred &lt;- predict(qda_tr, iris[-in_train, -5])
 table(qda_test_pred$class, iris$Species[-in_train])
+```
+
+```
+            
+             setosa versicolor virginica
+  setosa          8          0         0
+  versicolor      0          9         0
+  virginica       0          1        12
 ```
 
 ---
@@ -437,12 +583,29 @@ bluegio at deviantart.com
 ]
 
 .small[
-```{r echo=TRUE}
+
+```r
 # library(palmerpenguins)
 # data(penguins)
-penguins <- read_xlsx(path = "data/penguins.xlsx", sheet = "penguin data")
+penguins &lt;- read_xlsx(path = "data/penguins.xlsx", sheet = "penguin data")
 head(penguins, 2)
+```
+
+```
+# A tibble: 2 × 8
+  species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g sex    year
+  &lt;chr&gt;   &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;
+1 Adelie  Torge…           39.1          18.7               181        3750 male   2007
+2 Adelie  Torge…           39.5          17.4               186        3800 fema…  2007
+```
+
+```r
 colnames(penguins)
+```
+
+```
+[1] "species"           "island"            "bill_length_mm"    "bill_depth_mm"    
+[5] "flipper_length_mm" "body_mass_g"       "sex"               "year"             
 ```
 ]
 
@@ -466,3 +629,144 @@ colnames(penguins)
 
 - Quinn, Keough, 2002, pp. 435--441 
 
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="assets/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "vs",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!-- https://github.com/fnaufel/xaringan-smartify-->
+<script type="text/javascript">
+  smartify();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

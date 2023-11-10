@@ -1,6 +1,103 @@
 # title: "Анализ главных компонент"
 # subtitle: "Математические методы в зоологии с использованием R"
-# author: "Марина Варфоломеева"
+# author: "Марина Варфоломеева, Анастасия Лянгузова"
+
+# ## Пример: измерения ирисов ######
+
+# ## Знакомимся с данными
+data(iris)
+colnames(iris)
+colnames(iris) <- c("s_len", "s_wid", "p_len", "p_wid", "Sp") # переименовываем столбцы
+
+# количество ирисов разных видов
+table(iris$Sp)
+
+# сколько всего видов
+n_species <- length(unique(iris$Sp))
+# цвета из Брюеровской палитры 'Dark2'
+library(RColorBrewer)
+cols <- brewer.pal(n = n_species, name = 'Dark2')
+# график измерений
+pairs(iris[, 1:4], col = cols[iris$Sp])
+
+### Анализ главных компонент ###########
+library(vegan)
+# ординация, используем исключительно измерения
+ord_iris <- rda(iris[, 1:4], scale = TRUE)
+summary(ord_iris)
+
+
+# 1. Сколько компонент нужно оставить?
+# 2. Сколько общей изменчивости объясняют оставленные компоненты?
+# 3. Что означают получившиеся компоненты?
+# 4. Как располагаются объекты в пространстве главных компонент?
+
+
+#### 1. Cколько компонент нужно оставить? ############
+
+# собственные числа
+eigenvals(ord_iris)
+
+# График собственных чисел
+screeplot(ord_iris, bstick = TRUE, type = "lines")
+
+#### 2. Сколько изменчивости объясняют компоненты? #########
+
+# Изменчивость, объясненная каждой из компонент, в процентах
+eigenvals(ord_iris) / sum(eigenvals(ord_iris)) * 100
+
+#### 3. Что означают получившиеся компоненты? ############
+
+# Факторные нагрузки
+scores(ord_iris, display = "species", choices = c(1, 2),
+       scaling = "species", correlation = TRUE)
+
+biplot(ord_iris, scaling = 'species', correlation = TRUE,
+       main = 'PCA -  species scaling', display = 'species')
+
+## График факторных нагрузок в ggplot2 #####
+library(ggplot2)
+theme_set(theme_bw())
+library(ggrepel) # для подписей (geom_text_repel)
+library(grid) # для стрелочек
+# параметры стрелочек
+ar <- arrow(length = unit(0.1, 'cm'))
+
+# датафрейм с факторными нагрузками
+df_load_iris <- data.frame(scores(ord_iris, display = 'species',
+                                  choices = c(1, 2), scaling = 'species', correlation = TRUE))
+
+# график нагрузок
+ggloadings <- ggplot(df_load_iris) +
+  geom_text_repel(aes(x = PC1, y = PC2,
+                      label = rownames(df_load_iris)), segment.alpha = 0.5, size = 3) +
+  geom_segment(aes(x = 0, y = 0, xend = PC1, yend = PC2),
+               colour = 'grey40', arrow = ar) +
+  coord_equal(xlim = c(-0.8, 0.8), ylim = c(-0.8, 0.8))
+ggloadings
+
+##### Факторные координаты ####
+scores(ord_iris, display = 'sites',  choices = c(1, 2), scaling = 'sites')
+
+# график посредством базовой графики
+biplot(ord_iris, scaling = 'sites', display = 'sites',
+       type = 't', main = 'PCA - sites scaling')
+
+###### График в ggplot2 ######
+# данные для графика: факторные координаты и исходные переменные
+df_scores_iris <- data.frame(iris,
+                             scores(ord_iris, display = 'sites', scaling = 'sites',
+                                    choices = c(1, 2)))
+# график ординации
+ggscores <- ggplot(df_scores_iris, aes(x = PC1, y = PC2,
+                                       colour = Sp)) +
+  geom_point(size = 2) + coord_equal()
+ggscores
+
+# смотрим всё вместе
+library(cowplot)
+plot_grid(ggloadings, ggscores, labels = 'AUTO')
+
 
 # ## Пример: Морфометрия поссумов ##################
 # Данные Lindenmayer et al. (1995)
@@ -37,127 +134,6 @@ pairs(pos[, 6:14],
       pch =  as.numeric(pos$sex))
 
 
-
-#### Анализ главных компонент ####################
-library(vegan)
-# ординация, используем морфометрические переменные (с hdlngth по belly)
-
-ord <- rda(pos[, 6:14], scale = TRUE)
-
-summary(ord)
-
-# 1. Сколько компонент нужно оставить?
-# 2. Сколько общей изменчивости объясняют оставленные компоненты?
-# 3. Что означают получившиеся компоненты?
-# 4. Как располагаются объекты в пространстве главных компонент?
-
-
-#### 1. Cколько компонент нужно оставить? ############
-
-# собственные числа
-eigenvals(ord)
-
-# График собственных чисел
-screeplot(ord, bstick = TRUE, type = "lines")
-
-#### 2. Сколько изменчивости объясняют компоненты? #########
-
-# Изменчивость, объясненная каждой из компонент, в процентах
-eigenvals(ord) / sum(eigenvals(ord)) * 100
-
-#### 3. Что означают получившиеся компоненты? ############
-
-# Факторные нагрузки
-scores(ord, display = "species", choices = c(1, 2, 3),
-       scaling = "species", correlation = TRUE)
-
-
-# Можно нарисовать факторные нагрузки на графике
-biplot(ord, scaling = "species", correlation = TRUE,
-       main = "PCA -  species scaling", display = "species")
-
-# График факторных нагрузок в ggplot2
-library(ggplot2)
-theme_set(theme_bw())
-library(ggrepel) # для подписей (geom_text_repel)
-library(grid) # для стрелочек
-
-# параметры стрелочек
-ar <- arrow(length = unit(0.1, "cm"))
-# датафрейм с факторными нагрузками
-df_load <- data.frame(scores(ord,
-                             display = "species",
-                             choices = c(1, 2),
-                             scaling = "species",
-                             correlation = TRUE))
-# график
-ggloadings <- ggplot(df_load) +
-  geom_text_repel(aes(x = PC1, y = PC2,
-                      label = rownames(df_load)),
-                  segment.alpha = 0.5) +
-  geom_segment(aes(x = 0, y = 0, xend = PC1, yend = PC2),
-               colour = "grey40", arrow = ar) +
-  coord_equal(xlim = c(-0.8, 0.8), ylim = c(-0.8, 0.8))
-ggloadings
-
-
-#### 4. Как располагаются объекты в пространстве главных компонент?
-
-# Значения факторов (= факторные координаты) --- координаты объектов в пространстве главных компонент
-scores(ord, display = "sites",  choices = c(1, 2, 3), scaling = "sites")
-
-# График факторных координат (= график ординации)
-biplot(ord, scaling = "sites", display = "sites",
-       type = "t", main = "PCA - sites scaling")
-
-# График ординации в ggplot2
-# данные для графика: факторные координаты и исходные переменные
-df_scores <- data.frame(pos, scores(ord, display = "sites", scaling = "sites", choices = c(1, 2, 3)))
-# график ординации
-ggscores <- ggplot(df_scores, aes(x = PC1, y = PC2, colour = Pop, shape = sex)) +
-  geom_point(size = 2) +
-  coord_equal(xlim = c(-1, 1), ylim = c(-1, 1))
-ggscores
-
-
-# Два графика рядом
-library(cowplot)
-plot_grid(ggloadings, ggscores, labels = 'AUTO', align = 'vh', axis = 'r')
-
-
-#### Пример: Морфометрия египетских черепов ###############
-
-# Данные Thompson, Randall-Maciver (1905). Источник Manly (1994).
-
-# Измерения 150 черепов в мм:
-# - mb --- максимальная ширина
-# - bh --- высота от основания до макушки
-# - bl --- расстояние от основания черепа до края в. челюсти
-# - nh --- высота носа
-
-# Эпоха (epoch):
-# - 1 --- ранний прединастический период (ок. 4000 до н.э.)
-# - 2 --- поздний прединастический период (ок. 3300 до н.э.)
-# - 3 --- 12 и 13 династии (ок. 1850 до н.э.)
-# - 4 --- Птолемейский период (ок. 200 до н.э.)
-# - 5 --- Римский период (ок. 150 н.э.)
-
-
-# ## Знакомимся с данными
-library(HSAUR)
-data("skulls")
-
-str(skulls)
-sum(is.na(skulls))
-table(skulls$epoch)
-
-# цвета
-library(RColorBrewer)
-cols <- brewer.pal(n = length(levels(skulls$epoch)), name = "Set1")
-# график
-pairs(skulls[, -1], col = cols[skulls$epoch], pch = 19)
-
-
 #### Задание 1 ---------------------------------------------
 
 # Сделайте анализ главных компонент:
@@ -166,6 +142,6 @@ pairs(skulls[, -1], col = cols[skulls$epoch], pch = 19)
 # 3. Что означают получившиеся компоненты?
 # 4. Как располагаются объекты в пространстве главных компонент?
 
-# Как менялась форма черепов в древнем египте в разные эпохи?
+# Как различаются поссумы разных популяций между собой?
 
 

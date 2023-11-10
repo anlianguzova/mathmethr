@@ -72,8 +72,8 @@ install.packages("multcomp")
 install.packages(c("DAAG", "RColorBrewer", "vegan", "HSAUR", "ggrepel"))
 ```
 
-<!-- - Презентация: [07_pca.pdf](07_pca.pdf) -->
-<!-- - Код: [07_pca_code.R](07_pca_code.R) -->
+<!-- - Презентация: [07_pca.html](07_pca.html) -->
+- Код: [07_pca_code.R](07_pca_code.R)
 
 ## 8. Дискриминантный анализ
 
