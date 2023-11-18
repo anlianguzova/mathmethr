@@ -213,7 +213,9 @@ library(readxl)
 
 ```{r}
 data(iris)
-head(iris, 10)
+colnames(iris)
+colnames(iris) <- c("s_len", "s_wid", "p_len", "p_wid", "Sp")
+head(iris)
 ```
 
 ---
@@ -223,7 +225,7 @@ head(iris, 10)
 Чтобы это узнать, построим графики всех пар переменных при помощи функции `pairs()` из базового пакета
 
 ```{r pairs-plot}
-pairs(iris[, -5], col = iris$Species)
+pairs(iris[, -5], col = iris$Sp)
 ```
 
 Группы не различимы, если использовать любую из переменных отдельно, или даже какую-то пару переменных. Сделаем дискриминантный анализ.
@@ -239,20 +241,39 @@ class: middle, center, inverse
 ## 1) Разделяем на тренировочные и тестовые данные
 
 ```{r}
+# устанавливаем зерно для воспроизводимости результатов
+set.seed(764737)
 # доля от объема выборки, которая пойдет в тренировочный датасет
 smp_size <- floor(0.80 * nrow(iris))
-# устанавливаем зерно для воспроизводимости результатов
-set.seed(982)
-# индексы строк, которые пойдут в тренировочный датасет 
-in_train <- sample(sample(1:nrow(iris), size = smp_size))
+# индексы строк, которые пойдут в тренировочный датасет
+in_train <- sample(1:nrow(iris), size = smp_size)
 ```
 
 ---
 
-## 2) На тренировочных данных получаем стандартизованные коэффициенты дискриминантных функций
+## 2) На тренировочных данных получаем стандартизованные коэффициенты главных компонент 
 
 ```{r}
-lda_tr_scaled <- lda(scale(iris[in_train, -5]), iris$Species[in_train])
+pca_tr_scaled <- rda(iris[in_train, -5], scale = TRUE)
+summary(pca_tr_scaled)
+```
+
+---
+
+## 3) Извлекаем из тренировочных данных site scores по всем главным компонентам 
+
+```{r}
+sites_tr_pca <- scores(pca_tr_scaled, display = 'sites', choices = c(1:4),
+                       scaling = 'sites', correlation = TRUE)
+head(sites_tr_pca, 2)
+```
+
+---
+
+## 4) На тренировочных данных получаем стандартизованные коэффициенты дискриминантных функций
+
+```{r}
+lda_tr_pca <- lda(sites_tr_pca, iris$Sp[in_train])
 # коэффициенты дискриминантных функций
 lda_tr_scaled$scaling
 ```
@@ -261,10 +282,10 @@ lda_tr_scaled$scaling
 
 ---
 
-## 3) На тренировочных данных получаем функции классификации
+## 5) На тренировочных данных получаем функции классификации
 
 ```{r}
-lda_tr <- lda.class(iris[in_train, -5], iris$Species[in_train])
+lda_tr <- lda.class(sites_tr_pca, iris$Sp[in_train])
 # Коэф. функций классификации
 lda_tr$class.funs
 ```
@@ -273,41 +294,62 @@ lda_tr$class.funs
 
 ---
 
-## 4) Оцениваем качество классификации на тренировочных данных
+## 6) Оцениваем качество классификации на тренировочных данных
 
 ```{r}
 lda_tr_pred <- predict(lda_tr)
-table(iris$Species[in_train], lda_tr_pred$class)
+table(iris$Sp[in_train], lda_tr_pred$class)
 ```
 
 - Какова доля неправильно классифицированных случаев?
 
 ---
 
-## 5) Оценка качества классификации на тестовых данных
+## 7) График классификации тренировочных данных 
+
+```{r}
+class_df <- data.frame(lda_tr_pred$x,
+                       gr = lda_tr_pred$class,
+                       real_gr = iris$Sp[in_train])
+ggplot(data = class_df, aes(x = LD1, y = LD2, colour = gr)) +
+  geom_text(size = 3, aes(label = real_gr)) +
+  theme(legend.position = "none")
+```
+
+---
+
+## 8) Оценка качества классификации на тестовых данных
 
 Самое важное, если мы хотим использовать классификацию для прогноза
 
 ```{r}
-lda_test_pred <- predict(lda_tr, iris[-in_train, -5])
-table(iris$Species[-in_train], lda_test_pred$class)
+# получаем PCA на тестовых данных
+pca_pred_scaled <- rda(iris[-in_train, -5], scale = TRUE)
+
+# извлекаем site scores
+sites_pred_pca <- as.data.frame(scores(pca_pred_scaled, display = 'sites', choices = c(1:4),
+                                       scaling = 'sites', correlation = TRUE))
+
+# делаем предсказания
+lda_test_pred <- predict(lda_tr, sites_pred_pca)
+table(iris$Sp[-in_train], lda_test_pred$class)
 ```
 
 - Какова доля неправильно классифицированных случаев?
 
 ---
 
-## 6) График классификации тестовых данных
+## 9) График классификации тестовых данных
 
 Можно отметить неправильно классифицированные случаи своим цветом
 
 ```{r}
-class_df <- data.frame(lda_test_pred$x, 
-                       new = lda_test_pred$class, 
-                       real = iris$Species[-in_train])
+class_df <- data.frame(lda_test_pred$x,
+                       new = lda_test_pred$class,
+                       real = iris$Sp[-in_train])
 class_df$Group <- factor(paste(class_df$real, class_df$new, sep = " as "))
 
-ggplot(data = class_df, aes(x = LD1, y = LD2)) + 
+ggplot(data = class_df, aes(x = LD1, y = LD2)) +
   geom_point(aes(colour = Group))
 ```
 
@@ -322,9 +364,17 @@ class: middle, center, inverse
 ## Кроссвалидация
 
 ```{r}
-lda_cv <- lda(iris[, -5], iris$Species, CV = TRUE)
+# главные компоненты
+pca_cv_scaled <- rda(iris[, -5], scale = TRUE)
+
+# site scores
+sites_cv_pca <- scores(pca_cv_scaled, display = 'sites', choices = c(1:4),
+                       scaling = 'sites', correlation = TRUE)
+
+# дискриминантый анализ и кросс-валидация
+lda_cv <- lda(sites_cv_pca, iris$Sp, CV = TRUE)
 names(lda_cv)
-table(iris$Species, lda_cv$class)
+table(iris$Sp, lda_cv$class)
 ```
 
 `lda_cv$class` --- показывает, как классифицированы строки, если классификация обучена по остальным данным
@@ -334,13 +384,81 @@ table(iris$Species, lda_cv$class)
 ## График классификации
 
 ```{r}
-ggplot(data = iris, aes(x = Petal.Length,
-                        y = Sepal.Width,
-                        colour = Species,
+ggplot(data = iris, aes(x = p_len,
+                        y = s_wid,
+                        colour = Sp,
                         shape = lda_cv$class)) +
   geom_point(size = 3) +
   scale_shape_discrete("Classified as")
 ```
+
+---
+
+class: middle, center, inverse
+
+## Дискриминантый анализ главных компонент: пакет adegenet
+
+---
+
+## Определение количества осей главных компонент для конкретных данных
+
+### Кросс-валидация 
+
+```{r}
+library(adegenet) # подгружаем библиотеку
+iris_xval <- xvalDapc(iris[, -5], iris$Sp, n.pca.max = 300, training.set = 0.8,
+                      result = "overall", center = TRUE, scale = TRUE,
+                      n.pca = NULL, n.rep = 100, xval.plot = TRUE)
+```
+
+---
+
+## Извлекаем подобранное количество осей главных компонент
+
+```{r}
+iris_xval$`Number of PCs Achieving Highest Mean Success`
+iris_xval$`Number of PCs Achieving Lowest MSE`
+iris_xval$`Root Mean Squared Error by Number of PCs of PCA` # здесь чем меньше значение, тем лучше 
+```
+
+---
+
+## DPCA непосредственно
+
+```{r}
+iris_dapc <- dapc(iris[, -5], n.pca = 3, n.da = 2, iris$Sp) # здесь число осей, соответственно результатам кросс-валидации
+iris_dapc
+```
+
+---
+
+## Визуализация полученных результатов
+
+### Классификация
+
+```{r}
+my_col <- c("#50A8FF", "#50FF7F", "#FF50D7") #выбираем красивые цвета
+scatter(iris_dapc, col = my_col, xax = 1, yax = 2, cex = 2, scree.da=FALSE, legend = FALSE, grp = iris$Sp)
+```
+
+---
+
+## Визуализация полученных результатов
+
+### Графики предсказаний
+
+.pull-left[
+```{r}
+assignplot(iris_dapc)
+```
+]
+
+.pull-right[
+```{r}
+compoplot(iris_dapc, lab = "", 
+          ncol = 1, col = my_col)
+```
+]
 
 ---
 
@@ -390,10 +508,14 @@ abline(a = 0, b = 1)
 
 .small[
 
-```{r}
-BoxMTest(as.matrix(iris[, -5]), iris$Species)
+```{r, highlight.output=c(6)}
+BoxMTest(as.matrix(iris[, -5]), iris$Sp)
 ```
 ]
+
+--
+
+Нет гомогенности :(
 
 ---
 
@@ -403,48 +525,111 @@ class: middle, center, inverse
 
 ---
 
-## Квадратичный дискриминантный анализ 
+## Квадратичный дискриминантый анализ
+
+Идея --- та же, что в основе линейного дискриминантного анализа. Отличие в том, что мы не предполагаем, что средние матриц ковариаций должны быть идентичными у разных групп сравнения. При этом изменяется т.н. `decision boundary` --- граница, по которой определяется принадлежность объекта к той или иной группе. 
+
+```{r lda_va_qda_code, echo=FALSE, purl=FALSE, fig.width=13, fig.height=6}
+library(caret)
+library(MASS)
+library(tidyverse)
+
+## Code from https://www.geeksforgeeks.org/quadratic-discriminant-analysis/
+decision_boundary = function(model, data,vars, resolution = 200,...) {
+  class='Sp'
+  labels_var = data[,class]
+  k = length(unique(labels_var))
+  # For sepals
+  if (vars == 'sepal'){
+  data = data %>% select(s_len, s_wid)
+  }
+  else{
+  data = data %>% select(p_len, p_wid)
+  }
+   
+   
+  # plot with color labels
+  int_labels = as.integer(labels_var)
+  plot(data, col = int_labels+1L, pch = int_labels+1L, ...)
+   
+  # make grid
+  r = sapply(data, range, na.rm = TRUE)
+  xs = seq(r[1,1], r[2,1], length.out = resolution)
+  ys = seq(r[1,2], r[2,2], length.out = resolution)
+  dfs = cbind(rep(xs, each=resolution), rep(ys, time = resolution))
+   
+  colnames(dfs) = colnames(r)
+  dfs = as.data.frame(dfs)
+   
+  p = predict(model, dfs, type ='class')
+  p = as.factor(p$class)
+ 
+   
+  points(dfs, col = as.integer(p)+1L, pch = ".")
+   
+  mats = matrix(as.integer(p), nrow = resolution, byrow = TRUE)
+  contour(xs, ys, mats, add = TRUE, lwd = 2, levels = (1:(k-1))+.5)
+   
+  invisible(mats)
+}
+
+par(mfrow=c(2,2))
+# run the linear discriminant analysis and plot the decision boundary with Sepals variable
+model = lda(Sp ~ s_len + s_wid, data=iris)
+lda_sepals = decision_boundary(model, iris, vars= 'sepal' , main = "LDA_Sepals")
+ 
+# run the quadratic discriminant analysis and plot the decision boundary with Sepals variable
+model_qda = qda(Sp ~ s_len + s_wid, data=iris)
+qda_sepals = decision_boundary(model_qda, iris, vars= 'sepal', main = "QDA_Sepals")
+ 
+# run the linear discriminant analysis and plot the decision boundary with Petals variable
+model = lda(Sp ~ p_len + p_wid, data=iris)
+lda_petal =decision_boundary(model, iris, vars='petal', main = "LDA_Petals")
+ 
+# run the quadratic discriminant analysis and plot the decision boundary with Petals variable
+model_qda = qda(Sp ~ p_len + p_wid, data=iris)
+qda_petal = decision_boundary(model_qda, iris, vars='petal', main = "QDA_Petals")
+```
+
+
+---
+
+## Квадратичный дискриминантный анализ в R
 
 ```{r}
-qda_tr <- qda(iris[in_train, -5], iris$Species[in_train])
+# Тренировочные данные
+qda_tr <- qda(sites_tr_pca, iris$Sp[in_train])
 qda_tr_pred <- predict(qda_tr)
-table(qda_tr_pred$class, iris$Species[in_train])
-qda_test_pred <- predict(qda_tr, iris[-in_train, -5])
-table(qda_test_pred$class, iris$Species[-in_train])
+table(qda_tr_pred$class, iris$Sp[in_train])
+
+# Тестовые данные
+qda_test_pred <- predict(qda_tr, sites_pred_pca)
+table(qda_test_pred$class, iris$Sp[-in_train])
 ```
 
 ---
 
-## Задание: Пингвины
+## Кроссвалидация QDA
 
-
-.pull-left[
-![](images/palmerpenguins.jpg)
-
-.tiny[
-bluegio at deviantart.com
-]
-]
-
-.pull-right[
-
-Морфометрия пингвинов Адели, Генту и Чинстрап (данные `penguins`, Horst et al. 2020).
-
-- При помощи дискриминантного анализа классифицируйте виды пингвинов по морфологическим признакам
-- Хорошо ли работает классификация?
-- Выполняются ли условия применимости?
-
-]
-
-.small[
-```{r echo=TRUE}
-# library(palmerpenguins)
-# data(penguins)
-penguins <- read_xlsx(path = "data/penguins.xlsx", sheet = "penguin data")
-head(penguins, 2)
-colnames(penguins)
+```{r}
+qda_cv <- qda(sites_cv_pca, iris$Sp, CV = TRUE)
+table(iris$Sp, lda_cv$class)
 ```
-]
+
+---
+
+## График предсказаний QDA
+
+```{r}
+ggplot(data = iris, aes(x = p_len,
+                        y = s_wid,
+                        colour = Sp,
+                        shape = lda_cv$class)) +
+  geom_point(size = 3) +
+  scale_shape_discrete("Classified as")
+```
+
+
 
 ---
 
