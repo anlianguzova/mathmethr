@@ -77,11 +77,14 @@ install.packages(c("DAAG", "RColorBrewer", "vegan", "HSAUR", "ggrepel"))
 
 ## 8. Дискриминантный анализ
 
-<!-- - Презентация: [08_da.pdf](08_da.pdf) -->
-<!-- - Код: -->
-<!--   + [код R](08_da_code.R) -->
-<!--   + [LDA_helper_functions.R](LDA_helper_functions.R) -->
-<!-- - Данные: [penguins.xlsx](data/penguins.xlsx) -->
+```{r eval=FALSE}
+install.packages("adegenet")
+```
+
+<!-- - Презентация: [08_da.html](08_da.html) -->
+- Код:
+  + [код R](08_da_code.R)
+  + [LDA_helper_functions.R](LDA_helper_functions.R)
 
 ## 9. Ординация и классификация с использованием мер сходства-различия
 
