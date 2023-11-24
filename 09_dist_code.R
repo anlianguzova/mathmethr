@@ -98,12 +98,11 @@ grid.arrange(gg_euclid + aes(size = age),
 #
 ## Пример: Морфометрия самок поссумов ############
 
-# library(DAAG)
+library(DAAG)
 data(fossum)
 
 
 ## Создаем "говорящие" названия строк
-
 rownames(fossum) # Было
 
 # Чтобы имена строк были более информативны,
@@ -117,6 +116,7 @@ rownames(fossum) # стало
 # для кластеризации
 fos <- fossum[complete.cases(fossum), 6:14]
 
+## Иерархическая кластеризация ####
 
 ## Кластерный анализ начинается с расчета
 # матрицы расстояний между объектами
@@ -220,3 +220,47 @@ library(phangorn)
 # neighbor-joining (Saitou, Nei, 1987)
 ph_pri_NJ <- NJ(d_pri)
 plot(ph_pri_NJ, cex = 0.8)
+
+# Неиерархическая кластеризация ####
+
+## K-means ####
+# стандартизация
+f_sc <- scale(fos)
+
+# выбор количества кластеров
+library(factoextra)
+fviz_nbclust(f_sc, kmeans, method = "wss")
+
+f_kmeans <- kmeans(f_sc, centers = 4, nstart = 20) # проводим кластеризацию
+
+my_col <- c("#2E9FDF", "#FF5AD9", "#B5FF0A", "#F37352") # создаём вектор цветов для раскраски
+
+# визуализируем
+fviz_cluster(f_kmeans, data = f_sc,
+             palette = my_col,
+             ggtheme = theme_bw())
+
+## DBSCAN ####
+
+# вложенные кластеры
+
+library(dbscan)
+library(factoextra)
+library(dplyr)
+
+data('multishapes')
+
+multi_circle <- multishapes %>% filter(shape == c(1, 2))
+multi <- multi_circle[, 1:2]
+
+ggplot(multi, aes(x, y)) + geom_point()
+
+# K-means не работает :(
+set.seed(123)
+circle_kmeans <- kmeans(multi, centers = 2, nstart = 20)
+my_col_circle <- c("#2E9FDF", "#E7B800")
+fviz_cluster(circle_kmeans, data = multi,
+             palette = my_col_circle)
+
+## Задание 3 ###
+## Кластеризуйте данные по самкам поссумов, используя DBSCAN

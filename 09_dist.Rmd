@@ -67,13 +67,12 @@ class: middle, center, inverse
 
 $d \ge 0$
 
-<!-- ```{r echo=FALSE, fig.width=4.5, fig.height=0.5} -->
-<!-- library(DiagrammeR) -->
-<!-- DiagrammeR("images/dist.gv", type = "grViz") -->
-<!-- # system('dot -Tpdf images/dist.gv -o images/dist.pdf') -->
-<!-- ``` -->
+```{r echo=FALSE, fig.width=4.5, fig.height=0.5}
+library(DiagrammeR)
+DiagrammeR("images/dist.gv", type = "grViz")
+# system('dot -Tpdf images/dist.gv -o images/dist.pdf')
+```
 
-![](images/dist.pdf)
 ]
 
 .pull-right[
@@ -81,13 +80,13 @@ $d \ge 0$
 
 $0 \le S \le 1$ или $-1 \le S \le 1$
 
-<!-- ```{r echo=FALSE, fig.width=4.5, fig.height=0.5} -->
-<!-- DiagrammeR("images/sim.gv", type = "grViz") -->
-<!-- # system('dot -Tpdf images/sim.gv -o images/sim.pdf') -->
-<!-- ``` -->
+```{r echo=FALSE, fig.width=4.5, fig.height=0.5}
+DiagrammeR("images/sim.gv", type = "grViz")
+```
 
-![](images/sim.pdf)
 ]
+
+<br>
 
 - Используются в качестве исходных данных для многих видов многомерных анализов, в т.ч. для неметрического многомерного шкалирования и некоторых видов кластерного анализа
 - Из сходств можно получить расстояния и наоборот
@@ -113,7 +112,6 @@ $0 \le S \le 1$ или $-1 \le S \le 1$
 Симметричность: $d_{A, B} = d_{B, A}$
 
 ```{r, echo=FALSE, fig.width=4, fig.height=.5}
-library(DiagrammeR)
 # DiagrammeR("images/symmetry.mmd")
 DiagrammeR("images/symmetry.gv", type = "grViz")
 # system('dot -Tpdf images/symmetry.gv -o images/symmetry.pdf')
@@ -370,7 +368,7 @@ par(op)
 
 Неметрическое многомерное шкалирование (nonmetric multidimensional scaling, nMDS) --- метод визуализации отношений между объектами в пространстве с небольшим числом измерений.
 
-Исходные данные --- матрица расстояний между объектами в многомерном пространстве
+Исходные данные --- матрица расстояний между объектами в многомерном пространстве.
 
 
 
@@ -413,6 +411,7 @@ Possum by Hasitha Tudugalle on [Flickr](https://www.flickr.com/photos/hasitha\_t
 
 .tiny[
 Данные Lindenmayer et al. (1995)
+]
 ]
 
 ---
@@ -641,12 +640,29 @@ fos <- fossum[complete.cases(fossum), 6:14]
 
 ---
 
-class: middle, center, inverse
+## Методы кластеризации
 
-## Какие бывают методы построения деревьев?
+.pull-left[
+### Иерархические методы
+
+- методы построения деревьев (о них следующие слайды)
+]
+
+.pull-right[
+### Неиерархические методы
+
+- кластеризация K-means 
+- кластеризация C-means 
+- основанная на плотности пространственная кластеризация для приложений с шумами (DBSCAN)
+- упорядочение точек для обнаружения кластерной структуры (OPTICS)
+
+]
 
 ---
 
+## Какие бывают методы построения деревьев?
+
+.pull-left[
 ### Методы класстеризации на основании расстояний (о них сегодня пойдет речь)
   - Метод ближайшего соседа (single linkage)
   - Метод отдаленного соседа (complete linkage)
@@ -655,7 +671,9 @@ class: middle, center, inverse
   - Метод присоединения соседей (Neighbour Joining)
 
 Эти методы есть в базовом пакете `stats`, и в пакете `ape`. Разные полезные функции есть в `ade4` и `adegenet`
+]
 
+.pull-right[
 ### Методы кластеризации на основании признаков
   - Метод максимальной бережливости 
   - Метод максимального правдоподобия
@@ -664,6 +682,7 @@ class: middle, center, inverse
 
 Со списком пакетов для филогенетического анализа в R можно познакомиться здесь:  
 https://cran.r-project.org/web/views/Phylogenetics.html
+]
 
 ---
 
@@ -885,11 +904,11 @@ class: middle, center, inverse
 
 ## Кофенетическая корреляция
 
-Кофенетическое расстояние - расстояние между объектами на дендрограмме
+Кофенетическое расстояние --- расстояние между объектами на дендрограмме.
 
-Кофенетическую корреляцию можно рассчитать как пирсоновскую корреляцию (обычную) между матрицами исходных и кофенетических расстояний между всеми парами объектов 
+Кофенетическую корреляцию можно рассчитать как пирсоновскую корреляцию (обычную) между матрицами исходных и кофенетических расстояний между всеми парами объектов. 
 
-Метод, который дает наибольшую кофенетическую корреляцию дает кластеры лучше всего отражающие исходные данные
+Метод, который дает наибольшую кофенетическую корреляцию, дает кластеры, лучше всего отражающие исходные данные.
 
 ---
 
@@ -934,6 +953,7 @@ cor(d, c_w2)
 ```{r}
 library(pvclust)
 ```
+
 ```{r pvclust-compute, cache=TRUE}
 system.time({
 cl_boot <- pvclust(scale(t(fos)), 
@@ -945,15 +965,9 @@ cl_boot <- pvclust(scale(t(fos)),
 })
 ```
 
-<!-- ``` -->
-<!-- Creating a temporary cluster...done: -->
-<!-- socket cluster with 3 nodes on host ‘localhost’ -->
-<!-- Multiscale bootstrap... Done. -->
-<!--    user  system elapsed  -->
-<!--   0.232   0.400 104.418  -->
-<!-- ``` -->
+---
 
-##
+## Бутстреп-поддержка ветвей 
 
 ```{r fig-pvclust, fig.width=10, fig.height=7}
 plot(cl_boot, cex.pv = 0.8, cex = 0.8)
@@ -1009,6 +1023,370 @@ axisPhylo()
 
 ---
 
+class: middle, center, inverse
+
+## Неиерархические методы кластеризации
+
+---
+
+## K-means кластеризация
+
+.pull-left[
+```{r purl=FALSE, echo=FALSE}
+data_k_final <- data.frame(X = c(1.4, 1.8, 2.5, 3, 2.3, 1.8,
+                           3, 2.8, 3.5, 4, 4.2,
+                           7, 8.2, 7.5, 8.4, 8, 7.7, 9),
+                     Y = c(1, 1.5, 3.7, 2.8, 2.5, 3,
+                           4.8, 5.2, 7, 6.3, 5.9,
+                           5, 5.2, 5.8, 6.7, 6.3, 7, 6.9),
+                     Col = c(1, 1, 1, 1, 1, 1,
+                             2, 2, 2, 2, 2,
+                             3, 3, 3, 3, 3, 3, 3))
+
+gg_k_final <-  ggplot(data_k_final, aes(X, Y, col = factor(Col))) +
+  geom_point(size = 3) +
+  theme_bw() +
+  scale_colour_manual(values = c("#A1FFA1", "#A1C7FF", "#FFA1DA")) +
+  annotate("text", x = mean(data_k_final$X[1:6]), y = mean(data_k_final$Y[1:6]), 
+           label = "X") +
+  annotate("text", x = mean(data_k_final$X[7:11]), y = mean(data_k_final$Y[7:11]), 
+           label = "X") +
+  annotate("text", x = mean(data_k_final$X[12:18]), y = mean(data_k_final$Y[12:18]), 
+           label = "X") +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        legend.position = "none")
+
+gg_k_final
+```
+]
+
+.pull-right[
+В отличие от иерархических методов кластеризации K-means будет искать то количество кластеров, которое вы ему зададите (в количестве k штук). Каждое наблюдение принадлежит кластеру с ближайшим значением среднего числа (центроида); помимо этого K-means кластеризация минимизирует разброс значений внутри каждого из кластера.
+
+Используется в машинном обучении, в том числе, например, для цветовой редуцкии изображений. 
+]
+
+---
+
+## Алгоритм K-means кластеризации
+
+.pull-left[
+### График наблюдений 
+```{r purl = FALSE, echo=FALSE}
+data_k <- data.frame(X = c(1.4, 1.8, 2.5, 3, 2.3, 1.8,
+                           3, 2.8, 3.5, 4, 4.2,
+                           7, 8.2, 7.5, 8.4, 8, 7.7, 9),
+                     Y = c(1, 1.5, 3.7, 2.8, 2.5, 3,
+                           4.8, 5.2, 7, 6.3, 5.9,
+                           5, 5.2, 5.8, 6.7, 6.3, 7, 6.9),
+                     Col = c(1, 0, 0, 0, 2, 0,
+                             0, 0, 0, 0, 0,
+                             0, 0, 0, 0, 3, 0, 0),
+                     Size = c(1, 0, 0, 0, 1, 0,
+                              0, 0, 0, 0, 0,
+                              0, 0, 0, 0, 1, 0, 0))
+
+gg_kmeans <- ggplot(data_k, aes(X, Y)) +
+  geom_point(size = 3) + theme_bw()
+gg_kmeans
+```
+
+Здесь как будто бы выделяются 3 кластера, поэтому возьмём k = 3. Что же будет делать алгоритм?
+]
+
+--
+
+.pull-right[
+### 1. Выбираются случайным образом 3 точки на графике --- кластерные центроиды
+
+Например, так:
+
+```{r purl = FALSE, echo=FALSE}
+gg_centr <- gg_kmeans +
+  geom_point(aes(col = factor(Col), size = Size)) +
+  scale_colour_manual(values = c("#000000", "#A1FFA1",
+                                "#A1C7FF", "#FFA1DA")) +
+  scale_size(range = c(3, 8)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        legend.position = "none")
+
+gg_centr
+```
+]
+
+---
+
+## Алгоритм K-means кластеризации 
+
+.pull-left[
+### 2. Измеряется Евклидово расстояние между каждой точкой и центроидом 
+
+При этом каждая точка приписывается к ближайшему кластеру. 
+
+```{r purl=FALSE, echo=FALSE}
+data_k2 <- data.frame(X = c(1.4, 1.8, 2.5, 3, 2.3, 1.8,
+                           3, 2.8, 3.5, 4, 4.2,
+                           7, 8.2, 7.5, 8.4, 8, 7.7, 9),
+                     Y = c(1, 1.5, 3.7, 2.8, 2.5, 3,
+                           4.8, 5.2, 7, 6.3, 5.9,
+                           5, 5.2, 5.8, 6.7, 6.3, 7, 6.9),
+                     Col = c(1, 1, 0, 2, 2, 0,
+                             0, 0, 0, 0, 0,
+                             0, 0, 0, 3, 3, 0, 0),
+                     Size = c(1, 0, 0, 0, 1, 0,
+                              0, 0, 0, 0, 0,
+                              0, 0, 0, 0, 1, 0, 0))
+
+
+gg_nearest <- ggplot(data_k2, aes(X, Y, col = factor(Col), size = Size)) +
+  geom_point() +
+  theme_bw() +
+  scale_colour_manual(values = c("#000000", "#A1FFA1",
+                                "#A1C7FF", "#FFA1DA")) +
+  scale_size(range = c(3, 8)) +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        legend.position = "none")
+
+gg_nearest
+```
+]
+
+.pull-right[
+### 3. Расситываются центроиды для каждого кластера
+
+```{r purl=FALSE, echo=FALSE}
+data_k3 <- data.frame(X = c(1.4, 1.8, 2.5, 3, 2.3, 1.8,
+                            3, 2.8, 3.5, 4, 4.2,
+                            7, 8.2, 7.5, 8.4, 8, 7.7, 9),
+                      Y = c(1, 1.5, 3.7, 2.8, 2.5, 3,
+                            4.8, 5.2, 7, 6.3, 5.9,
+                            5, 5.2, 5.8, 6.7, 6.3, 7, 6.9),
+                      Col = c(1, 1, 2, 2, 2, 2,
+                              2, 2, 3, 3, 3,
+                              3, 3, 3, 3, 3, 3, 3),
+                      Size = c(1, 0, 0, 0, 1, 0,
+                               0, 0, 0, 0, 0,
+                               0, 0, 0, 0, 1, 0, 0))
+
+
+gg_new_centr <- ggplot(data_k3, aes(X, Y, col = factor(Col), size = Size)) +
+  geom_point() +
+  theme_bw() +
+  scale_colour_manual(values = c("#A1FFA1",
+                                 "#A1C7FF", "#FFA1DA")) +
+  scale_size(range = c(3, 8)) +
+  annotate("text", x = mean(data_k3$X[1:2]), y = mean(data_k3$Y[1:2]), label = "X") +
+  annotate("text", x = mean(data_k3$X[3:8]), y = mean(data_k3$Y[3:8]), label = "X") +
+  annotate("text", x = mean(data_k3$X[9:18]), y = mean(data_k3$Y[9:18]), label = "X") +
+  theme(axis.text.x = element_blank(),
+          axis.ticks.x = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks.y = element_blank(),
+    legend.position = "none")
+
+gg_new_centr
+```
+]
+
+---
+
+## 4. Расчёт расстояний от каждой точки до нового центроида 
+
+.pull-left[
+Также оценивается разброс внутри каждого кластера.
+
+```{r purl=FALSE, echo=FALSE}
+gg_dist_new <-  gg_new_centr +
+  geom_segment(aes(X[1], y = Y[1], xend = mean(X[1:2]), yend = mean(Y[1:2])),
+               linewidth = 0.5, colour = "black") +
+  geom_segment(aes(X[4], y = Y[4], xend = mean(X[3:8]), yend = mean(Y[3:8])),
+               linewidth = 0.5, colour = "black") +
+  geom_segment(aes(X[12], y = Y[12], xend = mean(X[9:18]), yend = mean(Y[9:18])),
+               linewidth = 0.5, colour = "black")
+
+gg_dist_new
+```
+]
+
+.pull-right[
+Разброс считается как сумма квадратов расстояний между отдельными наблюдениями и центроидом.
+
+$$ \sum_{i=1}^{n}(x_i - \overline{x})$$
+]
+
+---
+
+## 5. Повторяем всё многократно до тех пор, пока разброс не станет минимальным
+
+Кластеры с минимальным разбросом --- финальные. 
+
+```{r purl=FALSE, echo=FALSE}
+gg_k_final
+```
+
+---
+
+## Подбор количества кластеров
+
+А что, если на глаз не видно точное количество кластеров?.. 
+
+```{r purl=FALSE, echo=FALSE}
+gg_kmeans
+```
+
+Может быть тут два кластера?.. Чтобы определить оптимальное количество нам также понадобится сумма квадратов была минимальной. 
+
+Чтобы разобраться, перейдём к коду в R. 
+
+---
+
+# K-means в R
+
+.pull-left[
+В первую очередь стандартизуем данные.
+
+```{r}
+f_sc <- scale(fos)
+```
+
+Визуализацию изменения суммы квадратов можно посмотреть с помощью функции `fviz_nbclust` из пакета `factoextra`.
+]
+
+.pull-right[
+```{r}
+fviz_nbclust(f_sc, kmeans, method = "wss")
+```
+]
+
+Определяем точку (в английской литературе её называют elbow), после которой менее резко начинает изменяться within sum of squares. В нашем случае это 4. 
+
+---
+
+## K-means кластеризация и визуализация
+
+```{r}
+f_kmeans <- kmeans(f_sc, centers = 4, nstart = 20) # проводим кластеризацию
+
+my_col <- c("#2E9FDF", "#FF5AD9", "#B5FF0A", "#F37352") # создаём вектор цветов для раскраски
+
+# визуализируем
+fviz_cluster(f_kmeans, data = f_sc,
+             palette = my_col,
+             ggtheme = theme_bw())
+```
+
+---
+
+## Density-based spatial clustering of applications with noise (DBSCAN)
+
+.pull-left[
+Основанная на плотности пространственная кластеризация для приложений с шумами --- метод, более подходящий для "вложенных" кластеров. Основан на распределении плотности точек. 
+
+```{r purl=FALSE, echo=FALSE}
+library(dbscan)
+library(factoextra)
+library(dplyr)
+
+data('multishapes')
+
+multi_circle <- multishapes %>% filter(shape == c(1, 2))
+multi <- multi_circle[, 1:2]
+
+ggplot(multi, aes(x, y)) + geom_point()
+```
+]
+
+.pull-right[
+Работает с данными, с которыми K-means справиться не может. Как, например, тут. 
+```{r}
+set.seed(123)
+circle_kmeans <- kmeans(multi, centers = 2, nstart = 20)
+my_col_circle <- c("#2E9FDF", "#E7B800")
+fviz_cluster(circle_kmeans, data = multi,
+             palette = my_col_circle)
+```
+]
+
+---
+
+## Принцип работы DBSCAN 
+
+Кластеры выбираются на основе плотности расположения точек. В результате в единый кластер объединяются близко расположенные друг к другу точки. 
+Исследователем задаются два важных параметра для объединения точек в один кластер:
+- радиус расстояния, на котором должны рассматриваться близлежащие точки (`eps`)
+- минимальное количество точек, которые расположены в круге этого радиуса (`minPts`)
+
+Сore points --- точки, от которых можем присоединять в кластер новые точки и рядом с которыми расположено `minPts` количество точек. Есть ещё пограничные точки --- те, на которых кластер заканчивается. Остальные точки считаются шумом и выбросами.  
+
+---
+
+## DBSCAN в R
+
+Провести такую кластеризацию можно с помощью функции `dbscan` из пакета `dbscan`. 
+
+```{r echo=FALSE}
+circle_dbscan <- dbscan(multi, 0.23, 5)
+fviz_cluster(circle_dbscan, data = multi,
+             palette = my_col_circle)
+```
+
+---
+
+## Epsilon --- выбираем расстояние для радиуса
+
+Можно посмотреть на график k-расстояний (k-distance plot): поскольку мы предполагаем, что у точек одного кластера расстояние будет одинаковым, а у точек из шума расстояние будет больше. Вычислить среднее значение расстояний каждой точки до ее k ближайших соседей. Далее эти k-расстояния отображаются в порядке возрастания. Если на графике есть "колено" --- значительный перегиб, будет легко найти нужное значение радиуса. 
+.pull-left[
+```{r}
+kNNdistplot(multi, k = 5)
+abline(h = 0.23, lty = 2)
+```
+]
+.pull-right[
+```{r}
+circle_dbscan <- dbscan(multi, 0.23, 5)
+fviz_cluster(circle_dbscan, data = multi,
+             palette = my_col_circle)
+```
+]
+
+---
+
+## Задание
+
+Кластеризуйте данные по поссумам, используя DBSCAN-алгоритм.
+
+---
+
+## Примерное решение
+
+.pull-left[
+```{r purl=FALSE}
+kNNdistplot(f_sc, k = 5)
+abline(h = 2.3, lty = 2) 
+```
+]
+
+.pull-right[
+```{r purl=FALSE}
+pos_db <- dbscan(f_sc, 2.3, 5)
+fviz_cluster(pos_db, data = f_sc,
+             palette = my_col)
+```
+]
+
+Не очень красиво получилось. Нет близко расположенных точек, и многие наблюдения читаются как выбросы.
+
+---
+
 ## Take home messages
 
 - Неметрическое многомерное шкалирование (nMDS):
@@ -1018,6 +1396,7 @@ axisPhylo()
     - Стресс --- мера оценки качества ординации nMDS
 
 - Кластерный анализ:
+    - Бывает иерархическим и неиерархическим. Какой использовать --- зависит от ваших целей и задач
     - Результат кластеризации зависит не только от выбора коэффициента, но и от выбора алгоритма кластеризации
     - Кофенетическая корреляция --- мера оценки соответствия расстояний на дендрограмме и коэффициентов сходства/различия в исходной матрице
 

@@ -89,10 +89,8 @@ install.packages("adegenet")
 ## 9. Ординация и классификация с использованием мер сходства-различия
 
 ```{r eval=FALSE}
-install.packages("ape")
-install.packages("pvclust")
-install.packages("phangorn")
+install.packages(c("ape", "pvclust", "phangorn", "factoextra", "dbscan", "dplyr"))
 ```
 
-<!-- - Презентация: [09_dist.pdf](09_dist.pdf) -->
-<!-- - Код: [09_dist_code.R](09_dist_code.R) -->
+<!-- - Презентация: [09_dist.html](09_dist.html) -->
+- Код: [09_dist_code.R](09_dist_code.R)

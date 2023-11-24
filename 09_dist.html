@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="author" content="Марина Варфоломеева" />
     <meta name="author" content="Анастасия Лянгузова" />
-    <script src="libs/header-attrs-2.23/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.25/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
@@ -88,13 +88,9 @@ class: middle, center, inverse
 
 `\(d \ge 0\)`
 
-&lt;!-- ```{r echo=FALSE, fig.width=4.5, fig.height=0.5} --&gt;
-&lt;!-- library(DiagrammeR) --&gt;
-&lt;!-- DiagrammeR("images/dist.gv", type = "grViz") --&gt;
-&lt;!-- # system('dot -Tpdf images/dist.gv -o images/dist.pdf') --&gt;
-&lt;!-- ``` --&gt;
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-64160d6d855a80d96970" style="width:324px;height:36px;"></div>
+<script type="application/json" data-for="htmlwidget-64160d6d855a80d96970">{"x":{"diagram":"digraph symmetry {\n\n  # a \"graph\" statement\n  graph [overlap = false, fontsize = 10, rankdir = LR]\n\n  # several \"node\" statements\n  node [shape = circle,\n        fixedsize = true,\n        width = 0.5,\n        style = filled,\n        color = grey]\n  node [fillcolor = PowderBlue]\n  A; B\n\n  # several \"edge\" statements\n  A->B [dir = \"both\"]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
-![](images/dist.pdf)
 ]
 
 .pull-right[
@@ -102,13 +98,12 @@ class: middle, center, inverse
 
 `\(0 \le S \le 1\)` или `\(-1 \le S \le 1\)`
 
-&lt;!-- ```{r echo=FALSE, fig.width=4.5, fig.height=0.5} --&gt;
-&lt;!-- DiagrammeR("images/sim.gv", type = "grViz") --&gt;
-&lt;!-- # system('dot -Tpdf images/sim.gv -o images/sim.pdf') --&gt;
-&lt;!-- ``` --&gt;
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b9501c191ad406bbf499" style="width:324px;height:36px;"></div>
+<script type="application/json" data-for="htmlwidget-b9501c191ad406bbf499">{"x":{"diagram":"digraph symmetry {\n\n  # a \"graph\" statement\n  graph [overlap = false, fontsize = 10, rankdir = LR]\n\n  # several \"node\" statements\n  node [shape = circle,\n        fixedsize = true,\n        width = 0.5,\n        style = filled,\n        color = grey]\n  node [fillcolor = PowderBlue]\n  A; B\n\n  # several \"edge\" statements\n  A->B [dir = \"both\", arrowhead = inv arrowtail = inv]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
-![](images/sim.pdf)
 ]
+
+&lt;br&gt;
 
 - Используются в качестве исходных данных для многих видов многомерных анализов, в т.ч. для неметрического многомерного шкалирования и некоторых видов кластерного анализа
 - Из сходств можно получить расстояния и наоборот
@@ -133,8 +128,8 @@ class: middle, center, inverse
 
 Симметричность: `\(d_{A, B} = d_{B, A}\)`
 
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-64984610bb04b0af9764" style="width:288px;height:36px;"></div>
-<script type="application/json" data-for="htmlwidget-64984610bb04b0af9764">{"x":{"diagram":"digraph symmetry {\n\n  # a \"graph\" statement\n  graph [overlap = false, fontsize = 10, rankdir = LR, labelloc = t, labeljust = c/*, label = \"Симметричность\"*/]\n\n  # several \"node\" statements\n  node [shape = circle,\n        fixedsize = true,\n        width = 0.5,\n        style = filled,\n        color = grey]\n  node [fillcolor = PowderBlue]\n  A; B\n\n  # several \"edge\" statements\n  A->B /*[label=<<font point-size=\"10\">d<sub><font point-size=\"5\">A, B<\/font><\/sub> = d<sub><font point-size=\"5\">B, A<\/font><\/sub><\/font>>]*/\n  B->A\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-28d385f1dd9e5c90bfa4" style="width:288px;height:36px;"></div>
+<script type="application/json" data-for="htmlwidget-28d385f1dd9e5c90bfa4">{"x":{"diagram":"digraph symmetry {\n\n  # a \"graph\" statement\n  graph [overlap = false, fontsize = 10, rankdir = LR, labelloc = t, labeljust = c/*, label = \"Симметричность\"*/]\n\n  # several \"node\" statements\n  node [shape = circle,\n        fixedsize = true,\n        width = 0.5,\n        style = filled,\n        color = grey]\n  node [fillcolor = PowderBlue]\n  A; B\n\n  # several \"edge\" statements\n  A->B /*[label=<<font point-size=\"10\">d<sub><font point-size=\"5\">A, B<\/font><\/sub> = d<sub><font point-size=\"5\">B, A<\/font><\/sub><\/font>>]*/\n  B->A\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 ![](images/symmetry.pdf)
 ]
@@ -146,8 +141,8 @@ class: middle, center, inverse
 
 Триангулярность: `\(d_{A, B} \le d_{A, C} + d_{C, B}\)`
 
-<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8e5f27979292535fac32" style="width:288px;height:72px;"></div>
-<script type="application/json" data-for="htmlwidget-8e5f27979292535fac32">{"x":{"diagram":"digraph symmetry {\n\n  # a \"graph\" statement\n  graph [overlap = false, fontsize = 10, rankdir = LR]\n\n  # several \"node\" statements\n  node [shape = circle,\n        fixedsize = true,\n        width = 0.5,\n        style = filled,\n        color = grey]\n  node [fillcolor = PowderBlue]\n  A; B; C\n\n  # several \"edge\" statements\n  A->B A->C C->B\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-3893a2d8eda0410349e0" style="width:288px;height:72px;"></div>
+<script type="application/json" data-for="htmlwidget-3893a2d8eda0410349e0">{"x":{"diagram":"digraph symmetry {\n\n  # a \"graph\" statement\n  graph [overlap = false, fontsize = 10, rankdir = LR]\n\n  # several \"node\" statements\n  node [shape = circle,\n        fixedsize = true,\n        width = 0.5,\n        style = filled,\n        color = grey]\n  node [fillcolor = PowderBlue]\n  A; B; C\n\n  # several \"edge\" statements\n  A->B A->C C->B\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 ![](images/triang.pdf)
 ]
@@ -357,7 +352,7 @@ Cherbourg   3339      1294      583    460
 
 Неметрическое многомерное шкалирование (nonmetric multidimensional scaling, nMDS) --- метод визуализации отношений между объектами в пространстве с небольшим числом измерений.
 
-Исходные данные --- матрица расстояний между объектами в многомерном пространстве
+Исходные данные --- матрица расстояний между объектами в многомерном пространстве.
 
 
 
@@ -399,6 +394,7 @@ Possum by Hasitha Tudugalle on [Flickr](https://www.flickr.com/photos/hasitha\_t
 
 .tiny[
 Данные Lindenmayer et al. (1995)
+]
 ]
 
 ---
@@ -460,56 +456,53 @@ ord_euclid &lt;- metaMDS(pos[, 6:14], distance = "euclid", autotransform = FALSE
 
 ```
 Run 0 stress 0.1035 
-Run 1 stress 0.1035 
-... New best solution
-... Procrustes: rmse 0.00001086  max resid 0.00006617 
-... Similar to previous best
+Run 1 stress 0.12 
 Run 2 stress 0.12 
 Run 3 stress 0.1035 
 ... New best solution
-... Procrustes: rmse 0.000006336  max resid 0.0000392 
+... Procrustes: rmse 0.000009371  max resid 0.00007601 
 ... Similar to previous best
 Run 4 stress 0.1035 
-... Procrustes: rmse 0.000005481  max resid 0.00004619 
-... Similar to previous best
-Run 5 stress 0.1035 
 ... New best solution
-... Procrustes: rmse 0.000003023  max resid 0.00001812 
+... Procrustes: rmse 0.000004192  max resid 0.00002953 
 ... Similar to previous best
+Run 5 stress 0.12 
 Run 6 stress 0.1035 
-... Procrustes: rmse 0.00000478  max resid 0.00003719 
+... Procrustes: rmse 0.000006273  max resid 0.00002353 
 ... Similar to previous best
 Run 7 stress 0.1035 
-... Procrustes: rmse 0.000001924  max resid 0.00000871 
+... Procrustes: rmse 0.000003805  max resid 0.00002362 
 ... Similar to previous best
-Run 8 stress 0.12 
-Run 9 stress 0.1035 
-... Procrustes: rmse 0.000004774  max resid 0.0000252 
+Run 8 stress 0.1035 
+... Procrustes: rmse 0.000002977  max resid 0.00001933 
 ... Similar to previous best
+Run 9 stress 0.12 
 Run 10 stress 0.1035 
-... Procrustes: rmse 0.000002935  max resid 0.00002168 
+... Procrustes: rmse 0.000004393  max resid 0.00003604 
 ... Similar to previous best
-Run 11 stress 0.12 
-Run 12 stress 0.12 
-Run 13 stress 0.1035 
-... Procrustes: rmse 0.000007396  max resid 0.00006614 
+Run 11 stress 0.1035 
+... Procrustes: rmse 0.000003872  max resid 0.00003191 
 ... Similar to previous best
+Run 12 stress 0.1035 
+... Procrustes: rmse 0.000003908  max resid 0.00002406 
+... Similar to previous best
+Run 13 stress 0.12 
 Run 14 stress 0.1035 
-... Procrustes: rmse 0.000004501  max resid 0.00004018 
+... Procrustes: rmse 0.000005414  max resid 0.00004677 
 ... Similar to previous best
-Run 15 stress 0.1035 
-... Procrustes: rmse 0.000006712  max resid 0.00005547 
-... Similar to previous best
-Run 16 stress 0.1035 
-... Procrustes: rmse 0.000005729  max resid 0.00005351 
-... Similar to previous best
+Run 15 stress 0.12 
+Run 16 stress 0.12 
 Run 17 stress 0.1035 
-... Procrustes: rmse 0.000005917  max resid 0.00005265 
+... Procrustes: rmse 0.00000448  max resid 0.00002482 
 ... Similar to previous best
 Run 18 stress 0.12 
-Run 19 stress 0.12 
-Run 20 stress 0.12 
-*** Best solution repeated 10 times
+Run 19 stress 0.1035 
+... Procrustes: rmse 0.0000077  max resid 0.00007329 
+... Similar to previous best
+Run 20 stress 0.1035 
+... Procrustes: rmse 0.000002586  max resid 0.00001312 
+... Similar to previous best
+*** Best solution repeated 11 times
 ```
 
 ---
@@ -550,7 +543,7 @@ C15  -8.361 -3.624
 C23  -1.886 -4.743
 C24  -5.778 -5.346
 C26  -5.838 -1.542
-C27  -7.102 -2.984
+C27  -7.102 -2.983
 C28  -5.744 -2.972
 C31  -3.875 -3.237
 ```
@@ -643,58 +636,45 @@ ord_scaled &lt;- metaMDS(scale(pos[, 6:14]), distance = "euclide", autotransform
 ```
 Run 0 stress 0.1471 
 Run 1 stress 0.1471 
-... Procrustes: rmse 0.001066  max resid 0.005871 
+... Procrustes: rmse 0.001067  max resid 0.005875 
 ... Similar to previous best
 Run 2 stress 0.1471 
 ... New best solution
-... Procrustes: rmse 0.0008163  max resid 0.0059 
+... Procrustes: rmse 0.0008182  max resid 0.005899 
 ... Similar to previous best
-Run 3 stress 0.151 
-Run 4 stress 0.1471 
+Run 3 stress 0.1509 
+Run 4 stress 0.1509 
+Run 5 stress 0.151 
+Run 6 stress 0.1471 
 ... New best solution
-... Procrustes: rmse 0.000011  max resid 0.00009404 
+... Procrustes: rmse 0.000008007  max resid 0.00003813 
 ... Similar to previous best
-Run 5 stress 0.1471 
-... Procrustes: rmse 0.0000118  max resid 0.00006074 
-... Similar to previous best
-Run 6 stress 0.1509 
-Run 7 stress 0.1471 
-... Procrustes: rmse 0.001072  max resid 0.005904 
-... Similar to previous best
-Run 8 stress 0.1471 
-... Procrustes: rmse 0.000007081  max resid 0.00003634 
-... Similar to previous best
+Run 7 stress 0.151 
+Run 8 stress 0.1509 
 Run 9 stress 0.1471 
-... Procrustes: rmse 0.0008161  max resid 0.005895 
+... Procrustes: rmse 0.000694  max resid 0.005491 
 ... Similar to previous best
-Run 10 stress 0.1471 
-... Procrustes: rmse 0.001073  max resid 0.005921 
-... Similar to previous best
+Run 10 stress 0.151 
 Run 11 stress 0.151 
-Run 12 stress 0.151 
+Run 12 stress 0.1509 
 Run 13 stress 0.1471 
-... Procrustes: rmse 0.000009108  max resid 0.00003498 
+... New best solution
+... Procrustes: rmse 0.00002128  max resid 0.0001069 
 ... Similar to previous best
-Run 14 stress 0.1471 
-... Procrustes: rmse 0.001071  max resid 0.005899 
-... Similar to previous best
+Run 14 stress 0.151 
 Run 15 stress 0.1471 
-... Procrustes: rmse 0.00001034  max resid 0.00005372 
+... Procrustes: rmse 0.0006897  max resid 0.00545 
 ... Similar to previous best
-Run 16 stress 0.1471 
-... Procrustes: rmse 0.001074  max resid 0.005926 
-... Similar to previous best
+Run 16 stress 0.151 
 Run 17 stress 0.1471 
-... Procrustes: rmse 0.0006905  max resid 0.005462 
+... Procrustes: rmse 0.00001936  max resid 0.00007154 
 ... Similar to previous best
-Run 18 stress 0.1471 
-... Procrustes: rmse 0.001074  max resid 0.005928 
-... Similar to previous best
+Run 18 stress 0.1509 
 Run 19 stress 0.151 
 Run 20 stress 0.1471 
-... Procrustes: rmse 0.000007407  max resid 0.0000341 
+... Procrustes: rmse 0.001066  max resid 0.005858 
 ... Similar to previous best
-*** Best solution repeated 13 times
+*** Best solution repeated 4 times
 ```
 
 ```r
@@ -831,12 +811,29 @@ fos &lt;- fossum[complete.cases(fossum), 6:14]
 
 ---
 
-class: middle, center, inverse
+## Методы кластеризации
 
-## Какие бывают методы построения деревьев?
+.pull-left[
+### Иерархические методы
+
+- методы построения деревьев (о них следующие слайды)
+]
+
+.pull-right[
+### Неиерархические методы
+
+- кластеризация K-means 
+- кластеризация C-means 
+- основанная на плотности пространственная кластеризация для приложений с шумами (DBSCAN)
+- упорядочение точек для обнаружения кластерной структуры (OPTICS)
+
+]
 
 ---
 
+## Какие бывают методы построения деревьев?
+
+.pull-left[
 ### Методы класстеризации на основании расстояний (о них сегодня пойдет речь)
   - Метод ближайшего соседа (single linkage)
   - Метод отдаленного соседа (complete linkage)
@@ -845,7 +842,9 @@ class: middle, center, inverse
   - Метод присоединения соседей (Neighbour Joining)
 
 Эти методы есть в базовом пакете `stats`, и в пакете `ape`. Разные полезные функции есть в `ade4` и `adegenet`
+]
 
+.pull-right[
 ### Методы кластеризации на основании признаков
   - Метод максимальной бережливости 
   - Метод максимального правдоподобия
@@ -854,6 +853,7 @@ class: middle, center, inverse
 
 Со списком пакетов для филогенетического анализа в R можно познакомиться здесь:  
 https://cran.r-project.org/web/views/Phylogenetics.html
+]
 
 ---
 
@@ -1034,11 +1034,11 @@ class: middle, center, inverse
 
 ## Кофенетическая корреляция
 
-Кофенетическое расстояние - расстояние между объектами на дендрограмме
+Кофенетическое расстояние --- расстояние между объектами на дендрограмме.
 
-Кофенетическую корреляцию можно рассчитать как пирсоновскую корреляцию (обычную) между матрицами исходных и кофенетических расстояний между всеми парами объектов 
+Кофенетическую корреляцию можно рассчитать как пирсоновскую корреляцию (обычную) между матрицами исходных и кофенетических расстояний между всеми парами объектов. 
 
-Метод, который дает наибольшую кофенетическую корреляцию дает кластеры лучше всего отражающие исходные данные
+Метод, который дает наибольшую кофенетическую корреляцию, дает кластеры, лучше всего отражающие исходные данные.
 
 ---
 
@@ -1112,6 +1112,7 @@ cor(d, c_w2)
 library(pvclust)
 ```
 
+
 ```r
 system.time({
 cl_boot &lt;- pvclust(scale(t(fos)), 
@@ -1134,15 +1135,9 @@ Multiscale bootstrap... Done.
   0.168   0.235  26.077 
 ```
 
-&lt;!-- ``` --&gt;
-&lt;!-- Creating a temporary cluster...done: --&gt;
-&lt;!-- socket cluster with 3 nodes on host ‘localhost’ --&gt;
-&lt;!-- Multiscale bootstrap... Done. --&gt;
-&lt;!--    user  system elapsed  --&gt;
-&lt;!--   0.232   0.400 104.418  --&gt;
-&lt;!-- ``` --&gt;
+---
 
-##
+## Бутстреп-поддержка ветвей 
 
 
 ```r
@@ -1192,6 +1187,246 @@ axisPhylo()
 
 ---
 
+class: middle, center, inverse
+
+## Неиерархические методы кластеризации
+
+---
+
+## K-means кластеризация
+
+.pull-left[
+![](09_dist_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+В отличие от иерархических методов кластеризации K-means будет искать то количество кластеров, которое вы ему зададите (в количестве k штук). Каждое наблюдение принадлежит кластеру с ближайшим значением среднего числа (центроида); помимо этого K-means кластеризация минимизирует разброс значений внутри каждого из кластера.
+
+Используется в машинном обучении, в том числе, например, для цветовой редуцкии изображений. 
+]
+
+---
+
+## Алгоритм K-means кластеризации
+
+.pull-left[
+### График наблюдений 
+![](09_dist_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+
+Здесь как будто бы выделяются 3 кластера, поэтому возьмём k = 3. Что же будет делать алгоритм?
+]
+
+--
+
+.pull-right[
+### 1. Выбираются случайным образом 3 точки на графике --- кластерные центроиды
+
+Например, так:
+
+![](09_dist_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+]
+
+---
+
+## Алгоритм K-means кластеризации 
+
+.pull-left[
+### 2. Измеряется Евклидово расстояние между каждой точкой и центроидом 
+
+При этом каждая точка приписывается к ближайшему кластеру. 
+
+![](09_dist_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+### 3. Расситываются центроиды для каждого кластера
+
+![](09_dist_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+]
+
+---
+
+## 4. Расчёт расстояний от каждой точки до нового центроида 
+
+.pull-left[
+Также оценивается разброс внутри каждого кластера.
+
+![](09_dist_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+Разброс считается как сумма квадратов расстояний между отдельными наблюдениями и центроидом.
+
+$$ \sum_{i=1}^{n}(x_i - \overline{x})$$
+]
+
+---
+
+## 5. Повторяем всё многократно до тех пор, пока разброс не станет минимальным
+
+Кластеры с минимальным разбросом --- финальные. 
+
+![](09_dist_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
+
+---
+
+## Подбор количества кластеров
+
+А что, если на глаз не видно точное количество кластеров?.. 
+
+![](09_dist_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+
+Может быть тут два кластера?.. Чтобы определить оптимальное количество нам также понадобится сумма квадратов была минимальной. 
+
+Чтобы разобраться, перейдём к коду в R. 
+
+---
+
+# K-means в R
+
+.pull-left[
+В первую очередь стандартизуем данные.
+
+
+```r
+f_sc &lt;- scale(fos)
+```
+
+Визуализацию изменения суммы квадратов можно посмотреть с помощью функции `fviz_nbclust` из пакета `factoextra`.
+]
+
+.pull-right[
+
+```r
+fviz_nbclust(f_sc, kmeans, method = "wss")
+```
+
+![](09_dist_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+]
+
+Определяем точку (в английской литературе её называют elbow), после которой менее резко начинает изменяться within sum of squares. В нашем случае это 4. 
+
+---
+
+## K-means кластеризация и визуализация
+
+
+```r
+f_kmeans &lt;- kmeans(f_sc, centers = 4, nstart = 20) # проводим кластеризацию
+
+my_col &lt;- c("#2E9FDF", "#FF5AD9", "#B5FF0A", "#F37352") # создаём вектор цветов для раскраски
+
+# визуализируем
+fviz_cluster(f_kmeans, data = f_sc,
+             palette = my_col,
+             ggtheme = theme_bw())
+```
+
+![](09_dist_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
+
+---
+
+## Density-based spatial clustering of applications with noise (DBSCAN)
+
+.pull-left[
+Основанная на плотности пространственная кластеризация для приложений с шумами --- метод, более подходящий для "вложенных" кластеров. Основан на распределении плотности точек. 
+
+![](09_dist_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+Работает с данными, с которыми K-means справиться не может. Как, например, тут. 
+
+```r
+set.seed(123)
+circle_kmeans &lt;- kmeans(multi, centers = 2, nstart = 20)
+my_col_circle &lt;- c("#2E9FDF", "#E7B800")
+fviz_cluster(circle_kmeans, data = multi,
+             palette = my_col_circle)
+```
+
+![](09_dist_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
+]
+
+---
+
+## Принцип работы DBSCAN 
+
+Кластеры выбираются на основе плотности расположения точек. В результате в единый кластер объединяются близко расположенные друг к другу точки. 
+Исследователем задаются два важных параметра для объединения точек в один кластер:
+- радиус расстояния, на котором должны рассматриваться близлежащие точки (`eps`)
+- минимальное количество точек, которые расположены в круге этого радиуса (`minPts`)
+
+Сore points --- точки, от которых можем присоединять в кластер новые точки и рядом с которыми расположено `minPts` количество точек. Есть ещё пограничные точки --- те, на которых кластер заканчивается. Остальные точки считаются шумом и выбросами.  
+
+---
+
+## DBSCAN в R
+
+Провести такую кластеризацию можно с помощью функции `dbscan` из пакета `dbscan`. 
+
+![](09_dist_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+
+---
+
+## Epsilon --- выбираем расстояние для радиуса
+
+Можно посмотреть на график k-расстояний (k-distance plot): поскольку мы предполагаем, что у точек одного кластера расстояние будет одинаковым, а у точек из шума расстояние будет больше. Вычислить среднее значение расстояний каждой точки до ее k ближайших соседей. Далее эти k-расстояния отображаются в порядке возрастания. Если на графике есть "колено" --- значительный перегиб, будет легко найти нужное значение радиуса. 
+.pull-left[
+
+```r
+kNNdistplot(multi, k = 5)
+abline(h = 0.23, lty = 2)
+```
+
+![](09_dist_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+]
+.pull-right[
+
+```r
+circle_dbscan &lt;- dbscan(multi, 0.23, 5)
+fviz_cluster(circle_dbscan, data = multi,
+             palette = my_col_circle)
+```
+
+![](09_dist_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
+]
+
+---
+
+## Задание
+
+Кластеризуйте данные по поссумам, используя DBSCAN-алгоритм.
+
+---
+
+## Примерное решение
+
+.pull-left[
+
+```r
+kNNdistplot(f_sc, k = 5)
+abline(h = 2.3, lty = 2) 
+```
+
+![](09_dist_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+
+```r
+pos_db &lt;- dbscan(f_sc, 2.3, 5)
+fviz_cluster(pos_db, data = f_sc,
+             palette = my_col)
+```
+
+![](09_dist_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
+]
+
+Не очень красиво получилось. Нет близко расположенных точек, и многие наблюдения читаются как выбросы.
+
+---
+
 ## Take home messages
 
 - Неметрическое многомерное шкалирование (nMDS):
@@ -1201,6 +1436,7 @@ axisPhylo()
     - Стресс --- мера оценки качества ординации nMDS
 
 - Кластерный анализ:
+    - Бывает иерархическим и неиерархическим. Какой использовать --- зависит от ваших целей и задач
     - Результат кластеризации зависит не только от выбора коэффициента, но и от выбора алгоритма кластеризации
     - Кофенетическая корреляция --- мера оценки соответствия расстояний на дендрограмме и коэффициентов сходства/различия в исходной матрице
 
