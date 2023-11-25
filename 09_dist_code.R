@@ -11,6 +11,7 @@
 ## Знакомимся с данными
 library(DAAG)
 data(possum)
+head(possum, 2)
 colnames(possum)
 
 colSums(is.na(possum))
@@ -38,6 +39,7 @@ head(ord_euclid$points, 10)
 # График ординации:
 ordiplot(ord_euclid, type = "t", cex = 0.5)
 
+summary(ord_euclid)
 
 ## Задание 1 -------------------------------------
 #
@@ -50,15 +52,17 @@ ordiplot(ord_euclid, type = "t", cex = 0.5)
 # изображены на разных панелях
 #
 # Дополните код
-
-library()
+str(ord_euclid)
+library(ggplot2)
 # Данные для графика
-points_euclid <- data.frame( , )
+points_euclid <- data.frame(ord_euclid$points, pos)
+head(points_euclid)
 # График nMDS ординации
-gg_euclid <- ggplot(, aes(x = , y = )) +
-  geom_point() +
+gg_euclid <- ggplot(points_euclid, aes(x = MDS1, y = MDS2)) +
+  geom_point(aes(col = Pop), alpha = 0.5) +
   facet_wrap(~ sex)
 gg_euclid
+str(points_euclid)
 
 ## Задание 2 -------------------------------------
 #
@@ -66,13 +70,13 @@ gg_euclid
 # расстояния, по стандартизованным данным
 
 # Дополните код
-
+head(pos, 1)
 # Ординация
-ord_scaled <- metaMDS( (pos),
-                       distance = ,
-                       autotransform = )
+ord_scaled <- metaMDS(scale(pos[, 6:14]),
+                       distance = "euclid",
+                       autotransform = FALSE)
 # Качество ординации
-
+ord_scaled$stress
 
 
 
@@ -114,6 +118,7 @@ rownames(fossum) # стало
 
 ## Отбираем только то, что понадобится
 # для кластеризации
+sum(is.na(fossum))
 fos <- fossum[complete.cases(fossum), 6:14]
 
 ## Иерархическая кластеризация ####
@@ -123,13 +128,16 @@ fos <- fossum[complete.cases(fossum), 6:14]
 
 d <- dist(x = fos, method = "euclidean")
 
+
 ## Методы кластеризации ##########################
 
 ## Метод ближайшего соседа #######################
 
 hc_single <- hclust(d, method = "single")
+str(hc_single)
 library(ape)
 ph_single <- as.phylo(hc_single)
+str(ph_single)
 # cex - относительный размер шрифта
 plot(ph_single, type = "phylogram",
      direction = "downwards", cex = 0.7)
@@ -140,7 +148,7 @@ axisPhylo(side = 2)
 
 ph_compl <- as.phylo(hclust(d, method = "complete"))
 plot(ph_compl, type = "phylogram",
-     direction = "downwards", cex = 0.8)
+     direction = "downwards", cex = 0.7)
 axisPhylo(side = 2)
 
 
@@ -186,7 +194,7 @@ system.time({
 cl_boot <- pvclust(scale(t(fos)),
                    method.hclust = "average",
                    method.dist = "euclidean",
-                   nboot = 100,
+                   nboot = 500,
                    parallel = TRUE,
                    iseed = 42)
 })
@@ -208,7 +216,7 @@ plot(cl_boot, cex.pv = 0.8, cex = 0.8)
 # можно загрузить по ссылке:
 # http://evolution.genetics.washington.edu/book/primates.dna
 
-webpage <-"http://evolution.genetics.washington.edu/book/primates.dna"
+webpage <- "https://felsenst.github.io/book/primates.dna"
 primates.dna <- read.dna(webpage)
 d_pri <- dist.dna(primates.dna, model = "K80")
 hc_pri <- hclust(d_pri, method = "average")

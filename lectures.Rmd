@@ -92,5 +92,5 @@ install.packages("adegenet")
 install.packages(c("ape", "pvclust", "phangorn", "factoextra", "dbscan", "dplyr"))
 ```
 
-<!-- - Презентация: [09_dist.html](09_dist.html) -->
+- Презентация: [09_dist.html](09_dist.html)
 - Код: [09_dist_code.R](09_dist_code.R)

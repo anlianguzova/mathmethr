@@ -1128,7 +1128,7 @@ class: middle, center, inverse
 ## Дерево по генетическим данным
 
 ```{r eval=FALSE}
-webpage <-"http://evolution.genetics.washington.edu/book/primates.dna"
+webpage <- "https://felsenst.github.io/book/primates.dna"
 primates.dna <- read.dna(webpage)
 d_pri <- dist.dna(primates.dna, model = "K80")
 hc_pri <- hclust(d_pri, method = "average")
