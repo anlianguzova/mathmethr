@@ -98,3 +98,4 @@ install.packages(c("ape", "pvclust", "phangorn", "factoextra", "dbscan", "dplyr"
 ## 10. Литературное программирование 
 
 - [Файл с примером отчёта](R_calc_Abalone.zip)
+- [Файл с проектом из лекции](R_my_first_project.zip)
