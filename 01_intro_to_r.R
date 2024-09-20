@@ -227,6 +227,16 @@ mmean(vect_num)
 matrix(1:9, nrow = 3, ncol = 3)
 
 
+## Списки -------------------------------------------------------------
+
+my_list <- list(
+  12:16,
+  snail_colours,
+  c(TRUE, TRUE, TRUE, FALSE, FALSE, TRUE)
+)
+
+str(my_list)
+
 ## Датафреймы -------------------------------------------------------------
 len <- 1:9 # числовой
 col <- c(rep("green", 4), rep("red", 5)) # текстовый
@@ -277,6 +287,14 @@ my_worms_new <- data.frame(Length = 40, Width = 60, Colour = "blue", Site = "Pas
 my_worms_final <- rbind(my_worms, my_worms_new)
 my_worms_final
 
+## Тибблы                        -------------------------------------------------------------
+#install.packages('tibble')
+library(tibble)
+my_tibble <- tibble(Length = len, Width = wid, Colour = col)
+str(my_tibble)
+
+my_tibble2 <- tibble(Length = len * 2, Width = wid * 4.5, Colour = col)
+my_tibble2
 
 ## Визуализация данных базовой графикой --------------------------------------------------------
 barplot(my_worms$Width) # барплот
@@ -289,7 +307,7 @@ plot(x = as.factor(my_worms$Colour), y = my_worms$Length) # боксплот
 
 
 ## Графики из ggplot2 ---------------------------------------------------
-install.packages('ggplot2')
+# install.packages('ggplot2')
 library(ggplot2)
 
 
