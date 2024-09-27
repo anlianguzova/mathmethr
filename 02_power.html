@@ -5,25 +5,25 @@
     <meta charset="utf-8" />
     <meta name="author" content="Марина Варфоломеева" />
     <meta name="author" content="Анастасия Лянгузова" />
-    <script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
-    <link href="site_libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="site_libs/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
-    <link href="site_libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
-    <link href="site_libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
-    <script src="site_libs/tile-view-0.2.6/tile-view.js"></script>
-    <script src="site_libs/fabric-4.3.1/fabric.min.js"></script>
-    <link href="site_libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
-    <script src="site_libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script src="libs/header-attrs-2.26/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
-    <script src="site_libs/mark.js-8.11.1/mark.min.js"></script>
-    <link href="site_libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
-    <script src="site_libs/xaringanExtra-search-0.0.1/search.js"></script>
+    <script src="libs/mark.js-8.11.1/mark.min.js"></script>
+    <link href="libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-search-0.0.1/search.js"></script>
     <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":false,"autoSearch":true}) })</script>
-    <script src="site_libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
-    <script src="site_libs/freezeframe-5.0.2/freezeframe.min.js"></script>
-    <script src="site_libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
+    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <script src="libs/freezeframe-5.0.2/freezeframe.min.js"></script>
+    <script src="libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
     <script id="xaringanExtra-freezeframe-options" type="application/json">{"selector":"img[src$=\"gif\"]","trigger":"click","overlay":false,"responsive":true,"warnings":true}</script>
-    <link href="site_libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <link href="libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
     <!-- https://github.com/fnaufel/xaringan-smartify-->
     <script
     			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -236,6 +236,11 @@ mean(shells)
 
 ```r
 sh_deviates &lt;- shells - mean(shells)
+sh_deviates
+```
+
+```
+ [1] -11.2  -6.2  -7.2   2.8   5.8  -2.2   9.8   7.8   4.8  -4.2
 ```
 
 Не подходит для средней оценки разброса! 
@@ -564,11 +569,11 @@ data("Cushings")
 
 ## Двухвыборочный t-критерий в R рассчитывает функция `t.test()`
 
-О параметрах функции t.test() можно прочесть в справке `?t.test`
+О параметрах функции t.test() можно прочесть в справке `?t.test`.
 
 --
 
-Если в данных __ровно две группы__ используется т.наз. "формула".
+Если в данных __ровно две группы__ используется т.н. "формула".
 
 ```
 t.test(formula = зависимая_переменная ~ группирующая_переменная, 
@@ -634,19 +639,19 @@ mean in group a mean in group b
 
 __Задание 1__
 
-Перепишите вызов функции `t.test()` с использованием другого шаблона вызова (с параметрами `x` и `y`)
+Перепишите вызов функции `t.test()` с использованием другого шаблона вызова (с параметрами `x` и `y`).
 
 __Задание 2__
 
-Как называются отдельные элементы результатов можно узнать посмотрев их структуру при помощи функции `str()`
+Как называются отдельные элементы результатов можно узнать посмотрев их структуру при помощи функции `str()`.
 
 __Задание 3__
 
-Получите отдельные элементы результатов из объекта `tt` при помощи оператора `$`
+Получите отдельные элементы результатов из объекта `tt` при помощи оператора `$`:
   
-- значение t-критерия
-- число степеней свободы
-- уровень значимости
+- значение t-критерия;
+- число степеней свободы;
+- уровень значимости.
 
 ---
 
@@ -677,7 +682,7 @@ mean of x mean of y
 
 ## Что спрятано в результатах?
 
-Как называются отдельные элементы результатов можно узнать посмотрев их структуру при помощи функции `str()`
+Как называются отдельные элементы результатов можно узнать посмотрев их структуру при помощи функции `str()`.
 
 
 ```r
@@ -765,7 +770,7 @@ class: middle, center, inverse
 
 ![](02_power_files/figure-html/power_alpha-1.png)&lt;!-- --&gt;
 
-__Ошибка I рода --- вероятность отвергнуть `\(H_0\)`, когда верна `\(H_0\)`__
+__Ошибка I рода --- вероятность отвергнуть `\(H_0\)`, когда верна `\(H_0\)`.__
 
 ---
 
@@ -799,7 +804,7 @@ __Ошибка I рода --- вероятность отвергнуть `\(H_0
 
 ![](02_power_files/figure-html/power_beta-1.png)&lt;!-- --&gt;
 
-__Ошибка II рода --- вероятность принять `\(H_0\)`, когда верна__ `\(H_A\)`
+__Ошибка II рода --- вероятность принять `\(H_0\)`, когда верна__ `\(H_A\)`.
 
 ---
 
@@ -1115,7 +1120,7 @@ colSums(is.na(flea))
       0       0 
 ```
 
-Каковы объемы выборок? Поскольку нет пропущенных значений, можно посчитать так
+Каковы объемы выборок? Поскольку нет пропущенных значений, можно посчитать так:
 
 
 ```r
@@ -1132,9 +1137,9 @@ cocin  hept
 
 ## Представим, что это данные пилотного исследования.
 
-Мы хотим выяснить, сколько нужно жуков, чтобы показать, что ширина первого членика первой лапки различается у этих двух видов
+Мы хотим выяснить, сколько нужно жуков, чтобы показать, что ширина первого членика первой лапки различается у этих двух видов.
 
-График средних и стандартных отклонений
+График средних и стандартных отклонений.
 
 
 ```r
@@ -1168,7 +1173,7 @@ lower upper
 3.059 5.248 
 ```
 
-Вычислим модуль, поскольку для `pwr.t.test()` эффект должен быть положительным
+Вычислим модуль, поскольку для `pwr.t.test()` эффект должен быть положительным.
 
 
 ```r
