@@ -5,25 +5,25 @@
     <meta charset="utf-8" />
     <meta name="author" content="Марина Варфоломеева" />
     <meta name="author" content="Анастасия Лянгузова" />
-    <script src="libs/header-attrs-2.23/header-attrs.js"></script>
-    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
-    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
-    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
-    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
-    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+    <link href="site_libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="site_libs/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
+    <link href="site_libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="site_libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="site_libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="site_libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="site_libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="site_libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
-    <script src="libs/mark.js-8.11.1/mark.min.js"></script>
-    <link href="libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-search-0.0.1/search.js"></script>
+    <script src="site_libs/mark.js-8.11.1/mark.min.js"></script>
+    <link href="site_libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
+    <script src="site_libs/xaringanExtra-search-0.0.1/search.js"></script>
     <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":false,"autoSearch":true}) })</script>
-    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
-    <script src="libs/freezeframe-5.0.2/freezeframe.min.js"></script>
-    <script src="libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
+    <script src="site_libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <script src="site_libs/freezeframe-5.0.2/freezeframe.min.js"></script>
+    <script src="site_libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
     <script id="xaringanExtra-freezeframe-options" type="application/json">{"selector":"img[src$=\"gif\"]","trigger":"click","overlay":false,"responsive":true,"warnings":true}</script>
-    <link href="libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <link href="site_libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
     <!-- https://github.com/fnaufel/xaringan-smartify-->
     <script
     			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -66,8 +66,8 @@ class: middle, center, inverse
 
 ## Вы сможете
 
-- Проводить двухфакторный дисперсионный анализ и интерпретировать его результаты с учетом взаимодействия факторов
-- Отличать фиксированные и случайные факторы и выбирать подходящую модель дисперсионного анализа
+- Проводить двухфакторный дисперсионный анализ и интерпретировать его результаты с учетом взаимодействия факторов;
+- Отличать фиксированные и случайные факторы и выбирать подходящую модель дисперсионного анализа.
 
 ---
 
@@ -78,16 +78,16 @@ class: middle, center, inverse
 Факторы:
 
 - `Age` - Возраст:
-    - `Younger` - 50 молодых
-    - `Older` - 50 пожилых (55-65 лет)
+    - `Younger` - 50 молодых;
+    - `Older` - 50 пожилых (55--65 лет).
 - `Process` - тип активности:
-    - `Counting` - посчитать число букв
-    - `Rhyming` - придумать рифму к слову
-    - `Adjective` - придумать прилагательное
-    - `Imagery` - представить образ
-    - `Intentional` - запомнить слово
+    - `Counting` - посчитать число букв;
+    - `Rhyming` - придумать рифму к слову;
+    - `Adjective` - придумать прилагательное;
+    - `Imagery` - представить образ;
+    - `Intentional` - запомнить слово.
 
-Зависимая переменная - `Words` - сколько вспомнили слов
+Зависимая переменная --- `Words` --- сколько вспомнили слов
 
 .tiny[
 Пример из http://www.statsci.org/data/general/eysenck.html
@@ -98,7 +98,7 @@ class: middle, center, inverse
 ## Открываем данные
 
 
-```r
+``` r
 memory &lt;- read.table(file = "data/eysenck.csv", header = TRUE, sep = "\t")
 # Все ли правильно открылось?
 str(memory) # Структура данных
@@ -111,7 +111,7 @@ str(memory) # Структура данных
  $ Words  : num  8 6 4 6 7 6 5 7 9 7 ...
 ```
 
-```r
+``` r
 head(memory, 2) # Первые несколько строк файла
 ```
 
@@ -121,7 +121,7 @@ head(memory, 2) # Первые несколько строк файла
 2 Younger Counting     6
 ```
 
-```r
+``` r
 # Делаем факторы факторами
 memory$Process &lt;- factor(memory$Process, 
                          levels = c("Adjective", "Counting",
@@ -137,7 +137,7 @@ memory$Age &lt;- factor(memory$Age, levels = c("Older", "Younger"),
 ## Знакомимся с данными
 
 
-```r
+``` r
 # Есть ли пропущенные значения 
 # (особенно, в переменных, которые нас интересуют)?
 colSums(is.na(memory))
@@ -148,7 +148,7 @@ colSums(is.na(memory))
       0       0       0 
 ```
 
-```r
+``` r
 # Каков объем выборки?
 nrow(memory) # всего
 ```
@@ -157,7 +157,7 @@ nrow(memory) # всего
 [1] 100
 ```
 
-```r
+``` r
 table(memory$Age, memory$Process) # в группах
 ```
 
@@ -175,7 +175,7 @@ table(memory$Age, memory$Process) # в группах
 Дополните код, чтобы построить график, на котором приведено среднее число слов (`Words`) для каждого возраста (`Age`) и способа запоминания (`Process`).
 
 
-```r
+``` r
 library()
 theme_set()
 ggplot(data = , aes()) + 
@@ -190,7 +190,7 @@ ggplot(data = , aes()) +
 ## Решение 1
 
 
-```r
+``` r
 library(ggplot2)
 theme_set(theme_bw())
 ggplot(data = memory, aes(x = Age, y = Words, colour = Process)) + 
@@ -206,9 +206,9 @@ ggplot(data = memory, aes(x = Age, y = Words, colour = Process)) +
 
 На этом графике некрасивый порядок уровней: средние для разных способов запоминания `memory$Process` расположены, как кажется, хаотично.
 
-Порядок групп на графике определяется порядком уровней фактора
+Порядок групп на графике определяется порядком уровней фактора:
 
-```r
+``` r
 # "старый" порядок уровней
 levels(memory$Process)
 ```
@@ -224,9 +224,9 @@ levels(memory$Process)
 
 ## Изменим порядок уровней
 
-Давайте изменим порядок уровней в факторе `memory$Process` так, чтобы он соответствовал возрастанию средних значений `memory$Words`
+Давайте изменим порядок уровней в факторе `memory$Process` так, чтобы он соответствовал возрастанию средних значений `memory$Words`:
 
-```r
+``` r
 # "старый" порядок уровней
 levels(memory$Process)
 ```
@@ -236,7 +236,7 @@ levels(memory$Process)
 [5] "Рифмы"         
 ```
 
-```r
+``` r
 # переставляем уровни в порядке следования средних значений memory$Words
 memory$Process &lt;- reorder(x = memory$Process, X = memory$Words, FUN = mean)
 # "новый" порядок уровней стал таким
@@ -255,7 +255,7 @@ levels(memory$Process)
 С новым порядком уровней нам легче визуально сравнивать друг с другом число запомненных слов при разных способах запоминания.
 
 
-```r
+``` r
 ggplot(data = memory, aes(x = Age, y = Words, colour = Process)) + 
   stat_summary(geom = 'pointrange', fun.data = mean_cl_normal,
                position = position_dodge(width = 0.5))
@@ -423,11 +423,11 @@ class: middle, center, inverse
 
 ### Сбалансированные данные
 
-Одинаковое число наблюдений во всех группах `\(n_{11} = n_{12} = \cdots = n_{ij}\)`
+Одинаковое число наблюдений во всех группах `\(n_{11} = n_{12} = \cdots = n_{ij}\)`.
 
 ### Несбалансированные данные
 
-Неодинаковое число наблюдений в группах
+Неодинаковое число наблюдений в группах.
 
 ---
 
@@ -534,7 +534,7 @@ Y ~ A*B
 Дополните этот код, чтобы подобрать линейную модель со взаимодействием факторов, в которой используется нужный тип кодирования для факторов: `contrasts = list(Age = contr.sum, Process = contr.sum)`
 
 
-```r
+``` r
 # Линейная модель дисперсионного анализа со взаимодействием факторов
 mem_mod &lt;- lm(formula = , data = ,
 contrasts = list(Age = contr.sum, Process = contr.sum))
@@ -547,7 +547,7 @@ contrasts = list(Age = contr.sum, Process = contr.sum))
 ## Решение 2
 
 
-```r
+``` r
 # Линейная модель дисперсионного анализа со взаимодействием факторов
 mem_mod &lt;- lm(formula = Words ~ Age * Process, data = memory,
 contrasts = list(Age = contr.sum, Process = contr.sum))
@@ -566,7 +566,7 @@ contrasts = list(Age = contr.sum, Process = contr.sum))
 - Нормальное ли у остатков распределение?
 
 
-```r
+``` r
 # 1) Данные для анализа остатков
 mem_diag &lt;- fortify()
 head()
@@ -589,7 +589,7 @@ library()
 ## Решение 3: 1) Данные для анализа остатков
 
 
-```r
+``` r
 mem_diag &lt;- fortify(mem_mod)
 head(mem_diag)
 ```
@@ -609,7 +609,7 @@ head(mem_diag)
 ## Решение 3: 2) График расстояния Кука
 
 
-```r
+``` r
 ggplot(data = mem_diag, aes(x = 1:nrow(mem_diag), y = .cooksd)) + 
   geom_bar(stat = "identity")
 ```
@@ -625,7 +625,7 @@ ggplot(data = mem_diag, aes(x = 1:nrow(mem_diag), y = .cooksd)) +
 ## 3) Решение 3: Графики остатков от предикторов в модели
 
 
-```r
+``` r
 ggplot(data = mem_diag, aes(x = Age, y = .stdresid)) + 
   geom_boxplot()
 ggplot(data = mem_diag, aes(x = Process, y = .stdresid)) + 
@@ -650,7 +650,7 @@ ggplot(data = mem_diag, aes(x = Process, y = .stdresid, colour = Age)) +
 ## 5) Решение 3: Квантильный график остатков
 
 
-```r
+``` r
 library(car)
 qqPlot(mem_mod)
 ```
@@ -670,7 +670,7 @@ qqPlot(mem_mod)
 ## Результаты дисперсионного анализа
 
 
-```r
+``` r
 # Anova() из пакета car
 Anova(mem_mod, type = 3)
 ```
@@ -712,7 +712,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 
 
-```r
+``` r
 # 1) Создаем переменную-взаимодействие
 memory$AgeProcess &lt;- interaction(memory$, memory$)
 # 2) Подбираем линейную модель зависимости переменной-отклика 
@@ -730,7 +730,7 @@ summary(memory_tukey)
 ## Решение 4
 
 
-```r
+``` r
 # 1) Создаем переменную-взаимодействие
 memory$AgeProcess &lt;- interaction(memory$Age, memory$Process)
 # 2) Подбираем линейную модель зависимости переменной-отклика 
@@ -766,7 +766,7 @@ Linear Hypotheses:
 Молодой.Число букв - Пожилой.Число букв == 0            -0.50       1.27   -0.39   1.0000
 Пожилой.Рифмы - Пожилой.Число букв == 0                 -0.10       1.27   -0.08   1.0000
 Молодой.Рифмы - Пожилой.Число букв == 0                  0.60       1.27    0.47   1.0000
-Пожилой.Прилагательное - Пожилой.Число букв == 0         4.00       1.27    3.16   0.0634
+Пожилой.Прилагательное - Пожилой.Число букв == 0         4.00       1.27    3.16   0.0633
 Молодой.Прилагательное - Пожилой.Число букв == 0         7.80       1.27    6.16   &lt;0.001
 Пожилой.Образ - Пожилой.Число букв == 0                  6.40       1.27    5.05   &lt;0.001
 Молодой.Образ - Пожилой.Число букв == 0                 10.60       1.27    8.37   &lt;0.001
@@ -774,7 +774,7 @@ Linear Hypotheses:
 Молодой.Запоминание - Пожилой.Число букв == 0           12.30       1.27    9.71   &lt;0.001
 Пожилой.Рифмы - Молодой.Число букв == 0                  0.40       1.27    0.32   1.0000
 Молодой.Рифмы - Молодой.Число букв == 0                  1.10       1.27    0.87   0.9970
-Пожилой.Прилагательное - Молодой.Число букв == 0         4.50       1.27    3.55   0.0208
+Пожилой.Прилагательное - Молодой.Число букв == 0         4.50       1.27    3.55   0.0204
 Молодой.Прилагательное - Молодой.Число букв == 0         8.30       1.27    6.55   &lt;0.001
 Пожилой.Образ - Молодой.Число букв == 0                  6.90       1.27    5.45   &lt;0.001
 Молодой.Образ - Молодой.Число букв == 0                 11.10       1.27    8.76   &lt;0.001
@@ -785,28 +785,28 @@ Linear Hypotheses:
 Молодой.Прилагательное - Пожилой.Рифмы == 0              7.90       1.27    6.24   &lt;0.001
 Пожилой.Образ - Пожилой.Рифмы == 0                       6.50       1.27    5.13   &lt;0.001
 Молодой.Образ - Пожилой.Рифмы == 0                      10.70       1.27    8.45   &lt;0.001
-Пожилой.Запоминание - Пожилой.Рифмы == 0                 5.10       1.27    4.03   0.0047
+Пожилой.Запоминание - Пожилой.Рифмы == 0                 5.10       1.27    4.03   0.0045
 Молодой.Запоминание - Пожилой.Рифмы == 0                12.40       1.27    9.79   &lt;0.001
-Пожилой.Прилагательное - Молодой.Рифмы == 0              3.40       1.27    2.68   0.1960
+Пожилой.Прилагательное - Молодой.Рифмы == 0              3.40       1.27    2.68   0.1967
 Молодой.Прилагательное - Молодой.Рифмы == 0              7.20       1.27    5.68   &lt;0.001
 Пожилой.Образ - Молодой.Рифмы == 0                       5.80       1.27    4.58   &lt;0.001
 Молодой.Образ - Молодой.Рифмы == 0                      10.00       1.27    7.89   &lt;0.001
-Пожилой.Запоминание - Молодой.Рифмы == 0                 4.40       1.27    3.47   0.0259
+Пожилой.Запоминание - Молодой.Рифмы == 0                 4.40       1.27    3.47   0.0264
 Молодой.Запоминание - Молодой.Рифмы == 0                11.70       1.27    9.23   &lt;0.001
-Молодой.Прилагательное - Пожилой.Прилагательное == 0     3.80       1.27    3.00   0.0950
-Пожилой.Образ - Пожилой.Прилагательное == 0              2.40       1.27    1.89   0.6726
+Молодой.Прилагательное - Пожилой.Прилагательное == 0     3.80       1.27    3.00   0.0945
+Пожилой.Образ - Пожилой.Прилагательное == 0              2.40       1.27    1.89   0.6724
 Молодой.Образ - Пожилой.Прилагательное == 0              6.60       1.27    5.21   &lt;0.001
 Пожилой.Запоминание - Пожилой.Прилагательное == 0        1.00       1.27    0.79   0.9986
 Молодой.Запоминание - Пожилой.Прилагательное == 0        8.30       1.27    6.55   &lt;0.001
 Пожилой.Образ - Молодой.Прилагательное == 0             -1.40       1.27   -1.11   0.9830
-Молодой.Образ - Молодой.Прилагательное == 0              2.80       1.27    2.21   0.4576
-Пожилой.Запоминание - Молодой.Прилагательное == 0       -2.80       1.27   -2.21   0.4579
-Молодой.Запоминание - Молодой.Прилагательное == 0        4.50       1.27    3.55   0.0200
-Молодой.Образ - Пожилой.Образ == 0                       4.20       1.27    3.32   0.0411
+Молодой.Образ - Молодой.Прилагательное == 0              2.80       1.27    2.21   0.4582
+Пожилой.Запоминание - Молодой.Прилагательное == 0       -2.80       1.27   -2.21   0.4571
+Молодой.Запоминание - Молодой.Прилагательное == 0        4.50       1.27    3.55   0.0206
+Молодой.Образ - Пожилой.Образ == 0                       4.20       1.27    3.32   0.0408
 Пожилой.Запоминание - Пожилой.Образ == 0                -1.40       1.27   -1.11   0.9830
 Молодой.Запоминание - Пожилой.Образ == 0                 5.90       1.27    4.66   &lt;0.001
-Пожилой.Запоминание - Молодой.Образ == 0                -5.60       1.27   -4.42   &lt;0.001
-Молодой.Запоминание - Молодой.Образ == 0                 1.70       1.27    1.34   0.9409
+Пожилой.Запоминание - Молодой.Образ == 0                -5.60       1.27   -4.42   0.0010
+Молодой.Запоминание - Молодой.Образ == 0                 1.70       1.27    1.34   0.9407
 Молодой.Запоминание - Пожилой.Запоминание == 0           7.30       1.27    5.76   &lt;0.001
                                                         
 Молодой.Число букв - Пожилой.Число букв == 0            
@@ -851,7 +851,7 @@ Linear Hypotheses:
 Молодой.Образ - Пожилой.Образ == 0                   *  
 Пожилой.Запоминание - Пожилой.Образ == 0                
 Молодой.Запоминание - Пожилой.Образ == 0             ***
-Пожилой.Запоминание - Молодой.Образ == 0             ***
+Пожилой.Запоминание - Молодой.Образ == 0             ** 
 Молодой.Запоминание - Молодой.Образ == 0                
 Молодой.Запоминание - Пожилой.Запоминание == 0       ***
 ---
@@ -864,7 +864,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## Данные для графиков
 
 
-```r
+``` r
 # Создаем все сочетания значений факторов при помощи expand.grid()
 MyData &lt;- expand.grid(
   Age = levels(memory$Age),
@@ -892,7 +892,7 @@ head(MyData)
 ## Задание 5
 
 
-```r
+``` r
 pos &lt;- position_dodge(width = 0.3)
 gg_pointp &lt;- ggplot(data = , aes(x = , y = fit, colour = )) + 
   geom_(aes(shape = ), size = 3, position = pos) +
@@ -907,7 +907,7 @@ gg_pointp
 ## Решение 5
 
 
-```r
+``` r
 pos &lt;- position_dodge(width = 0.3)
 gg_pointp &lt;- ggplot(data = MyData, aes(x = Process, y = fit, colour = Age)) + 
   geom_point(aes(shape = Age), size = 3, position = pos) +
@@ -922,7 +922,7 @@ gg_pointp
 ## Приводим график в приличный вид
 
 
-```r
+``` r
 gg_final &lt;- gg_pointp + 
   scale_colour_brewer(name = "Возраст", palette = "Dark2", 
                       labels = c("Пожилые", "Молодые")) +
@@ -976,7 +976,7 @@ class: middle, center, inverse
 
 ### Если есть случайные факторы - смешанные модели. О них в магистратуре.
 
-Пакеты `nlme` и `lme4`
+Пакеты `nlme` и `lme4`.
 
 Книги:
 
