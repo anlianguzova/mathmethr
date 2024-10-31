@@ -40,7 +40,7 @@ install.packages("car")
 install.packages("cowplot")
 ```
 
-<!-- - Презентация: [03_regression1.html](03_regression1.html) -->
+- Презентация: [03_regression1.html](03_regression1.html)
 - Код: [03_regression1_code.R](03_regression1_code.R)
 - Данные:
     - [nuclear_teeth.xlsx](data/nuclear_teeth.xlsx) | [nuclear_teeth.csv](data/nuclear_teeth.csv)
@@ -50,7 +50,7 @@ install.packages("cowplot")
 install.packages("gridExtra")
 ```
 
-<!-- - Презентация: [04_regression2.html](04_regression2.html) -->
+- Презентация: [04_regression2.html](04_regression2.html)
 - Код: [04_regression2_code.R](04_regression2_code.R)
 - Данные: [river.xlsx](data/river.xlsx) | [river.csv](data/river.csv)
 
@@ -61,14 +61,14 @@ install.packages("multcomp")
 ```
 
 <!-- - Презентация: [05_anova1.html](05_anova1.html) -->
-<!-- - Код: [05_anova1_code.R](05_anova1_code.R) -->
-<!-- - Данные: [sleep.xlsx](data/sleep.xlsx) | [sleep.csv](data/sleep.csv) -->
+- Код: [05_anova1_code.R](05_anova1_code.R)
+- Данные: [sleep.xlsx](data/sleep.xlsx) | [sleep.csv](data/sleep.csv)
 
 ## 6. Дисперсионный анализ, ч.2
 
 <!-- - Презентация: [06_anova2.html](06_anova2.html) -->
-<!-- - Код: [06_anova2_code.R](06_anova2_code.R) -->
-<!-- - Данные: [eysenck.csv](data/eysenck.csv) -->
+- Код: [06_anova2_code.R](06_anova2_code.R)
+- Данные: [eysenck.csv](data/eysenck.csv)
 
 ## 7. Анализ главных компонент
 
