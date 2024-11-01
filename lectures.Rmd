@@ -60,13 +60,13 @@ install.packages("gridExtra")
 install.packages("multcomp")
 ```
 
-<!-- - Презентация: [05_anova1.html](05_anova1.html) -->
+- Презентация: [05_anova1.html](05_anova1.html)
 - Код: [05_anova1_code.R](05_anova1_code.R)
 - Данные: [sleep.xlsx](data/sleep.xlsx) | [sleep.csv](data/sleep.csv)
 
 ## 6. Дисперсионный анализ, ч.2
 
-<!-- - Презентация: [06_anova2.html](06_anova2.html) -->
+- Презентация: [06_anova2.html](06_anova2.html)
 - Код: [06_anova2_code.R](06_anova2_code.R)
 - Данные: [eysenck.csv](data/eysenck.csv)
 
