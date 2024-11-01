@@ -13,7 +13,7 @@
 
 <title>Проекты к зачёту</title>
 
-<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -45,6 +45,103 @@
 
 
 
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
@@ -324,6 +421,7 @@ div.tocify {
              <li><a href="resources.html">Ссылки и ресурсы</a></li>
              <li><a href="coding_practices.html">Правила хорошего кода</a></li>
           </ul>
+        <li><a href="projectes.html">Проекты к зачёту</a></li>
         </li>
       </ul>
     </div><!--/.nav-collapse -->
@@ -358,58 +456,62 @@ div.tocify {
 визуализацией. В ходе рассказки презентации будет оцениваться ваше
 умение представить полученные данные и обоснование выбранного вами
 подхода (+ умение отвечать на вопросы).</p>
+<!-- ### Проект №1. Цыплята и кормовые добавки -->
+<!-- Данные эксперимента по сравнению эффективности влияния различных пищевых добавок на рост цыплят.  -->
+<!-- [Данные](projects/project_1/project1.csv). -->
+<!-- Описание: -->
+<!-- - weight --- вес цыплят -->
+<!-- - feed - пищевая добавка. Фактор с уровнями: -->
+<!--           "casein" (казеин), -->
+<!--           "horsebean" (бобы), -->
+<!--           "linseed" (льняное семя), -->
+<!--           "meatmeal" (мясо-костная мука), -->
+<!--           "soybean" (соевые бобы), -->
+<!--           "sunflower" (семена подсолнечника). -->
 </div>
-<div id="проект-1.-цыплята-и-кормовые-добавки" class="section level3">
-<h3>Проект №1. Цыплята и кормовые добавки</h3>
-<p>Данные эксперимента по сравнению эффективности влияния различных
-пищевых добавок на рост цыплят.</p>
-<p><a href="projects/project_1/project1.csv">Данные</a>.</p>
-<p>Описание: - weight — вес цыплят - feed - пищевая добавка. Фактор с
-уровнями: “casein” (казеин), “horsebean” (бобы), “linseed” (льняное
-семя), “meatmeal” (мясо-костная мука), “soybean” (соевые бобы),
-“sunflower” (семена подсолнечника).</p>
+<div id="проект-1.-ингибирование-фотосинтеза" class="section level3">
+<h3>Проект №1. Ингибирование фотосинтеза</h3>
+<p>Как 2 разных ингибитора влияют на активность фотосинтеза в
+зависимости от концентрации?</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;drc&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(drc)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">data</span>(spinach)</span></code></pre></div>
+<p>Зависимая переменная:</p>
+<ul>
+<li>SLOPE — потребление кислорода мембранами тилакоидов.</li>
+</ul>
+<p>Предикторы:</p>
+<ul>
+<li><p>HERBICIDE — тип гербицида;</p></li>
+<li><p>DOSE — доза гербицида.</p></li>
+</ul>
+<!-- ### Проект №2. Покемоны -->
+<!-- Датасет содержит информацию о всех 802 покемонах, а также его многочисленные характеристики.  -->
+<!-- [Данные](projects/project_2/project2.csv) -->
+<!-- [Описание данных](projects/project_2/summary2.csv) -->
+<!-- Данные взяты из проекта на [Kaggle](https://www.kaggle.com/datasets/rounakbanik/pokemon).  -->
+<!-- ### Проект №3. Бабочки мигрируют, бабочки остаются -->
+<!-- Исследование мигрирующих и "осёдлых" бабочек, и как образ жизни влияет на паразитов бабочек. Датасет также содержит информацию о стабильных изотопах, что в оригинальном исследовании позволило определить, откуда собранные бабочки родом.  -->
+<!-- [Данные](projects/project_3/project3.csv). -->
+<!-- [Описание данных](projects/project_3/summary3.xlsx). -->
+<!-- [Оригинальная статья](projects/project_3/publ3.pdf) -->
 </div>
-<div id="проект-2.-покемоны" class="section level3">
-<h3>Проект №2. Покемоны</h3>
-<p>Датасет содержит информацию о всех 802 покемонах, а также его
-многочисленные характеристики.</p>
-<p><a href="projects/project_2/project2.csv">Данные</a> <a
-href="projects/project_2/summary2.csv">Описание данных</a></p>
-<p>Данные взяты из проекта на <a
-href="https://www.kaggle.com/datasets/rounakbanik/pokemon">Kaggle</a>.</p>
-</div>
-<div id="проект-3.-бабочки-мигрируют-бабочки-остаются"
-class="section level3">
-<h3>Проект №3. Бабочки мигрируют, бабочки остаются</h3>
-<p>Исследование мигрирующих и “осёдлых” бабочек, и как образ жизни
-влияет на паразитов бабочек. Датасет также содержит информацию о
-стабильных изотопах, что в оригинальном исследовании позволило
-определить, откуда собранные бабочки родом.</p>
-<p><a href="projects/project_3/project3.csv">Данные</a>. <a
-href="projects/project_3/summary3.xlsx">Описание данных</a>.</p>
-<p><a href="projects/project_3/publ3.pdf">Оригинальная статья</a></p>
-</div>
-<div id="проект-4.-моллюски-и-симбионты" class="section level3">
-<h3>Проект №4. Моллюски и симбионты</h3>
+<div id="проект-2.-моллюски-и-симбионты" class="section level3">
+<h3>Проект №2. Моллюски и симбионты</h3>
 <p>Данные о симбионтах двустворчатых моллюсков, собранные за 10 лет.</p>
 <ul>
 <li><a href="projects/project_4/project4.xlsx">Данные</a>.</li>
 <li><a href="projects/project_4/summary_4.xlsx">Описание</a>.</li>
 </ul>
 <p>Данные любезно предоставлены В.А. Крапивиным.</p>
+<!-- ### Проект №5. Винишко -->
+<!-- Данные о качестве вина и его физико-химических характеристиках.  -->
+<!-- Исходные данные разделены на [красные](projects/project_5/project5_red.csv) и [белые](projects/project_5/project5_white.csv) вина.  -->
+<!-- [Описание данных](projects/project_5/summary5.csv).  -->
+<!-- [Оригинальная статья](projects/project_5/publication.pdf). -->
 </div>
-<div id="проект-5.-винишко" class="section level3">
-<h3>Проект №5. Винишко</h3>
-<p>Данные о качестве вина и его физико-химических характеристиках.</p>
-<p>Исходные данные разделены на <a
-href="projects/project_5/project5_red.csv">красные</a> и <a
-href="projects/project_5/project5_white.csv">белые</a> вина. <a
-href="projects/project_5/summary5.csv">Описание данных</a>.</p>
-<p><a href="projects/project_5/publication.pdf">Оригинальная
-статья</a>.</p>
-</div>
-<div id="проект-6.-черепахи-и-их-черепа" class="section level3">
-<h3>Проект №6. Черепахи и их черепа</h3>
+<div id="проект-3.-черепахи-и-их-черепа" class="section level3">
+<h3>Проект №3. Черепахи и их черепа</h3>
 <p>Морфометрия черепов черепах. 24 разных измерения черепов черепах 122
 ныне живущих пресноводных, морских и наземных видов и одного
 ископаемого.</p>
@@ -418,22 +520,28 @@ Fossil.</p>
 <p><a href="images/Fig30.1ZuurAED-mod.jpg">Картинка с
 измерениями</a></p>
 <p><a href="projects/project_6/project6.txt">Данные</a>.</p>
+<!-- ### Проект №7 (со звёздочкой!) -->
+<!-- Данные о регенерации *Platynereis dumerilii* (Pdum) и *Pygospio elegans* (Pele) и экспрессии различных генов.  -->
+<!-- [Данные по *P. dumerilli*](projects/project_7/project7_pdum.tsv). -->
+<!-- [Данные по *P. elegans*](projects/project_7/project7_pele.tsv). -->
+<!-- Описание: -->
+<!-- - Ref_ID --- порядковый номер сиквенса; -->
+<!-- - Annotations --- аннотация последовательности. -->
+<!-- Экспрессию генов смотрели в голове и xвосте через определённое количество времени (0, 4, 12, 24, 48 и 96 часов). Каждой стадии соотносится две реплики. Данные частично взяты из [проекта](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA901144). Экспрессия измерена в TPM (transcript per million).  -->
 </div>
-<div id="проект-7-со-звёздочкой" class="section level3">
-<h3>Проект №7 (со звёздочкой!)</h3>
-<p>Данные о регенерации <em>Platynereis dumerilii</em> (Pdum) и
-<em>Pygospio elegans</em> (Pele) и экспрессии различных генов.</p>
-<p><a href="projects/project_7/project7_pdum.tsv">Данные по <em>P.
-dumerilli</em></a>. <a
-href="projects/project_7/project7_pele.tsv">Данные по <em>P.
-elegans</em></a>.</p>
-<p>Описание: - Ref_ID — порядковый номер сиквенса; - Annotations —
-аннотация последовательности.</p>
-<p>Экспрессию генов смотрели в голове и xвосте через определённое
-количество времени (0, 4, 12, 24, 48 и 96 часов). Каждой стадии
-соотносится две реплики. Данные частично взяты из <a
-href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA901144">проекта</a>.
-Экспрессия измерена в TPM (transcript per million).</p>
+<div id="проект-4" class="section level3">
+<h3>Проект №4</h3>
+<p>Влияние курения и езды на мотоциклах на риск сердечных заболеваний,
+измерено в 500 городах.</p>
+<ul>
+<li><p>“heart.disease” — зависимая переменная, доля людей с инфарктом в
+городе;</p></li>
+<li><p>“biking” — предиктор, доля людей, направляющихся на работу на
+мотоцикле;</p></li>
+<li><p>“smoking” — предиктор, доля курящих людей в конкретном
+городе.</p></li>
+</ul>
+<p><a href="projects/project_8/project8.csv">Данные.</a></p>
 </div>
 </div>
 
