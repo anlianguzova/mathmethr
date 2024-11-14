@@ -1,6 +1,6 @@
 # title: "Ординация и классификация с использованием мер сходства-различия" ########
 # subtitle: "Математические методы в зоологии с использованием R"
-# author: "Марина Варфоломеева"
+# author: "Марина Варфоломеева, Анастасия Лянгузова"
 
 
 
@@ -58,11 +58,15 @@ library(ggplot2)
 points_euclid <- data.frame(ord_euclid$points, pos)
 head(points_euclid)
 # График nMDS ординации
-gg_euclid <- ggplot(points_euclid, aes(x = MDS1, y = MDS2)) +
-  geom_point(aes(col = Pop), alpha = 0.5) +
-  facet_wrap(~ sex)
+library()
+# Данные для графика
+points_euclid <- data.frame( , )
+# График nMDS ординации
+gg_euclid <- ggplot(, aes(x = , y = )) +
+  geom_point() +
+  facet_wrap(~ )
 gg_euclid
-str(points_euclid)
+
 
 ## Задание 2 -------------------------------------
 #
@@ -72,9 +76,7 @@ str(points_euclid)
 # Дополните код
 head(pos, 1)
 # Ординация
-ord_scaled <- metaMDS(scale(pos[, 6:14]),
-                       distance = "euclid",
-                       autotransform = FALSE)
+ord_scaled <- metaMDS( (pos), distance = , autotransform = )
 # Качество ординации
 ord_scaled$stress
 
@@ -97,6 +99,42 @@ grid.arrange(gg_euclid + aes(size = age),
              gg_scaled + aes(size = age),
              ncol = 1)
 
+## Интерпретация результатов: envfit() ------------------------------------
+
+## Подбор модели в зависимости от нескольких факторов
+ef <- envfit(ord_scaled, pos[, 3:5])
+ef
+
+# непрерывные переменные
+ef$vectors
+
+# факторы
+ef$factors
+
+## График с векторами и центроидами (базовая графика)
+
+pal_col <- c("yellow", "blue")
+ordiplot(ord_scaled, type = "n")
+points(ord_scaled, col = pal_col[pos$Pop])
+plot(ef)
+
+## График средствами ggplot2
+
+# install.packages("devtools")
+# devtools::install_github("gavinsimpson/ggvegan")
+library(ggvegan)
+ord_scaled_ef <- fortify(ef) #извлекаем диагностический датафрейм
+ord_scaled_ef
+
+# сам график
+gg_scaled +
+  geom_segment(data = ord_scaled_ef[ord_scaled_ef$type == "Vector", ],
+               aes(x = 0, xend = NMDS1, y = 0, yend = NMDS2),
+               arrow = arrow(length = unit(0.25, "cm"))) +
+  geom_text(data = ord_scaled_ef[ord_scaled_ef$type == "Vector", ],
+            aes(x = NMDS1, y = NMDS2, label = label, hjust = 1.1, vjust = 1)) +
+  geom_text(data = ord_scaled_ef[ord_scaled_ef$type == "Centroid", ],
+            aes(x = NMDS1, y = NMDS2, label = label, hjust = 1.1, vjust = 1))
 
 # # Кластерный анализ ############################
 #

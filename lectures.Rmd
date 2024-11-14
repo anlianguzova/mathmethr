@@ -79,27 +79,27 @@ install.packages(c("DAAG", "RColorBrewer", "vegan", "HSAUR", "ggrepel"))
 - Презентация: [07_pca.html](07_pca.html)
 - Код: [07_pca_code.R](07_pca_code.R)
 
-## 8. Дискриминантный анализ
+<!-- ## 8. Дискриминантный анализ -->
 
-```{r eval=FALSE}
-install.packages("adegenet")
-```
+<!-- ```{r eval=FALSE} -->
+<!-- install.packages("adegenet") -->
+<!-- ``` -->
 
 <!-- - Презентация: [08_da.html](08_da.html) -->
 <!-- - Код: -->
 <!--   + [код R](08_da_code.R) -->
 <!--   + [LDA_helper_functions.R](LDA_helper_functions.R) -->
 
-## 9. Ординация и классификация с использованием мер сходства-различия
+## 8. Ординация и классификация с использованием мер сходства-различия
 
 ```{r eval=FALSE}
 install.packages(c("ape", "pvclust", "phangorn", "factoextra", "dbscan", "dplyr"))
 ```
 
 <!-- - Презентация: [09_dist.html](09_dist.html) -->
-<!-- - Код: [09_dist_code.R](09_dist_code.R) -->
+- Код: [09_dist_code.R](09_dist_code.R)
 
-## 10. Литературное программирование 
+## 9. Литературное программирование 
 
 <!-- - [Файл с примером отчёта](R_calc_Abalone.zip) -->
 <!-- - [Файл с проектом из лекции](R_my_first_project.zip) -->
