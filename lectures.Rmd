@@ -96,10 +96,10 @@ install.packages(c("DAAG", "RColorBrewer", "vegan", "HSAUR", "ggrepel"))
 install.packages(c("ape", "pvclust", "phangorn", "factoextra", "dbscan", "dplyr"))
 ```
 
-<!-- - Презентация: [09_dist.html](09_dist.html) -->
+- Презентация: [09_dist.html](09_dist.html)
 - Код: [09_dist_code.R](09_dist_code.R)
 
 ## 9. Литературное программирование 
 
-<!-- - [Файл с примером отчёта](R_calc_Abalone.zip) -->
-<!-- - [Файл с проектом из лекции](R_my_first_project.zip) -->
+- [Файл с примером отчёта](R_calc_Abalone.zip)
+- [Файл с проектом из лекции](R_my_first_project.zip)
