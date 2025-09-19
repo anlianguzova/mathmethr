@@ -18,7 +18,7 @@ output:
 install.packages("tibble")
 install.packages("ggplot2")
 ```
-- Презентация: [01_intro_to_r.html](01_intro_to_r.html)
+<!-- - Презентация: [01_intro_to_r.html](01_intro_to_r.html) -->
 -   Код: [01_intro_to_r.R](01_intro_to_r.R)
 <!-- -   Дополнительные упражнения: [01_intro_to_r_exercises.R](01_intro_to_r_exercises.R) -->
 
@@ -29,9 +29,9 @@ install.packages("readxl")
 install.packages(c("Hmisc", "ggplot2", "effsize", "pwr"))
 ```
 
-- Презентация: [02_power.html](02_power.html)
-- Код: [02_power_code.R](02_power_code.R)
-- Данные: [fleabeetles-subset.xlsx](data/fleabeetles-subset.xlsx)
+<!-- - Презентация: [02_power.html](02_power.html) -->
+<!-- - Код: [02_power_code.R](02_power_code.R) -->
+<!-- - Данные: [fleabeetles-subset.xlsx](data/fleabeetles-subset.xlsx) -->
 
 ## 3. Регрессионный анализ, ч.1
 
@@ -40,19 +40,19 @@ install.packages("car")
 install.packages("cowplot")
 ```
 
-- Презентация: [03_regression1.html](03_regression1.html)
-- Код: [03_regression1_code.R](03_regression1_code.R)
-- Данные:
-    - [nuclear_teeth.xlsx](data/nuclear_teeth.xlsx) | [nuclear_teeth.csv](data/nuclear_teeth.csv)
+<!-- - Презентация: [03_regression1.html](03_regression1.html) -->
+<!-- - Код: [03_regression1_code.R](03_regression1_code.R) -->
+<!-- - Данные: -->
+<!--     - [nuclear_teeth.xlsx](data/nuclear_teeth.xlsx) | [nuclear_teeth.csv](data/nuclear_teeth.csv) -->
 
 ## 4. Регрессионный анализ, ч.2
 ```{r eval=FALSE}
 install.packages("gridExtra")
 ```
 
-- Презентация: [04_regression2.html](04_regression2.html)
-- Код: [04_regression2_code.R](04_regression2_code.R)
-- Данные: [river.xlsx](data/river.xlsx) | [river.csv](data/river.csv)
+<!-- - Презентация: [04_regression2.html](04_regression2.html) -->
+<!-- - Код: [04_regression2_code.R](04_regression2_code.R) -->
+<!-- - Данные: [river.xlsx](data/river.xlsx) | [river.csv](data/river.csv) -->
 
 ## 5. Дисперсионный анализ, ч.1
 
@@ -60,15 +60,15 @@ install.packages("gridExtra")
 install.packages("multcomp")
 ```
 
-- Презентация: [05_anova1.html](05_anova1.html)
-- Код: [05_anova1_code.R](05_anova1_code.R)
-- Данные: [sleep.xlsx](data/sleep.xlsx) | [sleep.csv](data/sleep.csv)
+<!-- - Презентация: [05_anova1.html](05_anova1.html) -->
+<!-- - Код: [05_anova1_code.R](05_anova1_code.R) -->
+<!-- - Данные: [sleep.xlsx](data/sleep.xlsx) | [sleep.csv](data/sleep.csv) -->
 
 ## 6. Дисперсионный анализ, ч.2
 
-- Презентация: [06_anova2.html](06_anova2.html)
-- Код: [06_anova2_code.R](06_anova2_code.R)
-- Данные: [eysenck.csv](data/eysenck.csv)
+<!-- - Презентация: [06_anova2.html](06_anova2.html) -->
+<!-- - Код: [06_anova2_code.R](06_anova2_code.R) -->
+<!-- - Данные: [eysenck.csv](data/eysenck.csv) -->
 
 ## 7. Анализ главных компонент
 
@@ -76,8 +76,8 @@ install.packages("multcomp")
 install.packages(c("DAAG", "RColorBrewer", "vegan", "HSAUR", "ggrepel"))
 ```
 
-- Презентация: [07_pca.html](07_pca.html)
-- Код: [07_pca_code.R](07_pca_code.R)
+<!-- - Презентация: [07_pca.html](07_pca.html) -->
+<!-- - Код: [07_pca_code.R](07_pca_code.R) -->
 
 <!-- ## 8. Дискриминантный анализ -->
 
@@ -96,10 +96,10 @@ install.packages(c("DAAG", "RColorBrewer", "vegan", "HSAUR", "ggrepel"))
 install.packages(c("ape", "pvclust", "phangorn", "factoextra", "dbscan", "dplyr"))
 ```
 
-- Презентация: [09_dist.html](09_dist.html)
-- Код: [09_dist_code.R](09_dist_code.R)
+<!-- - Презентация: [09_dist.html](09_dist.html) -->
+<!-- - Код: [09_dist_code.R](09_dist_code.R) -->
 
 ## 9. Литературное программирование 
 
-- [Файл с примером отчёта](R_calc_Abalone.zip)
-- [Файл с проектом из лекции](R_my_first_project.zip)
+<!-- - [Файл с примером отчёта](R_calc_Abalone.zip) -->
+<!-- - [Файл с проектом из лекции](R_my_first_project.zip) -->
