@@ -871,6 +871,7 @@ my_tibble2 <- tibble(Length = len * 2, Width = wid * 4.5, Colour = col)
 my_tibble2
 ```
 
+С тибблами работают некоторые удобные пакеты, например `tidyverse`. Тибблы также отличаются от датафреймов ответом на некоторые функции и т.д.
 
 ---
 
@@ -929,7 +930,7 @@ plot(x = as.factor(my_worms$Colour), y = my_worms$Length)
 В R есть более удобный (но, может быть, более многословный) пакет для рисования графиков --- ggplot2. Чтобы использовать функции из пакета ggplot2, нужно его сначала установить.
 
 
-```{r eval=FALSE}
+```{r}
 # install.packages('ggplot2')
 library(ggplot2)
 ```
