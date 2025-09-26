@@ -5,25 +5,25 @@
     <meta charset="utf-8" />
     <meta name="author" content="Марина Варфоломеева" />
     <meta name="author" content="Анастасия Лянгузова" />
-    <script src="libs/header-attrs-2.26/header-attrs.js"></script>
-    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
-    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
-    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
-    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
-    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+    <link href="site_libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="site_libs/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
+    <link href="site_libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="site_libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="site_libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="site_libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="site_libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="site_libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
-    <script src="libs/mark.js-8.11.1/mark.min.js"></script>
-    <link href="libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-search-0.0.1/search.js"></script>
+    <script src="site_libs/mark.js-8.11.1/mark.min.js"></script>
+    <link href="site_libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
+    <script src="site_libs/xaringanExtra-search-0.0.1/search.js"></script>
     <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":false,"autoSearch":true}) })</script>
-    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
-    <script src="libs/freezeframe-5.0.2/freezeframe.min.js"></script>
-    <script src="libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
+    <script src="site_libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <script src="site_libs/freezeframe-5.0.2/freezeframe.min.js"></script>
+    <script src="site_libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
     <script id="xaringanExtra-freezeframe-options" type="application/json">{"selector":"img[src$=\"gif\"]","trigger":"click","overlay":false,"responsive":true,"warnings":true}</script>
-    <link href="libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <link href="site_libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
     <!-- https://github.com/fnaufel/xaringan-smartify-->
     <script
     			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -136,7 +136,7 @@ __Важно__: это так при больших объемах выборк�
 Допустим, у нас есть некоторые измерения длины раковины раков-отшельников одного вида. Медиану можно увидеть зрительно, если отсортировать значения по возрастанию.
 
 
-```r
+``` r
 shells &lt;- c(10, 15, 14, 24, 27, 19, 31, 29, 26, 17)
 sort(shells)
 ```
@@ -148,7 +148,7 @@ sort(shells)
 Проверить, правильно ли мы нашли медиану, можно с помощью функции `median()`.
 
 
-```r
+``` r
 median(shells)
 ```
 
@@ -173,7 +173,7 @@ median(shells)
 Функция `quantile()` позволяет разделить наши данные на нужное число квантилей (задаются параметром `probs`).
 
 
-```r
+``` r
 quantile(x = shells, probs = c(0.01, 0.25, 0.5, 0.75, 0.99))
 ```
 
@@ -185,7 +185,7 @@ quantile(x = shells, probs = c(0.01, 0.25, 0.5, 0.75, 0.99))
 Можно использовать функцию и без указания значений `probs`, в таком случае функция посчитает *квартили*.
 
 
-```r
+``` r
 quantile(shells)
 ```
 
@@ -203,7 +203,7 @@ quantile(shells)
 --
 
 
-```r
+``` r
 sum(shells) / length(shells)
 ```
 
@@ -218,7 +218,7 @@ sum(shells) / length(shells)
 --
 
 
-```r
+``` r
 mean(shells)
 ```
 
@@ -234,7 +234,7 @@ mean(shells)
 
 `$$x_i - \bar{x}$$`
 
-```r
+``` r
 sh_deviates &lt;- shells - mean(shells)
 sh_deviates
 ```
@@ -254,14 +254,14 @@ sh_deviates
 `$$SS = \sum{{(x_i - \bar{x})}^2} \ne 0$$`
 
 
-```r
+``` r
 sum(sh_deviates^2)
 ```
 
 Чтобы получить **дисперсию**, делим `SS` на **число степеней свободы (degrees of freedom)** (n - 1). 
 
 
-```r
+``` r
 sum(sh_deviates^2) / (length(shells) - 1)
 var(shells)
 ```
@@ -277,7 +277,7 @@ var(shells)
 Стандартное отклонение --- это средняя величина отклонения, и ее уже можно изобразить на графике.
 
 
-```r
+``` r
 sqrt(sum(sh_deviates^2) / (length(shells) - 1))
 ```
 
@@ -285,7 +285,7 @@ sqrt(sum(sh_deviates^2) / (length(shells) - 1))
 [1] 7.146
 ```
 
-```r
+``` r
 sd(shells)
 ```
 
@@ -300,7 +300,7 @@ sd(shells)
 Превращаем рачков-дурачков в датафрейм для визуализации.
 
 
-```r
+``` r
 shells_data &lt;- data.frame(length = shells)
 ```
 
@@ -309,7 +309,7 @@ shells_data &lt;- data.frame(length = shells)
 ### Медиана и квартили
 
 
-```r
+``` r
 ggplot(data = shells_data) + 
   geom_boxplot(aes(x = 'Медиана \nи квантили', y = length))
 ```
@@ -322,7 +322,7 @@ ggplot(data = shells_data) +
 ### Среднее и ст. отклонение
 
 
-```r
+``` r
 ggplot(data = shells_data) + 
   stat_summary(geom = 'pointrange', fun.data = mean_sdl, 
                fun.args = list(mult = 1),
@@ -405,9 +405,9 @@ class: middle, center, inverse
 
 ## Тестирование гипотез: основные принципы
 
-1. Формулировка **нулевой гипотезы** ($H_0$). Обычно это гипотеза об отсутствии разницы или связи между параметрами в генеральной совокупности (например, об отсутствии разницы между средними). 
+1. Формулировка **нулевой гипотезы** (`\(H_0\)`). Обычно это гипотеза об отсутствии разницы или связи между параметрами в генеральной совокупности (например, об отсутствии разницы между средними). 
 
-2. Формулировка **альтернативной гипотезы** ($H_A$) --- гипотезы, являющейся правдивой в случае отвержения `\(H_0\)`.
+2. Формулировка **альтернативной гипотезы** (`\(H_A\)`) --- гипотезы, являющейся правдивой в случае отвержения `\(H_0\)`.
 
 3. Выбор статистического теста для проверки нулевой гипотезы. Одна из популярнейших статистик для проверки гипотезы о разницы в средних --- **t-статистика**.
 
@@ -421,7 +421,7 @@ t-статистика подчиняется t-распределению.
 
 Иными словами, если много раз взять выборки __из одной__ совокупности (т.е. __при условии, что `\(H_0\)` верна__) и посчитать между ними разницу, то она будет подчиняться t-распределению. 
 
-Форма t-распределения зависит только от одного параметра --- числа степеней свободы `\(df\)`
+Форма t-распределения зависит только от одного параметра --- числа степеней свободы `\(df\)`.
 
 ![](02_power_files/figure-html/gg-t-1.png)&lt;!-- --&gt;
 
@@ -517,14 +517,16 @@ __Уровень значимости `\(\alpha\)` --- это вероятнос
 
 Альтернативная гипотеза может быть сформулирована по-разному. В зависимости от её формулировки приходим к разным вариантам t-теста.
 
-.pull-left[### Односторонний тест
+.pull-left[
+### Односторонний тест
 Формулировка `\(H_A\)` имеет некую направленность (например, что средние в одной из групп больше, чем в другой).
 
 ![](02_power_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
 
 ]
 
-.pull-right[### Двухсторонний тест
+.pull-right[
+### Двухсторонний тест
 Формулировка `\(H_A\)` не направлена и говорит о наличии различий/взаимосвязи (например, средние в группах сравнения отличны).
 
 ![](02_power_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
@@ -560,7 +562,7 @@ __Уровень значимости `\(\alpha\)` --- это вероятнос
 Различается ли секреция тетрагидрокортизона при аденома и двусторонней гиперплазии надпочечников?
 
 
-```r
+``` r
 library(MASS)
 data("Cushings")
 ```
@@ -607,7 +609,7 @@ t.test(formula = зависимая_переменная ~ группирующ�
 
 
 
-```r
+``` r
 tt &lt;- t.test(formula = Tetrahydrocortisone ~ Type, data = Cushings, 
              subset = Cushings$Type %in% c('a', 'b'))
 tt
@@ -631,7 +633,7 @@ mean in group a mean in group b
 
 Результаты можно описать, например, так:
 
-- Секреция тетрагидрокортизона значимо различается у пациентов с аденомой и двусторонней гиперплазией надпочечников ($t_{10.69} = -4.15$, `\(p = &lt;0.05\)`)
+- Секреция тетрагидрокортизона значимо различается у пациентов с аденомой и двусторонней гиперплазией надпочечников (`\(t_{10.69} = -4.15\)`, `\(p = &lt;0.05\)`)
 
 ---
 
@@ -658,7 +660,7 @@ __Задание 3__
 ## Другой шаблон вызова функции `t.test()`
 
 
-```r
+``` r
 tt &lt;- t.test(x = Cushings$Tetrahydrocortisone[Cushings$Type == 'a'],
              y = Cushings$Tetrahydrocortisone[Cushings$Type == 'b'])
 tt
@@ -685,7 +687,7 @@ mean of x mean of y
 Как называются отдельные элементы результатов можно узнать посмотрев их структуру при помощи функции `str()`.
 
 
-```r
+``` r
 str(tt)
 ```
 
@@ -714,7 +716,7 @@ List of 10
 ## Можно получить элементы результатов в виде отдельных цифр
 
 
-```r
+``` r
 tt$parameter # степени свободы
 ```
 
@@ -723,7 +725,7 @@ tt$parameter # степени свободы
 10.69 
 ```
 
-```r
+``` r
 tt$p.value # уровень значимости
 ```
 
@@ -731,7 +733,7 @@ tt$p.value # уровень значимости
 [1] 0.001719
 ```
 
-```r
+``` r
 tt$statistic # значение t-критерия
 ```
 
@@ -844,9 +846,9 @@ __Мощность теста - вероятность отвергнуть `\(H
 
 `$$Power = 1 - \beta$$`
 
-Обычно считается, что хорошо, когда мощность не меньше 0.8
+Обычно считается, что хорошо, когда мощность не меньше 0.8.
 
-Т.е. что в 80% случаев мы можем найди различия заданной величины, если они есть.
+Т.е. что в 80% случаев мы можем найти различия заданной величины, если они есть.
 
 ![](02_power_files/figure-html/power-power-1.png)&lt;!-- --&gt;
 
@@ -932,7 +934,7 @@ Jacob Cohen]
 Яков Коэн предложил делить эффекты на сильные, умеренные и слабые (Cohen, 1982)
 
 
-```r
+``` r
 library(pwr)
 cohen.ES(test = 't', size = 'large')
 ```
@@ -958,7 +960,7 @@ cohen.ES(test = 't', size = 'large')
 Какая нужна выборка, чтобы обнаружить _сильный эффект_ с вероятностью 0.8 при уровне значимости 0.05?
 
 
-```r
+``` r
 pwr.t.test(n = NULL, d = 0.8, power = 0.8, sig.level = 0.01,
            type = 'two.sample', alternative = 'two.sided')
 ```
@@ -989,7 +991,7 @@ NOTE: n is number in *each* group
 ## Решение
 
 
-```r
+``` r
 cohen.ES(test = 't', size = 'small') # величина слабого эффекта по Коэну
 ```
 
@@ -1002,7 +1004,7 @@ cohen.ES(test = 't', size = 'small') # величина слабого эффе�
     effect.size = 0.2
 ```
 
-```r
+``` r
 # Какой нужен объем выборки?
 pwr.t.test(n = NULL, d = 0.2, power = 0.8, sig.level = 0.05,
            type = 'two.sample', alternative = 'two.sided')
@@ -1055,7 +1057,7 @@ class: middle, center, inverse
 Есть ли морфологические различия между видами?
 
 
-```r
+``` r
 library(readxl)
 flea &lt;- read_excel(path = 'data/fleabeetles-subset.xlsx', sheet = 'dat')
 ```
@@ -1067,7 +1069,7 @@ flea &lt;- read_excel(path = 'data/fleabeetles-subset.xlsx', sheet = 'dat')
 ## Все ли правильно открылось?
 
 
-```r
+``` r
 str(flea)  # Структура данных
 ```
 
@@ -1077,7 +1079,7 @@ tibble [43 × 2] (S3: tbl_df/tbl/data.frame)
  $ species: num [1:43] 1 1 1 1 1 1 1 1 1 1 ...
 ```
 
-```r
+``` r
 head(flea) # Первые несколько строк файла
 ```
 
@@ -1098,7 +1100,7 @@ head(flea) # Первые несколько строк файла
 ## Делаем фактором переменную, где записан вид
 
 
-```r
+``` r
 flea$species &lt;- factor(flea$species, 
                        levels = c(1, 2), 
                        labels = c('cocin', 'hept'))
@@ -1111,7 +1113,7 @@ flea$species &lt;- factor(flea$species,
 Есть ли пропущенные значения?
 
 
-```r
+``` r
 colSums(is.na(flea))
 ```
 
@@ -1123,7 +1125,7 @@ colSums(is.na(flea))
 Каковы объемы выборок? Поскольку нет пропущенных значений, можно посчитать так:
 
 
-```r
+``` r
 table(flea$species)
 ```
 
@@ -1135,14 +1137,14 @@ cocin  hept
 
 ---
 
-## Представим, что это данные пилотного исследования.
+## Представим, что это данные пилотного исследования
 
 Мы хотим выяснить, сколько нужно жуков, чтобы показать, что ширина первого членика первой лапки различается у этих двух видов.
 
 График средних и стандартных отклонений.
 
 
-```r
+``` r
 library(ggplot2)
 theme_set(theme_bw())
 ggplot(data = flea, aes(x = species, y = fjft)) +
@@ -1157,7 +1159,7 @@ ggplot(data = flea, aes(x = species, y = fjft)) +
 ## Величина эффекта по исходным данным
 
 
-```r
+``` r
 library(effsize)
 eff_flea &lt;- cohen.d(d = flea$fjft, f = flea$species)
 eff_flea
@@ -1176,7 +1178,7 @@ lower upper
 Вычислим модуль, поскольку для `pwr.t.test()` эффект должен быть положительным.
 
 
-```r
+``` r
 effect_size_flea &lt;- abs(eff_flea$estimate)
 ```
 
@@ -1193,7 +1195,7 @@ effect_size_flea &lt;- abs(eff_flea$estimate)
 ## Решение
 
 
-```r
+``` r
 pwr_flea &lt;- pwr.t.test(n = NULL, d = effect_size_flea, 
                        power = 0.8, sig.level = 0.05, 
                        type = 'two.sample', 
@@ -1278,9 +1280,9 @@ class: middle, center, inverse
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script src="assets/macros.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "vs",
-"highlightLines": true,
-"countIncrementalSlides": false
+  "highlightStyle": "vs",
+  "highlightLines": true,
+  "countIncrementalSlides": false
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
