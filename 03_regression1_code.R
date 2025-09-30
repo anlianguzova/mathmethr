@@ -47,6 +47,9 @@ nrow(teeth)
 
 
 # # Графики средствами пакета ggplot2 ###############################
+
+# Вспоминаем, как строить графики
+
 # ## Грамматика графиков
 
 # 1. Откуда брать данные?
@@ -59,9 +62,10 @@ nrow(teeth)
 # Давайте построим график (заполните пропуски)
 library(ggplot2)
 
-gg_teeth <- ggplot(, aes()) +
-  geom_() +
-  l ()
+gg_teeth <- ggplot(data = teeth, aes(x = c14, y = birth)) +
+  geom_point() +
+  labs(x = 'Содержание нестабильного изотопа углерода, %',
+       y = 'Год рождения человека')
 gg_teeth
 
 ggsave(filename = 'teeth_c14.png', plot = gg_teeth)

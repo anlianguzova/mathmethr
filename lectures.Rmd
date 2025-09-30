@@ -33,28 +33,32 @@ install.packages(c("Hmisc", "ggplot2", "effsize", "pwr"))
 - Код: [02_power_code.R](02_power_code.R)
 - Данные: [fleabeetles-subset.xlsx](data/fleabeetles-subset.xlsx)
 
-## 3. Регрессионный анализ, ч.1
+## 3. Регрессионный анализ
 
 ```{r eval=FALSE}
 install.packages("car")
-install.packages("cowplot")
+install.packages(c("cowplot", "gridExtra"))
 ```
 
 <!-- - Презентация: [03_regression1.html](03_regression1.html) -->
-<!-- - Код: [03_regression1_code.R](03_regression1_code.R) -->
-<!-- - Данные: -->
-<!--     - [nuclear_teeth.xlsx](data/nuclear_teeth.xlsx) | [nuclear_teeth.csv](data/nuclear_teeth.csv) -->
+- Код: 
+    - [03_regression1_code.R](03_regression1_code.R)
+    - [03_regression2_code.R](04_regression2_code.R)
 
-## 4. Регрессионный анализ, ч.2
-```{r eval=FALSE}
-install.packages("gridExtra")
-```
+- Данные:
+    - [nuclear_teeth.xlsx](data/nuclear_teeth.xlsx) | [nuclear_teeth.csv](data/nuclear_teeth.csv)
+    - [river.xlsx](data/river.xlsx) | [river.csv](data/river.csv)
+
+<!-- ## 4. Регрессионный анализ, ч.2 -->
+<!-- ```{r eval=FALSE} -->
+<!-- install.packages("gridExtra") -->
+<!-- ``` -->
 
 <!-- - Презентация: [04_regression2.html](04_regression2.html) -->
 <!-- - Код: [04_regression2_code.R](04_regression2_code.R) -->
 <!-- - Данные: [river.xlsx](data/river.xlsx) | [river.csv](data/river.csv) -->
 
-## 5. Дисперсионный анализ, ч.1
+## 4. Дисперсионный анализ, ч.1
 
 ```{r eval=FALSE}
 install.packages("multcomp")
@@ -64,13 +68,13 @@ install.packages("multcomp")
 <!-- - Код: [05_anova1_code.R](05_anova1_code.R) -->
 <!-- - Данные: [sleep.xlsx](data/sleep.xlsx) | [sleep.csv](data/sleep.csv) -->
 
-## 6. Дисперсионный анализ, ч.2
+## 5. Дисперсионный анализ, ч.2
 
 <!-- - Презентация: [06_anova2.html](06_anova2.html) -->
 <!-- - Код: [06_anova2_code.R](06_anova2_code.R) -->
 <!-- - Данные: [eysenck.csv](data/eysenck.csv) -->
 
-## 7. Анализ главных компонент
+## 6. Анализ главных компонент
 
 ```{r eval=FALSE}
 install.packages(c("DAAG", "RColorBrewer", "vegan", "HSAUR", "ggrepel"))
@@ -90,7 +94,7 @@ install.packages(c("DAAG", "RColorBrewer", "vegan", "HSAUR", "ggrepel"))
 <!--   + [код R](08_da_code.R) -->
 <!--   + [LDA_helper_functions.R](LDA_helper_functions.R) -->
 
-## 8. Ординация и классификация с использованием мер сходства-различия
+## 7. Ординация и классификация с использованием мер сходства-различия
 
 ```{r eval=FALSE}
 install.packages(c("ape", "pvclust", "phangorn", "factoextra", "dbscan", "dplyr"))
@@ -99,7 +103,7 @@ install.packages(c("ape", "pvclust", "phangorn", "factoextra", "dbscan", "dplyr"
 <!-- - Презентация: [09_dist.html](09_dist.html) -->
 <!-- - Код: [09_dist_code.R](09_dist_code.R) -->
 
-## 9. Литературное программирование 
+<!-- ## 9. Литературное программирование  -->
 
 <!-- - [Файл с примером отчёта](R_calc_Abalone.zip) -->
 <!-- - [Файл с проектом из лекции](R_my_first_project.zip) -->

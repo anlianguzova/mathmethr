@@ -5,23 +5,23 @@
     <meta charset="utf-8" />
     <meta name="author" content="Марина Варфоломеева" />
     <meta name="author" content="Анастасия Лянгузова" />
-    <script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
-    <link href="site_libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
-    <link href="site_libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
-    <script src="site_libs/tile-view-0.2.6/tile-view.js"></script>
-    <script src="site_libs/fabric-4.3.1/fabric.min.js"></script>
-    <link href="site_libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
-    <script src="site_libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
-    <script src="site_libs/mark.js-8.11.1/mark.min.js"></script>
-    <link href="site_libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
-    <script src="site_libs/xaringanExtra-search-0.0.1/search.js"></script>
+    <script src="libs/mark.js-8.11.1/mark.min.js"></script>
+    <link href="libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-search-0.0.1/search.js"></script>
     <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":false,"autoSearch":true}) })</script>
-    <script src="site_libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
-    <script src="site_libs/freezeframe-5.0.2/freezeframe.min.js"></script>
-    <script src="site_libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
+    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <script src="libs/freezeframe-5.0.2/freezeframe.min.js"></script>
+    <script src="libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
     <script id="xaringanExtra-freezeframe-options" type="application/json">{"selector":"img[src$=\"gif\"]","trigger":"click","overlay":false,"responsive":true,"warnings":true}</script>
-    <link href="site_libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <link href="libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
     <!-- https://github.com/fnaufel/xaringan-smartify-->
     <script
     			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -79,7 +79,7 @@ class: middle, left, inverse, title-slide
 .pull-right[
 ![](images/sled_scull.jpg)]
 
-.tiny[Spalding et al. 2005; данные из Whitlock, Schluter, 2015, глава 17, упр.31; Данные в файлах nuclear_teeth.xlsx и nuclear_teeth.csv]
+.tiny[Spalding et al. 2005; данные из Whitlock, Schluter, 2015, глава 17, упр. 31; Данные в файлах nuclear_teeth.xlsx и nuclear_teeth.csv]
 
 ---
 
@@ -88,7 +88,7 @@ class: middle, left, inverse, title-slide
 Чтение из xlsx:
 
 
-```r
+``` r
 library(readxl)
 teeth &lt;- as.data.frame(read_excel(path = 'data/nuclear_teeth.xlsx', sheet = 1))
 ```
@@ -97,7 +97,7 @@ teeth &lt;- as.data.frame(read_excel(path = 'data/nuclear_teeth.xlsx', sheet = 1
 Чтение из csv:
 
 
-```r
+``` r
 teeth &lt;- read.table(file = 'data/nuclear_teeth.csv', header = TRUE, sep = ',')
 ```
 
@@ -106,7 +106,7 @@ teeth &lt;- read.table(file = 'data/nuclear_teeth.csv', header = TRUE, sep = ','
 ## Все ли правильно открылось?
 
 
-```r
+``` r
 str(teeth)      # Структура данных
 ```
 
@@ -116,7 +116,7 @@ str(teeth)      # Структура данных
  $ deltaC14   : int  89 109 91 127 99 110 123 105 622 262 ...
 ```
 
-```r
+``` r
 head(teeth, 3)     # Первые 3 строки файла
 ```
 
@@ -134,7 +134,7 @@ head(teeth, 3)     # Первые 3 строки файла
 Сейчас переменные называются так:
 
 
-```r
+``` r
 colnames(teeth)
 ```
 
@@ -145,14 +145,14 @@ colnames(teeth)
 Сделаем более удобные названия:
 
 
-```r
+``` r
 colnames(teeth) &lt;- c('birth', 'c14')
 ```
 
 Теперь переменные стали называться так:
 
 
-```r
+``` r
 colnames(teeth)
 ```
 
@@ -167,7 +167,7 @@ colnames(teeth)
 Есть ли пропущенные значения?
 
 
-```r
+``` r
 colSums(is.na(teeth))
 ```
 
@@ -181,7 +181,7 @@ birth   c14
 Поскольку пропущенных значений нет, можем просто посчитать число строк:
 
 
-```r
+``` r
 nrow(teeth)
 ```
 
@@ -195,103 +195,17 @@ nrow(teeth)
 
 class: middle, center, inverse
 
-# Графики средствами пакета ggplot2
+# Корреляция
 
 ---
 
-## Грамматика графиков
+## Есть ли связь между переменными?
 
-1. Откуда брать данные?
-2. Какие переменные изображать на графике?
-3. В виде чего изображать?
-4. Какие подписи нужны?
-5. Какую тему оформления нужно использовать?
+Построим график!
 
 
-Давайте поэтапно построим график
-
----
-
-## С чего начинаются графики?
-
-- `library(ggplot2)` --- активирует пакет ggplot2 со всеми его функциями
-- `ggplot()` --- создает пустой "базовый" слой --- основу графика
-
-
-```r
+``` r
 library(ggplot2)
-ggplot()
-```
-
-![](03_regression1_files/figure-html/gg_base_1-1.png)&lt;!-- --&gt;
-
----
-
-## Откуда брать данные?
-
-Обычно в основе графика пишут, откуда брать данные.
-
-
-```r
-ggplot(data = teeth)
-```
-
-![](03_regression1_files/figure-html/gg_base_2-1.png)&lt;!-- --&gt;
-
----
-
-## Какие переменные изображать на графике?
-
-Эстетики --- это свойства будущих элементов графика, которые будут изображать данные (`x`, `y`, `colour`, `fill`, `size`, `shape`, и т.д.)
-
-`aes()` --- функция, которая сопоставляет значения эстетик и переменные из источника данных (название происходит от англ. _aesthetics_)
-
-
-```r
-ggplot(data = teeth, aes(x = c14, y = birth))
-```
-
-![](03_regression1_files/figure-html/gg_aes-1.png)&lt;!-- --&gt;
-
----
-
-## В виде чего изображать?
-
-Геомы --- графические элементы (`geom_point()`, `geom_line()`, `geom_bar()`, `geom_smooth()` и т.д., их очень много).
-
-`geom_point()` --- точки.
-
-
-```r
-ggplot(data = teeth, aes(x = c14, y = birth)) + 
-  geom_point()
-```
-
-![](03_regression1_files/figure-html/gg-point-1.png)&lt;!-- --&gt;
-
----
-
-## Подписи осей, заголовок и т.д.
-
-Элемент `labs()` --- создает подписи. Аргументы --- это имена эстетик, например, `x`, `y` и т.д. Заголовок графика называется `title`
-
-
-
-```r
-ggplot(data = teeth, aes(x = c14, y = birth)) + 
-  geom_point() + 
-  labs(x = 'Содержание нестабильного изотопа углерода, %', 
-       y = 'Год рождения человека')
-```
-
-![](03_regression1_files/figure-html/gg-labs-1.png)&lt;!-- --&gt;
-
----
-
-## Графики ggplot можно сохранять в переменные
-
-
-```r
 gg_teeth &lt;- ggplot(data = teeth, aes(x = c14, y = birth)) + 
   geom_point() + 
   labs(x = 'Содержание нестабильного изотопа углерода, %', 
@@ -299,66 +213,11 @@ gg_teeth &lt;- ggplot(data = teeth, aes(x = c14, y = birth)) +
 gg_teeth
 ```
 
-![](03_regression1_files/figure-html/gg-var-1.png)&lt;!-- --&gt;
+![](03_regression1_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
 
----
-
-## Темы оформления графиков можно менять и настраивать
-
-`theme()` --- меняет отдельные элементы (см. справку)
-`theme_bw()`, `theme_classic()` и т.д. --- стили оформления целиком
-
-
-```r
-gg_teeth + theme_classic()
-```
-
-![](03_regression1_files/figure-html/gg-themes-1.png)&lt;!-- --&gt;
-
----
-
-## Можно установить любимую тему для всех последующих графиков
-
-
-```r
-theme_set(theme_bw())
-gg_teeth
-```
-
-![](03_regression1_files/figure-html/gg-theme-set-1.png)&lt;!-- --&gt;
-
----
-
-## Графики можно сохранять в файлы
-
-Функция `ggsave()` позволяет сохранять графики в виде файлов во множестве разных форматов ("eps", "ps", "tex", "pdf", "jpeg", "tiff", "png", "bmp", "svg" или "wmf"). Параметры изображений настраиваются (см. справку)
-
-
-```r
-ggsave(filename = 'teeth_c14.png', plot = gg_teeth)
-ggsave(filename = 'teeth_c14.pdf', plot = gg_teeth)
-```
-
----
-
-class: middle, center, inverse
-
-# Корреляция
-
----
-
-## Есть ли связь между переменными?
-
-Судя по всему, да, скажем мы, глядя на график.
+Судя по всему, да. 
 
 Но насколько сильна эта связь?
-
-
-```r
-gg_teeth
-```
-
-![](03_regression1_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -414,7 +273,7 @@ p_cor
 
 
 
-```r
+``` r
 p_cor &lt;- cor.test(x = teeth$c14, y = teeth$birth, 
          alternative = 'two.sided', method = 'pearson')
 p_cor
@@ -557,6 +416,7 @@ class: middle, center, inverse
 
 ## Памятка с необходимыми для понимания всего происходящего величинами
 
+.small[
 | Величина | Что она такое |
 | -------- | --------------- |
 | `\(y_i\)` | наблюдаемое значение зависимой переменной |
@@ -573,7 +433,7 @@ class: middle, center, inverse
 | `\(_ t\)` | что-то общее для модели (от _total_) |
 | `\(_ r\)` | объяснённая часть модели (от _regression_) |
 | `\(_ e\)`| случайная часть модели (от _error_) |
-
+]
 
 ---
 
@@ -617,7 +477,7 @@ y_i = 10 + 10x_i + \varepsilon_i \\
 $$
 
 
-```r
+``` r
 pop_x &lt;- rnorm(1000, 10, 3)
 pop_y &lt;- 10 + 10*pop_x + rnorm(1000, 0, 20)
 population &lt;- data.frame(x = pop_x, y = pop_y)
@@ -662,6 +522,8 @@ __Доверительная область значений регрессии_
 
 
 ![](03_regression1_files/figure-html/teeth-pred-1.png)&lt;!-- --&gt;
+
+&lt;!-- --- --&gt;
 
 &lt;!-- ## Стандартизованные коэффициенты --&gt;
 
@@ -748,7 +610,7 @@ teeth_lm &lt;- lm(formula = , data = )
 
 
 
-```r
+``` r
 teeth_lm &lt;- lm(formula = birth ~ c14, data = teeth)
 summary(teeth_lm)
 ```
@@ -790,7 +652,7 @@ F-statistic:  113 on 1 and 14 DF,  p-value: 0.000000043
 Коэффициенты:
 
 
-```r
+``` r
 coef(teeth_lm)
 ```
 
@@ -841,7 +703,7 @@ class: middle, center, inverse
 ## Тестируем значимость коэффициентов t-критерием
 
 
-```r
+``` r
 summary(teeth_lm)
 ```
 
@@ -969,7 +831,7 @@ F --- соотношение объясненной и не объясненно
 ## Проверяем значимость модели при помощи F-критерия
 
 
-```r
+``` r
 library(car)
 Anova(teeth_lm)
 ```
@@ -1008,7 +870,7 @@ class: middle, center, inverse
 Используйте `geom_smooth()` и его аргументы `method` и `level`
 
 
-```r
+``` r
 gg1 &lt;- gg_teeth + 
   labs(title = '95% доверительная зона')
 gg1
@@ -1025,7 +887,7 @@ plot_grid(gg1, gg2, nrow = 1, labels = 'AUTO')
 ## Решение: Строим доверительную зону регрессии
 
 
-```r
+``` r
 gg1 &lt;- gg_teeth + geom_smooth(method = 'lm') + 
   labs(title = '95% доверительная зона')
 gg2 &lt;- gg_teeth + geom_smooth(method = 'lm', level = 0.99) + 
@@ -1061,7 +923,7 @@ __Не используйте `\(R^2\)` для множественной лин
 ## Коэффициент детерминации можно найти в сводке модели
 
 
-```r
+``` r
 summary(teeth_lm)
 ```
 
@@ -1124,7 +986,7 @@ class: middle, center, inverse
 Значения, для которых предсказываем:
 
 
-```r
+``` r
 new_data1 &lt;- data.frame(c14 = c(125, 314, 565)) 
 new_data1
 ```
@@ -1143,7 +1005,7 @@ new_data1
 Предсказания:
 
 
-```r
+``` r
 pr1 &lt;- predict(teeth_lm, newdata = new_data1, 
                 interval = 'confidence', se = TRUE)
 pr1$fit
@@ -1165,7 +1027,7 @@ pr1$fit
 В пределах каких годов родились люди, у которых содержание `\(^{14}C\)` в эмали соответствует 125, 314  и 565 %?
 
 
-```r
+``` r
 # значения, для которых предсказываем
 (pr2 &lt;- predict(teeth_lm, newdata = new_data1, 
                 interval = 'prediction', se = TRUE))
@@ -1203,7 +1065,7 @@ $residual.scale
 - предсказанные значения для исходных данных. 
 
 
-```r
+``` r
 pr_all &lt;- predict(teeth_lm, interval = 'prediction')
 teeth_with_pred &lt;- data.frame(teeth, pr_all)
 head(teeth_with_pred)
@@ -1225,7 +1087,7 @@ head(teeth_with_pred)
 ## Строим доверительную область значений и доверительный интервал одновременно
 
 
-```r
+``` r
 gg_teeth + 
   geom_smooth(method = 'lm', 
               aes(fill = 'Доверительный \nинтервал'), 
@@ -1265,9 +1127,9 @@ gg_teeth +
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script src="assets/cols_macro.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "vs",
-"highlightLines": true,
-"countIncrementalSlides": false
+  "highlightStyle": "vs",
+  "highlightLines": true,
+  "countIncrementalSlides": false
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
