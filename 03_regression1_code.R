@@ -62,10 +62,10 @@ nrow(teeth)
 # Давайте построим график (заполните пропуски)
 library(ggplot2)
 
-gg_teeth <- ggplot(data = teeth, aes(x = c14, y = birth)) +
+gg_teeth <- ggplot()) +
   geom_point() +
-  labs(x = 'Содержание нестабильного изотопа углерода, %',
-       y = 'Год рождения человека')
+  labs(x =,
+       y =)
 gg_teeth
 
 ggsave(filename = 'teeth_c14.png', plot = gg_teeth)
