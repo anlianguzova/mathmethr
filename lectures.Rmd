@@ -40,7 +40,9 @@ install.packages("car")
 install.packages(c("cowplot", "gridExtra"))
 ```
 
-<!-- - Презентация: [03_regression1.html](03_regression1.html) -->
+- Презентация: 
+    - [03_regression1.html](03_regression1.html)
+    - [04_regression2.html](04_regression2.html)
 - Код: 
     - [03_regression1_code.R](03_regression1_code.R)
     - [03_regression2_code.R](04_regression2_code.R)
@@ -58,23 +60,29 @@ install.packages(c("cowplot", "gridExtra"))
 <!-- - Код: [04_regression2_code.R](04_regression2_code.R) -->
 <!-- - Данные: [river.xlsx](data/river.xlsx) | [river.csv](data/river.csv) -->
 
-## 4. Дисперсионный анализ, ч.1
+## 4. Дисперсионный анализ
 
 ```{r eval=FALSE}
 install.packages("multcomp")
 ```
 
 <!-- - Презентация: [05_anova1.html](05_anova1.html) -->
-<!-- - Код: [05_anova1_code.R](05_anova1_code.R) -->
-<!-- - Данные: [sleep.xlsx](data/sleep.xlsx) | [sleep.csv](data/sleep.csv) -->
+- Код: 
+    - [05_anova1_code.R](05_anova1_code.R)
+    - [05_anova2_code.R](06_anova2_code.R)
+- Данные: 
+    - [sleep.xlsx](data/sleep.xlsx) | [sleep.csv](data/sleep.csv)
+    - [eysenck.csv](data/eysenck.csv)
 
-## 5. Дисперсионный анализ, ч.2
+
+
+<!-- ## 5. Дисперсионный анализ, ч.2 -->
 
 <!-- - Презентация: [06_anova2.html](06_anova2.html) -->
 <!-- - Код: [06_anova2_code.R](06_anova2_code.R) -->
 <!-- - Данные: [eysenck.csv](data/eysenck.csv) -->
 
-## 6. Анализ главных компонент
+## 5. Анализ главных компонент
 
 ```{r eval=FALSE}
 install.packages(c("DAAG", "RColorBrewer", "vegan", "HSAUR", "ggrepel"))
@@ -94,7 +102,7 @@ install.packages(c("DAAG", "RColorBrewer", "vegan", "HSAUR", "ggrepel"))
 <!--   + [код R](08_da_code.R) -->
 <!--   + [LDA_helper_functions.R](LDA_helper_functions.R) -->
 
-## 7. Ординация и классификация с использованием мер сходства-различия
+## 6. Ординация и классификация с использованием мер сходства-различия
 
 ```{r eval=FALSE}
 install.packages(c("ape", "pvclust", "phangorn", "factoextra", "dbscan", "dplyr"))

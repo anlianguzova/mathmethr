@@ -5,25 +5,25 @@
     <meta charset="utf-8" />
     <meta name="author" content="Марина Варфоломеева" />
     <meta name="author" content="Анастасия Лянгузова" />
-    <script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
-    <link href="site_libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="site_libs/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
-    <link href="site_libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
-    <link href="site_libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
-    <script src="site_libs/tile-view-0.2.6/tile-view.js"></script>
-    <script src="site_libs/fabric-4.3.1/fabric.min.js"></script>
-    <link href="site_libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
-    <script src="site_libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
-    <script src="site_libs/mark.js-8.11.1/mark.min.js"></script>
-    <link href="site_libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
-    <script src="site_libs/xaringanExtra-search-0.0.1/search.js"></script>
+    <script src="libs/mark.js-8.11.1/mark.min.js"></script>
+    <link href="libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-search-0.0.1/search.js"></script>
     <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":false,"autoSearch":true}) })</script>
-    <script src="site_libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
-    <script src="site_libs/freezeframe-5.0.2/freezeframe.min.js"></script>
-    <script src="site_libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
+    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <script src="libs/freezeframe-5.0.2/freezeframe.min.js"></script>
+    <script src="libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
     <script id="xaringanExtra-freezeframe-options" type="application/json">{"selector":"img[src$=\"gif\"]","trigger":"click","overlay":false,"responsive":true,"warnings":true}</script>
-    <link href="site_libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <link href="libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
     <!-- https://github.com/fnaufel/xaringan-smartify-->
     <script
     			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -530,84 +530,84 @@ F-статистика подчиняется F-распределению. Фо
 Минимальное упоминание результатов в тексте должно содержать `\(F _{df _x, df _e}\)` и `\(p\)`.
 ]
 
+
+
+&lt;!-- class: middle, center, inverse --&gt;
+
+&lt;!-- ## Кодирование дискретных предикторов --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Параметризация  --&gt;
+
+&lt;!-- .pull-left[ --&gt;
+
+&lt;!-- __Параметризация индикаторных переменных__ --&gt;
+
+&lt;!-- Так же известна как --&gt;
+
+&lt;!-- - dummy coding --&gt;
+&lt;!-- - treatment parametrisation --&gt;
+&lt;!-- - reference cell model --&gt;
+
+&lt;!-- &lt;br/&gt; --&gt;
+
+&lt;!-- - В R обозначается __contr.treatment__ и используется по умолчанию. --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right[ --&gt;
+
+&lt;!-- __Параметризация эффектов__ &lt;br/&gt;&lt;br/&gt; --&gt;
+
+&lt;!-- Так же известна как --&gt;
+
+&lt;!-- - effects coding --&gt;
+&lt;!-- - sum-to-zero parameterisation --&gt;
+
+&lt;!-- &lt;br/&gt;&lt;br/&gt; --&gt;
+
+&lt;!-- - В R обозначается __contr.sum__. --&gt;
+
+&lt;!-- "Классическая" параметризация для дисперсионного анализа.  --&gt;
+
+&lt;!-- Нужна, если хочется использовать т.н. III тип сумм квадратов в многофакторном дисперсионном анализе со взаимодействием факторов. --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Параметризация индикаторов --&gt;
+
+&lt;!-- Основная идея --- присвоить уникальные значения различным значениям фактора, используя __дихотомию__ 0 и 1. Записать это можно в форме модельной матрицы.  --&gt;
+
+&lt;!-- | очень низкий &lt;br/&gt; `\(x_1\)` | низкий &lt;br/&gt; `\(x_2\)` | средний &lt;br/&gt; `\(x_3\)` | высокий &lt;br/&gt; `\(x_4\)` | очень высокий &lt;br/&gt; `\(x_5\)` --&gt;
+&lt;!-- ---- | ----- | ----- | ----- | ------ --&gt;
+&lt;!-- очень низкий | 1 | 0 | 0 | 0 | 0 --&gt;
+&lt;!-- низкий | 0 | 1 | 0 | 0 | 0 --&gt;
+&lt;!-- средний | 0 | 0 | 1 | 0 | 0 --&gt;
+&lt;!-- высокий | 0 | 0 | 0 | 1 | 0 --&gt;
+&lt;!-- очень высокий | 0 | 0 | 0 | 0 | 1 --&gt;
+
+&lt;!-- Такая форма записи избыточна! Можем принять первый фактор за референсное значение.  --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Параметризация индикаторов --&gt;
+
+&lt;!-- Запись модельный матрицы нормального человека:  --&gt;
+
+&lt;!-- | низкий &lt;br/&gt; `\(x_1\)` | средний &lt;br/&gt; `\(x_2\)` | высокий &lt;br/&gt; `\(x_3\)` | очень высокий &lt;br/&gt; `\(x_4\)` --&gt;
+&lt;!-- ---- | ----- | ----- | -----  --&gt;
+&lt;!-- очень низкий | 0 | 0 | 0 | 0  --&gt;
+&lt;!-- низкий | 1 | 0 | 0 | 0 --&gt;
+&lt;!-- средний | 0 | 1 | 0 | 0 --&gt;
+&lt;!-- высокий | 0 | 0 | 1 | 0 --&gt;
+&lt;!-- очень высокий | 0 | 0 | 0 | 1 --&gt;
+
+&lt;!-- Уровень фактора очень низкий будет базовым, а переменных-индикаторов всегда на 1 меньше, чем уровней фактора. --&gt;
+
 ---
 
-class: middle, center, inverse
-
-## Кодирование дискретных предикторов
-
----
-
-## Параметризация 
-
-.pull-left[
-
-__Параметризация индикаторных переменных__
-
-Так же известна как
-
-- dummy coding
-- treatment parametrisation
-- reference cell model
-
-&lt;br/&gt;
-
-- В R обозначается __contr.treatment__ и используется по умолчанию.
-
-]
-
-.pull-right[
-
-__Параметризация эффектов__ &lt;br/&gt;&lt;br/&gt;
-
-Так же известна как
-
-- effects coding
-- sum-to-zero parameterisation
-
-&lt;br/&gt;&lt;br/&gt;
-
-- В R обозначается __contr.sum__.
-
-"Классическая" параметризация для дисперсионного анализа. 
-
-Нужна, если хочется использовать т.н. III тип сумм квадратов в многофакторном дисперсионном анализе со взаимодействием факторов.]
-
----
-
-## Параметризация индикаторов
-
-Основная идея --- присвоить уникальные значения различным значениям фактора, используя __дихотомию__ 0 и 1. Записать это можно в форме модельной матрицы. 
-
-| очень низкий &lt;br/&gt; `\(x_1\)` | низкий &lt;br/&gt; `\(x_2\)` | средний &lt;br/&gt; `\(x_3\)` | высокий &lt;br/&gt; `\(x_4\)` | очень высокий &lt;br/&gt; `\(x_5\)`
----- | ----- | ----- | ----- | ------
-очень низкий | 1 | 0 | 0 | 0 | 0
-низкий | 0 | 1 | 0 | 0 | 0
-средний | 0 | 0 | 1 | 0 | 0
-высокий | 0 | 0 | 0 | 1 | 0
-очень высокий | 0 | 0 | 0 | 0 | 1
-
-Такая форма записи избыточна! Можем принять первый фактор за референсное значение. 
-
----
-
-## Параметризация индикаторов
-
-Запись модельный матрицы нормального человека: 
-
-| низкий &lt;br/&gt; `\(x_1\)` | средний &lt;br/&gt; `\(x_2\)` | высокий &lt;br/&gt; `\(x_3\)` | очень высокий &lt;br/&gt; `\(x_4\)`
----- | ----- | ----- | ----- 
-очень низкий | 0 | 0 | 0 | 0 
-низкий | 1 | 0 | 0 | 0
-средний | 0 | 1 | 0 | 0
-высокий | 0 | 0 | 1 | 0
-очень высокий | 0 | 0 | 0 | 1
-
-Уровень фактора очень низкий будет базовым, а переменных-индикаторов всегда на 1 меньше, чем уровней фактора.
-
----
-
-## Запись уравнения модели с параметризацией индикаторов
+## Запись уравнения модели
 
 Сначала построим модель :) 
 
@@ -633,7 +633,7 @@ Dangerочень высокий
 
 `$$\widehat{TotalSleep}_i = 13.08 - 1.33 Danger_{\text{низкий}\ i} - 2.77 Danger_{\text{средний}\ i} - \\ - 4.27 Danger_{\text{высокий}\ i} - 9.01 Danger_{\text{очень высокий}\ i}$$`
 
-Что это всё значит????? 
+
 
 Первый коэффициент среднее значение общей продолжительности сна для базового уровня (очень низкого уровня опасности). 
 
@@ -1143,9 +1143,9 @@ gg_means +
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script src="assets/macros.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "vs",
-"highlightLines": true,
-"countIncrementalSlides": false
+  "highlightStyle": "vs",
+  "highlightLines": true,
+  "countIncrementalSlides": false
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
