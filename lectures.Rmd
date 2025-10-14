@@ -92,7 +92,7 @@ install.packages(c("DAAG", "RColorBrewer", "vegan", "HSAUR", "ggrepel"))
 ```
 
 <!-- - Презентация: [07_pca.html](07_pca.html) -->
-<!-- - Код: [07_pca_code.R](07_pca_code.R) -->
+- Код: [05_pca_code.R](07_pca_code.R)
 
 <!-- ## 8. Дискриминантный анализ -->
 
@@ -112,7 +112,7 @@ install.packages(c("ape", "pvclust", "phangorn", "factoextra", "dbscan", "dplyr"
 ```
 
 <!-- - Презентация: [09_dist.html](09_dist.html) -->
-<!-- - Код: [09_dist_code.R](09_dist_code.R) -->
+- Код: [06_dist_code.R](09_dist_code.R)
 
 <!-- ## 9. Литературное программирование  -->
 

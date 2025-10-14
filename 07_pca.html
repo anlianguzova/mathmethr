@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="author" content="Марина Варфоломеева" />
     <meta name="author" content="Анастасия Лянгузова" />
-    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
@@ -818,7 +818,7 @@ ggplot(df_load_iris) +
 ]
 
 .pull-right[
-Первые две компоненты объясняют почти 96% общей изменчивости. Первая компонента (73%) связана с длиной чашелистника, длиной и шириной лепестка. Вторая компонента (23%) описывает ширину чашелистника. Внутри видов ирисы различаются по ширине чашелистника (об этом говорит разброс точек вдоль второй компоненты). Ирисы вида setosa не похожи versicolor и virginica: у них относительно более короткие чашелистник и лепестки, и более узкие лепестки.
+Первые две компоненты объясняют почти 96% общей изменчивости. Первая компонента (73%) связана с длиной чашелистника, длиной и шириной лепестка. Вторая компонента (23%) описывает ширину чашелистника. Внутри видов ирисы различаются по ширине чашелистника (об этом говорит разброс точек вдоль второй компоненты). Ирисы вида setosa не похожи versicolor и virginica: у них более короткие чашелистник и лепестки и более узкие лепестки.
 ]
 
 ---
@@ -1337,9 +1337,9 @@ plot_grid(ggloadings, ggscores, labels = 'AUTO')
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script src="assets/macros.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "vs",
-"highlightLines": true,
-"countIncrementalSlides": false
+  "highlightStyle": "vs",
+  "highlightLines": true,
+  "countIncrementalSlides": false
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
