@@ -5,25 +5,26 @@
     <meta charset="utf-8" />
     <meta name="author" content="Марина Варфоломеева" />
     <meta name="author" content="Анастасия Лянгузова" />
-    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
-    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
-    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
-    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
-    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
-    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <meta name="author" content="Наталья Арбузова" />
+    <script src="site_libs/header-attrs-2.32/header-attrs.js"></script>
+    <link href="site_libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="site_libs/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
+    <link href="site_libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="site_libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="site_libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="site_libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="site_libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="site_libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
-    <script src="libs/mark.js-8.11.1/mark.min.js"></script>
-    <link href="libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-search-0.0.1/search.js"></script>
+    <script src="site_libs/mark.js-8.11.1/mark.min.js"></script>
+    <link href="site_libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
+    <script src="site_libs/xaringanExtra-search-0.0.1/search.js"></script>
     <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":false,"autoSearch":true}) })</script>
-    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
-    <script src="libs/freezeframe-5.0.2/freezeframe.min.js"></script>
-    <script src="libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
+    <script src="site_libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <script src="site_libs/freezeframe-5.0.2/freezeframe.min.js"></script>
+    <script src="site_libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
     <script id="xaringanExtra-freezeframe-options" type="application/json">{"selector":"img[src$=\"gif\"]","trigger":"click","overlay":false,"responsive":true,"warnings":true}</script>
-    <link href="libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <link href="site_libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
     <!-- https://github.com/fnaufel/xaringan-smartify-->
     <script
     			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -50,6 +51,9 @@ class: middle, left, inverse, title-slide
 .author[
 ### Анастасия Лянгузова
 ]
+.author[
+### Наталья Арбузова
+]
 
 ---
 
@@ -73,12 +77,12 @@ class: middle, center, inverse
 -   &lt;https://posit.cloud&gt;
 
 1.  Создайте папку, где будут храниться ВСЕ материалы курса. Эта папка будет **рабочей директорией**. В эту папку помещайте ВСЕ файлы с кодом (с расширением .R).
-2.  Внутри папки `linmodr` создайте папку `data`, где будут храниться все файлы с данными для анализа.
+2.  Внутри папки `mathmethr` создайте папку `data`, где будут храниться все файлы с данными для анализа.
 
 В итоге у вас должно получиться примерно это:
 
-    C:\linmodr\
-    C:\linmodr\data\
+    C:\mathmethr\
+    C:\mathmethr\data\
     
 ---
 
@@ -94,7 +98,7 @@ class: middle, center, inverse
 
 
 ``` r
-setwd("~/linmodr")
+setwd("~/mathmethr")
 ```
 
 Полезно создать в рабочей директории проект в формате `.Rproj` и работать, запуская проект. 
@@ -199,7 +203,7 @@ sqrt(27)
 
 ## Переменные
 
-Оператор присваивания это символ стрелочки `&lt;-`. Он работает справа налево, это значит, что значение выражения в его правой части присваивается объекту в левой части.
+Оператор присваивания это символ стрелочки `&lt;-`. Он (обычно) работает справа налево, это значит, что значение выражения в его правой части присваивается объекту в левой части.
 
 Переменные --- это такие контейнеры, в которые можно положить разные данные и даже функции.
 
@@ -824,8 +828,8 @@ vect_num[vect_num &gt; 0]
 
 
 ``` r
-f_5_8 &lt;- (vect_num &lt;= -8) | (vect_num &gt;= 8)
-vect_num[f_5_8]
+f_min8_plus8 &lt;- (vect_num &lt;= -8) | (vect_num &gt;= 8)
+vect_num[f_min8_plus8]
 ```
 
 ```
@@ -1295,7 +1299,7 @@ my_worms # печать датафрейма
 View(my_worms) # просмотр в RStudio
 head(my_worms)
 tail(my_worms)
-# fix(my_worms) # ручное редактирование. осторожно! избегайте его использовать, никаких документов о нем не останется
+#fix(my_worms) # ручное редактирование. осторожно! избегайте его использовать, никаких документов о нем не останется
 ```
 
 Также у датафрейма можно посмотреть количество строк и столбцов.
@@ -1439,7 +1443,7 @@ my_worms_final
 
 ## Тибблы (tibble)
 
-Тибблы --- несколько видоизменённые датафреймы, имеющие схожую структуру. В отличие от датафреймов имеют дополнительный аттрибут `tbl_df`, из-за которого ведут себя несколько иначе. Тибблы  предоставляются пакетом `tibble`. 
+Тибблы --- несколько видоизменённые датафреймы, имеющие схожую структуру, более древняя часть R. В отличие от датафреймов имеют дополнительный аттрибут `tbl_df`, из-за которого ведут себя несколько иначе. Тибблы  предоставляются пакетом `tibble`. 
 
 Установка пакета в локальную библиотеку делается один раз. Поэтому строку с `install.packages()` не нужно включать в финальную версию кода.
 
@@ -1529,7 +1533,7 @@ hist(my_worms$Width)
 
 ## Скаттерплот 
 
-Скаттерплот (точечный график) --- по оси х и y непрерывные числовые величины. Каждая точка отображает одно значение перемной на оси x и значение другой переменной по оси y.
+Скаттерплот (точечный график) --- по оси х и y непрерывные числовые величины. Каждая точка отображает значение одной переменной на оси x и значение другой переменной по оси y.
 
 
 ``` r
@@ -1578,7 +1582,8 @@ library(ggplot2)
 
 ``` r
 ggplot(data = my_worms) + 
-  geom_bar(aes(x = Width, y = Length), stat = "identity")
+  geom_bar(aes(x = Width, y = Length), 
+           stat = "identity")
 ```
 
 ![](01_intro_to_r_files/figure-html/gg-barplot-1.png)&lt;!-- --&gt;
@@ -1587,8 +1592,9 @@ ggplot(data = my_worms) +
 .pull-right[
 
 ``` r
-ggplot(data = my_worms, aes(x = Width)) + 
-  geom_histogram(binwidth = 4, breaks = c(1, 5, 10, 15, 20))
+ggplot(data = my_worms, aes(x = Width))+ 
+  geom_histogram(binwidth = 4, 
+           breaks = c(1, 5, 10, 15, 20))
 ```
 
 ![](01_intro_to_r_files/figure-html/gg-histplot-1.png)&lt;!-- --&gt;
@@ -1728,13 +1734,41 @@ gg + facet_wrap(~Colour, nrow = 1)
 
 ``` r
 my_worms$col_rus &lt;- factor(my_worms$Colour, levels = c("green", "red"), labels = c("Зеленый", "Красный"))
-ggplot(data = my_worms) +
+gg_rus &lt;- ggplot(data = my_worms) +
   geom_point(aes(x = Width, y = Length, colour = col_rus)) +
   labs(x = "Ширина", y = "Длина", colour = "Цвет") +
   facet_wrap(~col_rus, nrow = 1)
+gg_rus
 ```
 
 ![](01_intro_to_r_files/figure-html/gg-translate-captions-1.png)&lt;!-- --&gt;
+
+---
+
+## А сами цвета?
+
+Можно попробовать другие встроенные палитры через scale_color. Например:
+
+
+``` r
+gg + labs(x = "Ширина", y = "Длина", colour = "Цвет") + scale_color_identity()
+```
+
+![](01_intro_to_r_files/figure-html/colour_change-1.png)&lt;!-- --&gt;
+
+scale_color_identity() автоматически красит в те цвета, которые были в названии! Но понимает только английский...
+
+---
+
+## Все самим вручную придется...
+
+
+``` r
+gg_rus + labs(x = "Ширина", y = "Длина", colour = "Цвет") + 
+  scale_colour_manual(values = c("Зеленый" = "green", "Красный" = "red"))
+```
+
+![](01_intro_to_r_files/figure-html/colour_change_manual-1.png)&lt;!-- --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
