@@ -366,3 +366,8 @@ ggplot(data = my_worms) +
   labs(x = "Ширина", y = "Длина", colour = "Цвет") +
   facet_wrap(~col_rus, nrow = 1)
 
+## Изменение цвета точек
+gg + labs(x = "Ширина", y = "Длина", colour = "Цвет") + scale_color_identity()
+
+gg_new + labs(x = "Ширина", y = "Длина", colour = "Цвет") + 
+  scale_colour_manual(values = c("Зеленый" = "green", "Красный" = "red"))
