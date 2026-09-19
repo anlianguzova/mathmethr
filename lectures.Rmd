@@ -18,20 +18,20 @@ output:
 install.packages("tibble")
 install.packages("ggplot2")
 ```
-<!-- - Презентация: [01_intro_to_r.html](01_intro_to_r.html) -->
+- Презентация: [01_intro_to_r.html](01_intro_to_r.html)
 -   Код: [01_intro_to_r.R](01_intro_to_r.R)
-<!-- -   Дополнительные упражнения: [01_intro_to_r_exercises.R](01_intro_to_r_exercises.R) -->
+-   Дополнительные упражнения: [01_intro_to_r_exercises.R](01_intro_to_r_exercises.R)
 
-<!--## 2. Тестирование гипотез. Анализ мощности -->
+## 2. Тестирование гипотез. Анализ мощности
 
-<!-- ```{r eval=FALSE}
+```{r eval=FALSE}
 install.packages("readxl")
-install.packages(c("Hmisc", "ggplot2", "effsize", "pwr"))
-``` -->
+install.packages(c("Hmisc", "effsize", "pwr"))
+```
 
 <!-- - Презентация: [02_power.html](02_power.html) -->
-<!-- - Код: [02_power_code.R](02_power_code.R) -->
-<!-- - Данные: [fleabeetles-subset.xlsx](data/fleabeetles-subset.xlsx) -->
+- Код: [02_power_code.R](02_power_code.R)
+- Данные: [fleabeetles-subset.xlsx](data/fleabeetles-subset.xlsx)
 
 <!-- ## 3. Регрессионный анализ -->
 
