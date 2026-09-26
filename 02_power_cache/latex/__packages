@@ -1,0 +1,15 @@
+ggplot2
+knitr
+xaringanthemer
+kableExtra
+sysfonts
+showtextdb
+showtext
+xaringanExtra
+gridExtra
+cowplot
+MASS
+pwr
+readxl
+effsize
+reshape2

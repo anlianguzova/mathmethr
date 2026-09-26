@@ -29,27 +29,27 @@ install.packages("readxl")
 install.packages(c("Hmisc", "effsize", "pwr"))
 ```
 
-<!-- - Презентация: [02_power.html](02_power.html) -->
+- Презентация: [02_power.html](02_power.html)
 - Код: [02_power_code.R](02_power_code.R)
 - Данные: [fleabeetles-subset.xlsx](data/fleabeetles-subset.xlsx)
 
-<!-- ## 3. Регрессионный анализ -->
+## 3. Регрессионный анализ
 
-<!-- ```{r eval=FALSE} 
+```{r eval=FALSE} 
 install.packages("car")
 install.packages(c("cowplot", "gridExtra"))
-``` -->
+``` 
 
-<!-- - Презентация: 
-    - [03_regression1.html](03_regression1.html)
-    - [04_regression2.html](04_regression2.html) -->
-<!-- - Код: 
+<!-- - Презентация: -->
+<!--    - [03_regression1.html](03_regression1.html) -->
+<!--    - [04_regression2.html](04_regression2.html) -->
+- Код:
     - [03_regression1_code.R](03_regression1_code.R)
-    - [03_regression2_code.R](04_regression2_code.R) -->
+<!--    - [03_regression2_code.R](04_regression2_code.R) -->
 
-<!-- - Данные:
+ - Данные:
     - [nuclear_teeth.xlsx](data/nuclear_teeth.xlsx) | [nuclear_teeth.csv](data/nuclear_teeth.csv)
-    - [river.xlsx](data/river.xlsx) | [river.csv](data/river.csv) -->
+<!--    - [river.xlsx](data/river.xlsx) | [river.csv](data/river.csv) -->
 
 <!-- ## 4. Регрессионный анализ, ч.2 -->
 <!-- ```{r eval=FALSE} -->
