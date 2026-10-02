@@ -5,23 +5,24 @@
     <meta charset="utf-8" />
     <meta name="author" content="Марина Варфоломеева" />
     <meta name="author" content="Анастасия Лянгузова" />
-    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
-    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
-    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
-    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
-    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
-    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <meta name="author" content="Наталья Арбузова" />
+    <script src="site_libs/header-attrs-2.32/header-attrs.js"></script>
+    <link href="site_libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="site_libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="site_libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="site_libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="site_libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="site_libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
-    <script src="libs/mark.js-8.11.1/mark.min.js"></script>
-    <link href="libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-search-0.0.1/search.js"></script>
+    <script src="site_libs/mark.js-8.11.1/mark.min.js"></script>
+    <link href="site_libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
+    <script src="site_libs/xaringanExtra-search-0.0.1/search.js"></script>
     <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":false,"autoSearch":true}) })</script>
-    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
-    <script src="libs/freezeframe-5.0.2/freezeframe.min.js"></script>
-    <script src="libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
+    <script src="site_libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <script src="site_libs/freezeframe-5.0.2/freezeframe.min.js"></script>
+    <script src="site_libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
     <script id="xaringanExtra-freezeframe-options" type="application/json">{"selector":"img[src$=\"gif\"]","trigger":"click","overlay":false,"responsive":true,"warnings":true}</script>
-    <link href="libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <link href="site_libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
     <!-- https://github.com/fnaufel/xaringan-smartify-->
     <script
     			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -47,6 +48,9 @@ class: middle, left, inverse, title-slide
 ]
 .author[
 ### Анастасия Лянгузова
+]
+.author[
+### Наталья Арбузова
 ]
 
 ---
@@ -247,7 +251,7 @@ __Коэффициент корреляции Пирсона__
 В тестах для проверки значимости тестируется гипотеза `\(H_0: \rho = 0\)`.
 
 
-&lt;img src="03_regression1_files/figure-html/inter-coeff-cor-1.png" width="70%" /&gt;
+&lt;img src="03_regression1_files/figure-html/inter-coeff-cor-1.png" alt="" width="70%" /&gt;
 
 .tiny[
 [By DenisBoigelot, original uploader was Imagecreator](https://commons.wikimedia.org/wiki/File\%3ACorrelation\\_examples2.svg) [CC0], via Wikimedia Commons
@@ -448,6 +452,8 @@ class: middle, center, inverse
 
 .tiny[Таблица из кн. Quinn, Keough, 2002, стр. 86, табл. 5.2]
 
+`\(MS_{e} = \frac {SS_{e}}{df_{e}}\)`
+
 Стандартные ошибки коэффициентов
 
   - используются для построения доверительных интервалов;
@@ -505,7 +511,7 @@ pop_plot
 
 .pull-right[
 
-&lt;img src="03_regression1_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03_regression1_files/figure-html/unnamed-chunk-15-1.png" alt="" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -663,7 +669,7 @@ coef(teeth_lm)
 
 Уравнение регрессии:  
 
-`$$\widehat{birth} _i  = 0.2 + 5.4 * c14 _i$$`
+`$$\widehat{birth} _i  = 1992 - 0.053 * c14 _i$$`
 ---
 
 class: middle, center, inverse
@@ -774,7 +780,7 @@ F-statistic:  113 on 1 and 14 DF,  p-value: 0.000000043
 
 ![:col_row `\(SS_{t} = \sum{(y_i - \bar{y})^2}\)`, `\(SS_{r} =\sum{(\hat{y}-\bar{y})^2}\)`,  `\(SS_{e} = \sum{(y_i - \hat{y})^2}\)`]
 ![:col_row `\(df_{t} = n - 1\)`, `\(df_{r} = p - 1\)`, `\(df_{e} = n - p\)`]
-![:col_row `\(MS_{e} = \frac{SS_{e}}{df_{e}}\)`, `\(MS_{r} = \frac {SS_{r}}{df_{r}}\)`, `\(MS_{t} = \frac {SS_{t}}{df_{t}}\)`]
+![:col_row `\(MS_{t} = \frac{SS_{t}}{df_{t}}\)`, `\(MS_{r} = \frac {SS_{r}}{df_{r}}\)`, `\(MS_{e} = \frac {SS_{e}}{df_{e}}\)`]
 
 
 &lt;!-- Они не зависят от числа наблюдений в выборке, в отличие от `\(SSr\)` и `\(SS_e\)`. --&gt;
@@ -851,7 +857,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 
 
-- Год рождения у трупов значимо зависит от количества радиоактивного углерода в эмали зубов `\((F _{1, 14} = 113.27\)`, `\(p &lt; 0.001)\)`.
+- Год рождения значимо зависит от количества радиоактивного углерода в эмали зубов `\((F _{1, 14} = 113.27\)`, `\(p &lt; 0.001)\)`.
 
 ---
 
@@ -896,7 +902,7 @@ library(cowplot)
 plot_grid(gg1, gg2, nrow = 1, labels = 'AUTO')
 ```
 
-&lt;img src="03_regression1_files/figure-html/conf-int-regr-1.png" width="100%" /&gt;
+&lt;img src="03_regression1_files/figure-html/conf-int-regr-1.png" alt="" width="100%" /&gt;
 
 ---
 
