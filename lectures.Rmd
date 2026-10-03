@@ -40,8 +40,8 @@ install.packages("car")
 install.packages(c("cowplot", "gridExtra"))
 ``` 
 
-<!-- - Презентация: -->
-<!--    - [03_regression1.html](03_regression1.html) -->
+- Презентация:
+    - [03_regression1.html](03_regression1.html)
 <!--    - [04_regression2.html](04_regression2.html) -->
 - Код:
     - [03_regression1_code.R](03_regression1_code.R)
