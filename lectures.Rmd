@@ -60,11 +60,11 @@ install.packages(c("gridExtra", "broom"))
  - Код: [04_regression2_2026_code.R](04_regression2_2026_code.R)
  - Данные: [river.xlsx](data/river.xlsx) | [river.csv](data/river.csv)
 
-<!-- ## 4. Дисперсионный анализ -->
+## 5. Дисперсионный анализ
 
-<!--  ```{r eval=FALSE}
+```{r eval=FALSE}
 install.packages("multcomp")
-``` -->
+``` 
 
 <!-- - Презентация:
     - [05_anova1.html](05_anova1.html)
@@ -73,9 +73,9 @@ install.packages("multcomp")
 <!-- - Код: 
     - [05_anova1_code.R](05_anova1_code.R)
     - [05_anova2_code.R](06_anova2_code.R) -->
-<!-- - Данные: 
+- Данные: 
     - [sleep.xlsx](data/sleep.xlsx) | [sleep.csv](data/sleep.csv)
-    - [eysenck.csv](data/eysenck.csv) -->
+   <!--  - [eysenck.csv](data/eysenck.csv) -->
 
 
 
