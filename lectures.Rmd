@@ -66,8 +66,8 @@ install.packages(c("gridExtra", "broom"))
 install.packages("multcomp")
 ``` 
 
-<!-- - Презентация:
-    - [05_anova1.html](05_anova1.html)
+- Презентация:
+<!--    - [05_anova1.html](05_anova1.html)
     - [06_anova2.html](06_anova2.html) -->
     
 - Код: [05_anova1_code.R](05_anova1_code.R)
