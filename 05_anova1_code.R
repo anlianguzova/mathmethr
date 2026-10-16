@@ -1,6 +1,6 @@
 # title: "Дисперсионный анализ, часть 1"
 # subtitle: "Математические методы в зоологии с использованием R"
-# author: "Марина Варфоломеева, Анастасия Лянгузова"
+# author: "Марина Варфоломеева, Анастасия Лянгузова, Наталья Арбузова"
 
 # ## Пример: сон у млекопитающих #################
 #
@@ -136,7 +136,7 @@ ggplot(data = , aes(x = 1:nrow(   ), y = )) +
 ggplot(data = , aes(x = , y = .stdresid)) +
   geom_
 # Квантильный график остатков
-qqPlot
+qqPlot()
 
 
 
@@ -151,15 +151,16 @@ sl_diag_full <- data.frame(sl_diag, sl)
 
 gg_other <- ggplot(sl_diag_full, aes(y = .stdresid)) +
   geom_hline(yintercept = 0)
-
-gg_other + geom_point(aes(x = log(BodyWt)))
-gg_other + geom_point(aes(x = log(BrainWt)))
-gg_other + geom_point(aes(x = NonDreaming))
-gg_other + geom_point(aes(x = Dreaming))
-gg_other + geom_point(aes(x = log(LifeSpan)))
-gg_other + geom_point(aes(x = Gestation))
-gg_other + geom_point(aes(x = Predation))
-gg_other + geom_point(aes(x = Exposure))
+library(gridExtra)
+grid.arrange(
+gg_other + geom_point(aes(x = log(BodyWt))),
+gg_other + geom_point(aes(x = log(BrainWt))),
+gg_other + geom_point(aes(x = NonDreaming)),
+gg_other + geom_point(aes(x = Dreaming)),
+gg_other + geom_point(aes(x = log(LifeSpan))),
+gg_other + geom_point(aes(x = Gestation)),
+gg_other + geom_point(aes(x = Predation)),
+gg_other + geom_point(aes(x = Exposure)), nrow = 2)
 
 
 

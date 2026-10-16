@@ -70,11 +70,9 @@ install.packages("multcomp")
     - [05_anova1.html](05_anova1.html)
     - [06_anova2.html](06_anova2.html) -->
     
-<!-- - Код: 
-    - [05_anova1_code.R](05_anova1_code.R)
-    - [05_anova2_code.R](06_anova2_code.R) -->
-- Данные: 
-    - [sleep.xlsx](data/sleep.xlsx) | [sleep.csv](data/sleep.csv)
+- Код: [05_anova1_code.R](05_anova1_code.R)
+   <!-- - [05_anova2_code.R](06_anova2_code.R) -->
+- Данные: [sleep.xlsx](data/sleep.xlsx) | [sleep.csv](data/sleep.csv)
    <!--  - [eysenck.csv](data/eysenck.csv) -->
 
 
