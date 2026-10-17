@@ -13,7 +13,7 @@
 
 <title>Проекты к зачёту</title>
 
-<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.32/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -54,6 +54,7 @@
   }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -442,10 +443,12 @@ div.tocify {
 <h2>Проекты</h2>
 <div id="описание" class="section level3">
 <h3>Описание</h3>
-<p>Проекты небольшие и рассчитаны на выполнение в группе из двух
+<p>Проекты небольшие и рассчитаны на выполнение в группе из двух-трех
 человек. В ходе работы вам нужно будет опробовать методы, о которых мы
 говорили в курсе, и подобрать для каждого датасета оптимальный способ
-анализа данных и его представления.</p>
+анализа данных и его представления. Использовать все возможные варианты
+анализа на одном датасете и выдавать результаты миллиона анлизов
+<strong>не нужно!</strong></p>
 <p>Отчёт по проекту будет состоять из двух частей: письменной
 (выполненная в формате <code>.Rmd</code>) и устной (презентация на 10
 минут). В письменном файле должны обязательно содержаться куски
@@ -475,7 +478,7 @@ div.tocify {
 зависимости от концентрации?</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;drc&quot;</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(drc)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">data</span>(spinach)</span></code></pre></div>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;spinach&quot;</span>)</span></code></pre></div>
 <p>Зависимая переменная:</p>
 <ul>
 <li>SLOPE — потребление кислорода мембранами тилакоидов.</li>
@@ -485,41 +488,65 @@ div.tocify {
 <li><p>HERBICIDE — тип гербицида;</p></li>
 <li><p>DOSE — доза гербицида.</p></li>
 </ul>
-<!-- ### Проект №2. Покемоны -->
-<!-- Датасет содержит информацию о всех 802 покемонах, а также его многочисленные характеристики.  -->
-<!-- [Данные](projects/project_2/project2.csv) -->
-<!-- [Описание данных](projects/project_2/summary2.csv) -->
-<!-- Данные взяты из проекта на [Kaggle](https://www.kaggle.com/datasets/rounakbanik/pokemon).  -->
-<!-- ### Проект №3. Бабочки мигрируют, бабочки остаются -->
-<!-- Исследование мигрирующих и "осёдлых" бабочек, и как образ жизни влияет на паразитов бабочек. Датасет также содержит информацию о стабильных изотопах, что в оригинальном исследовании позволило определить, откуда собранные бабочки родом.  -->
-<!-- [Данные](projects/project_3/project3.csv). -->
-<!-- [Описание данных](projects/project_3/summary3.xlsx). -->
-<!-- [Оригинальная статья](projects/project_3/publ3.pdf) -->
 </div>
-<div id="проект-2.-моллюски-и-симбионты" class="section level3">
-<h3>Проект №2. Моллюски и симбионты</h3>
+<div id="проект-2.-становимся-тренерами-покемонов"
+class="section level3">
+<h3>Проект №2. Становимся тренерами покемонов</h3>
+<p>Датасет содержит информацию о всех 802 покемонах, а также его
+многочисленные характеристики</p>
+<ul>
+<li><a href="projects/project_2/project2.csv">Данные</a></li>
+<li><a href="projects/project_2/summary2.csv">Описание данных</a></li>
+</ul>
+<p>Данные взяты из проекта на <a
+href="https://www.kaggle.com/datasets/rounakbanik/pokemon">Kaggle</a>.</p>
+</div>
+<div id="проект-3.-бабочки-мигрируют-бабочки-остаются"
+class="section level3">
+<h3>Проект №3. Бабочки мигрируют, бабочки остаются</h3>
+<p>Исследование мигрирующих и “осёдлых” бабочек, и как образ жизни
+влияет на паразитов бабочек. Датасет также содержит информацию о
+стабильных изотопах, что в оригинальном исследовании позволило
+определить, откуда собранные бабочки родом.</p>
+<ul>
+<li><p><a href="projects/project_3/project3.csv">Данные</a>.</p></li>
+<li><p><a href="projects/project_3/summary3.xlsx">Описание
+данных</a>.</p></li>
+<li><p><a href="projects/project_3/publ3.pdf">Оригинальная
+статья</a></p></li>
+</ul>
+</div>
+<div id="проект-4.-моллюски-и-их-симбионты" class="section level3">
+<h3>Проект №4. Моллюски и их симбионты</h3>
 <p>Данные о симбионтах двустворчатых моллюсков, собранные за 10 лет.</p>
 <ul>
 <li><a href="projects/project_4/project4.xlsx">Данные</a>.</li>
 <li><a href="projects/project_4/summary_4.xlsx">Описание</a>.</li>
 </ul>
 <p>Данные любезно предоставлены В.А. Крапивиным.</p>
-<!-- ### Проект №5. Винишко -->
-<!-- Данные о качестве вина и его физико-химических характеристиках.  -->
-<!-- Исходные данные разделены на [красные](projects/project_5/project5_red.csv) и [белые](projects/project_5/project5_white.csv) вина.  -->
-<!-- [Описание данных](projects/project_5/summary5.csv).  -->
-<!-- [Оригинальная статья](projects/project_5/publication.pdf). -->
 </div>
-<div id="проект-3.-черепахи-и-их-черепа" class="section level3">
-<h3>Проект №3. Черепахи и их черепа</h3>
+<div id="проект-5.-винишко" class="section level3">
+<h3>Проект №5. Винишко</h3>
+<p>Данные о качестве вина и его физико-химических характеристиках.</p>
+<p>Исходные данные разделены на <a
+href="projects/project_5/project5_red.csv">красные</a> и <a
+href="projects/project_5/project5_white.csv">белые</a> вина. <a
+href="projects/project_5/summary5.csv">Описание данных</a>.</p>
+<p><a href="projects/project_5/publication.pdf">Оригинальная
+статья</a>.</p>
+</div>
+<div id="проект-6.-черепахи-и-их-черепа" class="section level3">
+<h3>Проект №6. Черепахи и их черепа</h3>
 <p>Морфометрия черепов черепах. 24 разных измерения черепов черепах 122
 ныне живущих пресноводных, морских и наземных видов и одного
 ископаемого.</p>
 <p>Environment3: 0 — Freshwater, 1 — Terrestrial, 2 — Marine, 9 —
 Fossil.</p>
-<p><a href="images/Fig30.1ZuurAED-mod.jpg">Картинка с
-измерениями</a></p>
-<p><a href="projects/project_6/project6.txt">Данные</a>.</p>
+<ul>
+<li><p><a href="images/Fig30.1ZuurAED-mod.jpg">Картинка с
+измерениями</a></p></li>
+<li><p><a href="projects/project_6/project6.txt">Данные</a>.</p></li>
+</ul>
 <!-- ### Проект №7 (со звёздочкой!) -->
 <!-- Данные о регенерации *Platynereis dumerilii* (Pdum) и *Pygospio elegans* (Pele) и экспрессии различных генов.  -->
 <!-- [Данные по *P. dumerilli*](projects/project_7/project7_pdum.tsv). -->
@@ -529,8 +556,8 @@ Fossil.</p>
 <!-- - Annotations --- аннотация последовательности. -->
 <!-- Экспрессию генов смотрели в голове и xвосте через определённое количество времени (0, 4, 12, 24, 48 и 96 часов). Каждой стадии соотносится две реплики. Данные частично взяты из [проекта](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA901144). Экспрессия измерена в TPM (transcript per million).  -->
 </div>
-<div id="проект-4" class="section level3">
-<h3>Проект №4</h3>
+<div id="проект-7" class="section level3">
+<h3>Проект №7</h3>
 <p>Влияние курения и езды на мотоциклах на риск сердечных заболеваний,
 измерено в 500 городах.</p>
 <ul>
