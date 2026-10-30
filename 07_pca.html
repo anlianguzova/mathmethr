@@ -5,25 +5,26 @@
     <meta charset="utf-8" />
     <meta name="author" content="Марина Варфоломеева" />
     <meta name="author" content="Анастасия Лянгузова" />
-    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
-    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
-    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
-    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
-    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
-    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <meta name="author" content="Наталья Арбузова" />
+    <script src="site_libs/header-attrs-2.32/header-attrs.js"></script>
+    <link href="site_libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="site_libs/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
+    <link href="site_libs/remark-css-0.0.1/ninjutsu.css" rel="stylesheet" />
+    <link href="site_libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="site_libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="site_libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="site_libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="site_libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
-    <script src="libs/mark.js-8.11.1/mark.min.js"></script>
-    <link href="libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-search-0.0.1/search.js"></script>
+    <script src="site_libs/mark.js-8.11.1/mark.min.js"></script>
+    <link href="site_libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
+    <script src="site_libs/xaringanExtra-search-0.0.1/search.js"></script>
     <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":false,"autoSearch":true}) })</script>
-    <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
-    <script src="libs/freezeframe-5.0.2/freezeframe.min.js"></script>
-    <script src="libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
+    <script src="site_libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <script src="site_libs/freezeframe-5.0.2/freezeframe.min.js"></script>
+    <script src="site_libs/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
     <script id="xaringanExtra-freezeframe-options" type="application/json">{"selector":"img[src$=\"gif\"]","trigger":"click","overlay":false,"responsive":true,"warnings":true}</script>
-    <link href="libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
+    <link href="site_libs/tachyons-4.12.0/tachyons.min.css" rel="stylesheet" />
     <!-- https://github.com/fnaufel/xaringan-smartify-->
     <script
     			  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -50,6 +51,9 @@ class: middle, left, inverse, title-slide
 ]
 .author[
 ### Анастасия Лянгузова
+]
+.author[
+### Наталья Арбузова
 ]
 
 ---
@@ -80,16 +84,16 @@ class: middle, center, inverse
 
 ---
 
-## Почему нужны многомерные методы?
+&lt;!-- ## Почему нужны многомерные методы?
 
 Пусть у нас имеется две группы объектов, у которых мы изучили некий признак. Мы хотим тестировать гипотезу о том, что эти две группы различаются.  
 
 Вспомним логику тестирования гипотез.
 
-&lt;img src="07_pca_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="07_pca_files/figure-html/unnamed-chunk-1-1.png" alt="" style="display: block; margin: auto;" /&gt;
 
 ---
-
+--&gt;
 ## Почему нужны многомерные методы?
 
 Теперь представим, что наш объект, по своей природе, не может быть описан только по одному признаку:
@@ -99,6 +103,17 @@ class: middle, center, inverse
 - Социальная активность животного (признаки --- проявление того или иного паттерна)
 - Общественное мнение (признаки --- ответы на разные вопросы анкет)
 - Транскриптом (признаки --- транскрипты)
+
+---
+
+## Как найти проекцию, лучше всего отражающую наши данные?
+
+![](images/horses.jpg)
+.tiny[
+black shadows for a white horses / les negres ombres dels cavalls blancs by Ferran Jordà on Flickr
+]
+
+Какая тень наиболее "лошадная" из всех?
 
 ---
 
@@ -270,7 +285,7 @@ x2  8.057 3.800
 
 На графике ординации изображено новое пространство
 
-&lt;img src="07_pca_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="07_pca_files/figure-html/unnamed-chunk-13-1.png" alt="" style="display: block; margin: auto;" /&gt;
 
 .pull-left[
 По собственным числам судим о доле изменчивости, объясненной новыми направлениями осей (компонентами):
@@ -337,9 +352,6 @@ s_len s_wid p_len p_wid    Sp
     0     0     0     0     0 
 ```
 
----
-
-## Знакомимися с данными
 
 
 ``` r
@@ -415,7 +427,7 @@ Cumulative Proportion 0.73 0.958 0.9948 1.00000
 
 ---
 
-## Части результатов в `summary()`
+## Части результатов в `summary()` и вне его
 
 - Importance of components --- __собственные числа__ (eigenvalues) и доля объясненной изменчивости.
 - Species scores --- __факторные нагрузки исходных переменных__ на каждую из компонент.
@@ -563,7 +575,7 @@ ggloadings
 
 ## График факторных нагрузок в ggplot2
 
-&lt;img src="07_pca_files/figure-html/ggload-iris-1.png" width="60%" /&gt;
+&lt;img src="07_pca_files/figure-html/ggload-iris-1.png" alt="" width="60%" /&gt;
 
 ---
 
@@ -590,157 +602,157 @@ scores(ord_iris, display = 'sites',  choices = c(1, 2), scaling = 'sites')
 ```
 
 ```
-             PC1       PC2
-sit1   -0.456822 -0.096828
-sit2   -0.419759  0.135982
-sit3   -0.476898  0.068968
-sit4   -0.463818  0.120503
-sit5   -0.482065 -0.130476
-sit6   -0.418684 -0.300388
-sit7   -0.492995 -0.009610
-sit8   -0.450396 -0.045012
-sit9   -0.470930  0.224977
-sit10  -0.440609  0.094607
-sit11  -0.436975 -0.210527
-sit12  -0.469213 -0.026844
-sit13  -0.447492  0.146984
-sit14  -0.531133  0.193949
-sit15  -0.443517 -0.375199
-sit16  -0.456320 -0.541861
-sit17  -0.445301 -0.299265
-sit18  -0.441824 -0.098606
-sit19  -0.382968 -0.283412
-sit20  -0.472690 -0.227503
-sit21  -0.386146 -0.082472
-sit22  -0.445185 -0.186408
-sit23  -0.559624 -0.092454
-sit24  -0.366851 -0.017258
-sit25  -0.449250 -0.027686
-sit26  -0.393715  0.126196
-sit27  -0.413746 -0.048848
-sit28  -0.437432 -0.106333
-sit29  -0.431580 -0.063180
-sit30  -0.456935  0.068125
-sit31  -0.431692  0.101773
-sit32  -0.369458 -0.085465
-sit33  -0.527471 -0.361789
-sit34  -0.493428 -0.433832
-sit35  -0.425611  0.092829
-sit36  -0.445346  0.041575
-sit37  -0.412535 -0.133446
-sit38  -0.509798 -0.119474
-sit39  -0.490091  0.182386
-sit40  -0.437661 -0.054237
-sit41  -0.461214 -0.089100
-sit42  -0.374809  0.471489
-sit43  -0.515104  0.096641
-sit44  -0.396257 -0.095275
-sit45  -0.431075 -0.230404
-sit46  -0.417496  0.143429
-sit47  -0.481034 -0.226006
-sit48  -0.482979  0.077911
-sit49  -0.449710 -0.201302
-sit50  -0.444544 -0.001859
-sit51   0.222245 -0.174074
-sit52   0.147521 -0.119942
-sit53   0.250323 -0.124316
-sit54   0.082195  0.353888
-sit55   0.216938  0.042041
-sit56   0.078404  0.119674
-sit57   0.150585 -0.155929
-sit58  -0.098300  0.373661
-sit59   0.187171 -0.006500
-sit60   0.002305  0.208576
-sit61  -0.022228  0.535364
-sit62   0.088894  0.012768
-sit63   0.113385  0.355970
-sit64   0.145146  0.037564
-sit65  -0.006728  0.088553
-sit66   0.176582 -0.102685
-sit67   0.070651  0.039599
-sit68   0.032034  0.159777
-sit69   0.247118  0.327229
-sit70   0.033266  0.262754
-sit71   0.148801 -0.079994
-sit72   0.096074  0.084179
-sit73   0.248951  0.188265
-sit74   0.127656  0.083991
-sit75   0.141737  0.012791
-sit76   0.176353 -0.050589
-sit77   0.253455  0.015584
-sit78   0.274009 -0.066830
-sit79   0.134100  0.045573
-sit80  -0.008121  0.213558
-sit81   0.026383  0.315132
-sit82   0.004731  0.317190
-sit83   0.048722  0.156783
-sit84   0.214038  0.127855
-sit85   0.045180  0.058048
-sit86   0.086563 -0.170566
-sit87   0.211543 -0.105305
-sit88   0.210697  0.278968
-sit89   0.014037  0.044277
-sit90   0.057181  0.268143
-sit91   0.056294  0.225925
-sit92   0.125984 -0.005027
-sit93   0.067883  0.199375
-sit94  -0.073057  0.407308
-sit95   0.058212  0.172613
-sit96   0.018429  0.036549
-sit97   0.045934  0.077644
-sit98   0.116266  0.031240
-sit99  -0.090301  0.311404
-sit100  0.051786  0.120797
-sit101  0.372075 -0.175576
-sit102  0.233561  0.140972
-sit103  0.444833 -0.113365
-sit104  0.290498  0.009478
-sit105  0.376764 -0.059515
-sit106  0.555091 -0.161454
-sit107  0.074033  0.314977
-sit108  0.464434 -0.084733
-sit109  0.404777  0.143507
-sit110  0.455829 -0.387495
-sit111  0.275173 -0.139739
-sit112  0.323283  0.085063
-sit113  0.380009 -0.084569
-sit114  0.254183  0.234444
-sit115  0.296045  0.089212
-sit116  0.320741 -0.136408
-sit117  0.296808 -0.051562
-sit118  0.489424 -0.515714
-sit119  0.667813 -0.003587
-sit120  0.254919  0.344274
-sit121  0.411036 -0.183654
-sit122  0.197272  0.115333
-sit123  0.584497 -0.083437
-sit124  0.268932  0.097188
-sit125  0.343062 -0.204522
-sit126  0.394215 -0.203283
-sit127  0.237035  0.063821
-sit128  0.205940 -0.012979
-sit129  0.360735  0.037793
-sit130  0.375924 -0.113422
-sit131  0.491366 -0.052301
-sit132  0.464936 -0.529766
-sit133  0.375733  0.036016
-sit134  0.224739  0.059087
-sit135  0.242556  0.163654
-sit136  0.564551 -0.172829
-sit137  0.317953 -0.215548
-sit138  0.271566 -0.085210
-sit139  0.186550 -0.003474
-sit140  0.373583 -0.136384
-sit141  0.406415 -0.123829
-sit142  0.383616 -0.139097
-sit143  0.233561  0.140972
-sit144  0.411609 -0.174991
-sit145  0.403054 -0.211632
-sit146  0.377307 -0.078056
-sit147  0.315598  0.180874
-sit148  0.306841 -0.054275
-sit149  0.276910 -0.203984
-sit150  0.193778  0.004908
+          PC1       PC2
+1   -0.456822 -0.096828
+2   -0.419759  0.135982
+3   -0.476898  0.068968
+4   -0.463818  0.120503
+5   -0.482065 -0.130476
+6   -0.418684 -0.300388
+7   -0.492995 -0.009610
+8   -0.450396 -0.045012
+9   -0.470930  0.224977
+10  -0.440609  0.094607
+11  -0.436975 -0.210527
+12  -0.469213 -0.026844
+13  -0.447492  0.146984
+14  -0.531133  0.193949
+15  -0.443517 -0.375199
+16  -0.456320 -0.541861
+17  -0.445301 -0.299265
+18  -0.441824 -0.098606
+19  -0.382968 -0.283412
+20  -0.472690 -0.227503
+21  -0.386146 -0.082472
+22  -0.445185 -0.186408
+23  -0.559624 -0.092454
+24  -0.366851 -0.017258
+25  -0.449250 -0.027686
+26  -0.393715  0.126196
+27  -0.413746 -0.048848
+28  -0.437432 -0.106333
+29  -0.431580 -0.063180
+30  -0.456935  0.068125
+31  -0.431692  0.101773
+32  -0.369458 -0.085465
+33  -0.527471 -0.361789
+34  -0.493428 -0.433832
+35  -0.425611  0.092829
+36  -0.445346  0.041575
+37  -0.412535 -0.133446
+38  -0.509798 -0.119474
+39  -0.490091  0.182386
+40  -0.437661 -0.054237
+41  -0.461214 -0.089100
+42  -0.374809  0.471489
+43  -0.515104  0.096641
+44  -0.396257 -0.095275
+45  -0.431075 -0.230404
+46  -0.417496  0.143429
+47  -0.481034 -0.226006
+48  -0.482979  0.077911
+49  -0.449710 -0.201302
+50  -0.444544 -0.001859
+51   0.222245 -0.174074
+52   0.147521 -0.119942
+53   0.250323 -0.124316
+54   0.082195  0.353888
+55   0.216938  0.042041
+56   0.078404  0.119674
+57   0.150585 -0.155929
+58  -0.098300  0.373661
+59   0.187171 -0.006500
+60   0.002305  0.208576
+61  -0.022228  0.535364
+62   0.088894  0.012768
+63   0.113385  0.355970
+64   0.145146  0.037564
+65  -0.006728  0.088553
+66   0.176582 -0.102685
+67   0.070651  0.039599
+68   0.032034  0.159777
+69   0.247118  0.327229
+70   0.033266  0.262754
+71   0.148801 -0.079994
+72   0.096074  0.084179
+73   0.248951  0.188265
+74   0.127656  0.083991
+75   0.141737  0.012791
+76   0.176353 -0.050589
+77   0.253455  0.015584
+78   0.274009 -0.066830
+79   0.134100  0.045573
+80  -0.008121  0.213558
+81   0.026383  0.315132
+82   0.004731  0.317190
+83   0.048722  0.156783
+84   0.214038  0.127855
+85   0.045180  0.058048
+86   0.086563 -0.170566
+87   0.211543 -0.105305
+88   0.210697  0.278968
+89   0.014037  0.044277
+90   0.057181  0.268143
+91   0.056294  0.225925
+92   0.125984 -0.005027
+93   0.067883  0.199375
+94  -0.073057  0.407308
+95   0.058212  0.172613
+96   0.018429  0.036549
+97   0.045934  0.077644
+98   0.116266  0.031240
+99  -0.090301  0.311404
+100  0.051786  0.120797
+101  0.372075 -0.175576
+102  0.233561  0.140972
+103  0.444833 -0.113365
+104  0.290498  0.009478
+105  0.376764 -0.059515
+106  0.555091 -0.161454
+107  0.074033  0.314977
+108  0.464434 -0.084733
+109  0.404777  0.143507
+110  0.455829 -0.387495
+111  0.275173 -0.139739
+112  0.323283  0.085063
+113  0.380009 -0.084569
+114  0.254183  0.234444
+115  0.296045  0.089212
+116  0.320741 -0.136408
+117  0.296808 -0.051562
+118  0.489424 -0.515714
+119  0.667813 -0.003587
+120  0.254919  0.344274
+121  0.411036 -0.183654
+122  0.197272  0.115333
+123  0.584497 -0.083437
+124  0.268932  0.097188
+125  0.343062 -0.204522
+126  0.394215 -0.203283
+127  0.237035  0.063821
+128  0.205940 -0.012979
+129  0.360735  0.037793
+130  0.375924 -0.113422
+131  0.491366 -0.052301
+132  0.464936 -0.529766
+133  0.375733  0.036016
+134  0.224739  0.059087
+135  0.242556  0.163654
+136  0.564551 -0.172829
+137  0.317953 -0.215548
+138  0.271566 -0.085210
+139  0.186550 -0.003474
+140  0.373583 -0.136384
+141  0.406415 -0.123829
+142  0.383616 -0.139097
+143  0.233561  0.140972
+144  0.411609 -0.174991
+145  0.403054 -0.211632
+146  0.377307 -0.078056
+147  0.315598  0.180874
+148  0.306841 -0.054275
+149  0.276910 -0.203984
+150  0.193778  0.004908
 attr(,"const")
 [1] 4.941
 ```
@@ -756,7 +768,7 @@ biplot(ord_iris, scaling = 'sites', display = 'sites',
        type = 't', main = 'PCA - sites scaling')
 ```
 
-&lt;img src="07_pca_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="07_pca_files/figure-html/unnamed-chunk-22-1.png" alt="" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -775,7 +787,7 @@ ggscores &lt;- ggplot(df_scores_iris, aes(x = PC1, y = PC2,
 ggscores
 ```
 
-&lt;img src="07_pca_files/figure-html/ggscor-iris-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="07_pca_files/figure-html/ggscor-iris-1.png" alt="" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1123,7 +1135,7 @@ ggloadings
 
 ## График факторных нагрузок в ggplot2
 
-&lt;img src="07_pca_files/figure-html/ggload-pos-1.png" width="60%" /&gt;
+&lt;img src="07_pca_files/figure-html/ggload-pos-1.png" alt="" width="60%" /&gt;
 
 ---
 
@@ -1267,7 +1279,7 @@ biplot(ord_pos, scaling = 'sites', display = 'sites',
        type = 't', main = 'PCA - sites scaling')
 ```
 
-&lt;img src="07_pca_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="07_pca_files/figure-html/unnamed-chunk-33-1.png" alt="" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1286,7 +1298,7 @@ ggscores &lt;- ggplot(df_scores_pos, aes(x = PC1, y = PC2,
 ggscores
 ```
 
-&lt;img src="07_pca_files/figure-html/ggscor-pos-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="07_pca_files/figure-html/ggscor-pos-1.png" alt="" style="display: block; margin: auto;" /&gt;
 
 ---
 

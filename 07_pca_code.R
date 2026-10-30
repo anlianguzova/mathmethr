@@ -1,6 +1,6 @@
 # title: "Анализ главных компонент"
 # subtitle: "Математические методы в зоологии с использованием R"
-# author: "Марина Варфоломеева, Анастасия Лянгузова"
+# author: "Марина Варфоломеева, Анастасия Лянгузова, Наталья Арбузова"
 
 # ## Пример: измерения ирисов ######
 
@@ -137,11 +137,34 @@ pairs(pos[, 6:14],
 #### Задание 1 ---------------------------------------------
 
 # Сделайте анализ главных компонент:
-# 1. Сколько компонент нужно оставить?
-# 2. Сколько общей изменчивости объясняют оставленные компоненты?
-# 3. Что означают получившиеся компоненты?
-# 4. Как располагаются объекты в пространстве главных компонент?
+ord_pos <- (pos[, 6:14], scale = )
+summary(ord_pos)
 
+# 1. Сколько компонент нужно оставить?
+screeplot(ord_pos, bstick = , type = 'lines')
+
+# 2. Сколько общей изменчивости объясняют оставленные компоненты?
+eigenvals(ord_pos) / sum(eigenvals(ord_pos)) * 100
+
+# 3. Что означают получившиеся компоненты?
+scores(ord_pos, display = 'species', choices = c(1, 2, 3),
+       scaling = 'species', correlation = TRUE)
+
+biplot(ord_pos, scaling = 'species', correlation = TRUE, 
+       main = 'PCA -  species scaling', display = 'species')
+
+# 4. Как располагаются объекты в пространстве главных компонент?
+scores(ord_pos, display = 'sites',  choices = c(1, 2, 3), scaling = 'sites')
+
+# данные для графика: факторные координаты и исходные переменные
+df_scores_pos <- data.frame(pos, 
+                            scores(ord_pos, display = 'sites', scaling = 'sites', 
+                                   choices = c(1, 2)))
+# график ординации
+ggscores <- ggplot(df_scores_pos, aes(x = PC1, y = PC2, 
+                                      colour = Pop, shape = sex)) + 
+  geom_point(size = 2) + coord_equal()
+ggscores
 # Как различаются поссумы разных популяций между собой?
 
 
