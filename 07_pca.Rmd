@@ -63,7 +63,7 @@ class: middle, center, inverse
 # Общая характеристика многомерных методов 
 
 ---
-<!--
+
 ## Почему нужны многомерные методы?
 
 Пусть у нас имеется две группы объектов, у которых мы изучили некий признак. Мы хотим тестировать гипотезу о том, что эти две группы различаются.  
@@ -77,9 +77,8 @@ theme_set(theme_bw(base_size = 14))
 
 ggplot(dat[1:100,], aes(x = trait)) + geom_histogram(binwidth = 0.5, color = "black", fill = "blue") + xlab("Character") + theme_bw() + geom_histogram(data = dat[101:200,], aes(x = trait), binwidth = 0.5, color = "black", fill = "red") + ggtitle("Character distribution ")
 ```
-
 ---
--->
+
 
 ## Почему нужны многомерные методы?
 
