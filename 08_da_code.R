@@ -1,7 +1,7 @@
 # ---
 # title: "Дискриминантный анализ"
 # subtitle: "Математические методы в зоологии с использованием R"
-# author: "Марина Варфоломеева"
+# author: "Марина Варфоломеева, Анастасия Лянгузова, Наталья Арбузова"
 
 # Пакеты и функции ======================================================
 # Для дискриминантного анализа
@@ -33,36 +33,24 @@ smp_size <- floor(0.80 * nrow(iris))
 # индексы строк, которые пойдут в тренировочный датасет
 in_train <- sample(1:nrow(iris), size = smp_size)
 
-# 2) На тренировочных данных получаем стандартизованные коэффициенты главных компонент -----
+## 2) На тренировочных данных получаем стандартизованные коэффициенты признаков 
 
-pca_tr_scaled <- rda(iris[in_train, -5], scale = TRUE)
-summary(pca_tr_scaled)
-
-# 3) Извлекаем из тренировочных данных site scores по всем главным компонентам -----
-
-sites_tr_pca <- scores(pca_tr_scaled, display = 'sites', choices = c(1:4),
-                       scaling = 'sites', correlation = TRUE)
-head(sites_tr_pca, 2)
-
-# 4) На тренировочных данных получаем стандартизованные коэффициенты дискриминантных функций -----
-
-lda_tr_pca <- lda(sites_tr_pca, iris$Sp[in_train])
+lda_tr_scaled <- lda(scale(iris[in_train, -5]), iris$Sp[in_train])
 # коэффициенты дискриминантных функций
-lda_tr_pca$scaling
+lda_tr_scaled$scaling
 
-# 5) На тренировочных данных получаем функции классификации ---------------
+## 3) На тренировочных данных получаем функции классификации
 
-lda_tr <- lda.class(sites_tr_pca, iris$Sp[in_train])
+lda_tr <- lda.class(iris[in_train, -5], iris$Sp[in_train])
 # Коэф. функций классификации
 lda_tr$class.funs
 
-# 6) Оцениваем качество классификации на тренировочных данных -------------
+## 4) Оцениваем качество классификации на тренировочных данных
 
 lda_tr_pred <- predict(lda_tr)
 table(iris$Sp[in_train], lda_tr_pred$class)
 
-
-# 7) График классификации тренировочных данных  --------------------------
+## 5) График классификации тренировочных данных 
 
 class_df <- data.frame(lda_tr_pred$x,
                        gr = lda_tr_pred$class,
@@ -71,20 +59,14 @@ ggplot(data = class_df, aes(x = LD1, y = LD2, colour = gr)) +
   geom_text(size = 3, aes(label = real_gr)) +
   theme(legend.position = "none")
 
-# 8) Оценка качества классификации на тестовых данных ---------------------
+## 6) Оценка качества классификации на тестовых данных
 
-# получаем PCA на тестовых данных
-pca_pred_scaled <- rda(iris[-in_train, -5], scale = TRUE)
+lda_test_pred <- predict(lda_tr, iris[-in_train, -5])
+table(real = iris$Sp[-in_train], predicted = lda_test_pred$class)
 
-# извлекаем site scores
-sites_pred_pca <- as.data.frame(scores(pca_pred_scaled, display = 'sites', choices = c(1:4),
-                                       scaling = 'sites', correlation = TRUE))
 
-# делаем предсказания
-lda_test_pred <- predict(lda_tr, sites_pred_pca)
-table(iris$Sp[-in_train], lda_test_pred$class)
 
-# 9) График классификации тестовых данных ---------------------------------
+## 7) График классификации тестовых данных
 
 class_df <- data.frame(lda_test_pred$x,
                        new = lda_test_pred$class,
@@ -94,18 +76,13 @@ class_df$Group <- factor(paste(class_df$real, class_df$new, sep = " as "))
 ggplot(data = class_df, aes(x = LD1, y = LD2)) +
   geom_point(aes(colour = Group))
 
-# II. Дискриминантный анализ с кросс-валидацией ###########################
-# главные компоненты
-pca_cv_scaled <- rda(iris[, -5], scale = TRUE)
 
-# site scores
-sites_cv_pca <- scores(pca_cv_scaled, display = 'sites', choices = c(1:4),
-                       scaling = 'sites', correlation = TRUE)
+
+# II. Дискриминантный анализ с кросс-валидацией ###########################
 
 # дискриминантый анализ и кросс-валидация
-
-lda_cv <- lda(sites_cv_pca, iris$Sp, CV = TRUE)
-
+lda_cv <- lda(iris[, -5], iris$Sp, CV = TRUE)
+names(lda_cv)
 table(iris$Sp, lda_cv$class)
 
 # График классификации
@@ -159,29 +136,25 @@ BoxMTest(as.matrix(iris[, -5]), iris$Sp)
 # Квадратичный дискриминантый анализ ----------------------------------------------
 
 # Тренировочные данные
-qda_tr <- qda(sites_tr_pca, iris$Sp[in_train])
+qda_tr <- qda(iris[in_train, -5], iris$Sp[in_train])
 qda_tr_pred <- predict(qda_tr)
-table(qda_tr_pred$class, iris$Sp[in_train])
+table(real = iris$Sp[in_train], predicted = qda_tr_pred$class)
 
 # Тестовые данные
-qda_test_pred <- predict(qda_tr, sites_pred_pca)
-table(qda_test_pred$class, iris$Sp[-in_train])
+qda_test_pred <- predict(qda_tr, iris[-in_train, -5])
+table(real = iris$Sp[-in_train], predicted = qda_test_pred$class)
 
 # Кросс-валидация QDA
 
-qda_cv <- qda(sites_cv_pca, iris$Sp, CV = TRUE)
-table(iris$Sp, lda_cv$class)
+qda_cv <- qda(iris[, -5], iris$Sp, CV = TRUE)
+table(iris$Sp, qda_cv$class)
 
 # График классификации
 ggplot(data = iris, aes(x = p_len,
                         y = s_wid,
                         colour = Sp,
-                        shape = lda_cv$class)) +
+                        shape = qda_cv$class)) +
   geom_point(size = 3) +
   scale_shape_discrete("Classified as")
 
-
-
-# Задание: Классификация без PCA --------------------------------------------------------
-# Попробуйте произвести дискриминантый анализ на тех же данных прямо, не выделяя главные компоненты.
 
