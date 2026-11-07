@@ -97,12 +97,12 @@ install.packages(c("DAAG", "RColorBrewer", "vegan", "HSAUR", "ggrepel"))
  install.packages("adegenet")
 ```
 
-<!-- - Презентация: [08_da.html](08_da.html) -->
+- Презентация: [08_da.html](08_da.html)
 - Код:
   + [код R](08_da_code.R)
   + [LDA_helper_functions.R](LDA_helper_functions.R)
 
-<!-- ## 6. Ординация и классификация с использованием мер сходства-различия -->
+<!-- ## 9. Ординация и классификация с использованием мер сходства-различия -->
 
 <!-- ```{r eval=FALSE}
 install.packages(c("ape", "pvclust", "phangorn", "factoextra", "dbscan", "dplyr"))
