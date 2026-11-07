@@ -65,7 +65,7 @@ data("spinach")
 - [Данные](projects/project_2/project2.csv)
 - [Описание данных](projects/project_2/summary2.csv)
 
-Данные взяты из проекта на [Kaggle](https://www.kaggle.com/datasets/rounakbanik/pokemon).
+Данные взяты из проекта на [Kaggle](https://www.kaggle.com/datasets/rounakbanik/pokemon). -->
 
 ### Проект №2. Бабочки мигрируют, бабочки остаются
 
@@ -77,7 +77,7 @@ data("spinach")
 - [Оригинальная статья](projects/project_3/publ3.pdf)
 
 
-### Проект №3. Моллюски и их симбионты
+<!-- ### Проект №3. Моллюски и их симбионты
 
 Данные о симбионтах двустворчатых моллюсков, собранные за 10 лет.  
 
@@ -86,14 +86,14 @@ data("spinach")
 
 Данные любезно предоставлены В.А. Крапивиным. -->
 
-### Проект №4. Винишко
+<!-- ### Проект №4. Винишко
 
 Данные о качестве вина и его физико-химических характеристиках.
 
 Исходные данные разделены на [красные](projects/project_5/project5_red.csv) и [белые](projects/project_5/project5_white.csv) вина.
 [Описание данных](projects/project_5/summary5.csv).
 
-[Оригинальная статья](projects/project_5/publication.pdf).
+[Оригинальная статья](projects/project_5/publication.pdf). -->
 
 ### Проект №5. Черепахи и  их черепа
 
